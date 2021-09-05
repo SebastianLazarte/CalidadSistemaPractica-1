@@ -7,14 +7,15 @@ const service= new _service()
 
 app.use(express.json());
 
-app.post('/extended_form', function(req, res){
-  console.log(req.body)
-  if (service.register_changes(req.body))
-    res.status(201).send('Succesfully Created')
-  else
-    res.status(404).send('Check the sending data')
+app.post('/extended_form', async (req, res) => {
+  try {
+    console.log(req.body)
+    const newVolunteer = await service.register_changes(req)
+    res.json(newVolunteer.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
-
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })

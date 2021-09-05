@@ -4,11 +4,9 @@ class FormService
     constructor(){
       this.repository= new _repository();
     } 
-    register_changes(data) {
-      if (this.check_changes())
-        return this.repository.putdata(data);
-      else
-        return false;
+    async register_changes(data) {
+      if (this.check_changes(data))
+        return await this.repository.putdata(data);
     }
     check_changes(data){
       return true
