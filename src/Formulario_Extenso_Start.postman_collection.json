@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"birth_date\":\"2012-04-23T18:25:43.511Z\",\r\n    \"degree\":\"Phd\",\r\n    \"carrer\":\"Psicologia\",\r\n    \"general_interest\":[\"Jardineria\",\"Origami\"],\r\n    \"city\":\"Cochabamba Cercado\",\r\n    \"country\":\"Bolivia\",\r\n    \"description\":\"asdfgsdngj\"\r\n}",
+					"raw": "{\r\n    \"birth_date\":\"09/06/1999\",\r\n    \"degree\":\"Phd\",\r\n    \"carrer\":\"Psicologia\",\r\n    \"general_interest\":[\"Jardineria\",\"Origami\"],\r\n    \"city\":\"Cochabamba Cercado\",\r\n    \"country\":\"Bolivia\",\r\n    \"description\":\"asdfgsdngj\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -28,6 +28,55 @@
 					"port": "3000",
 					"path": [
 						"extended_form"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a volunteer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/extended_form/32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"extended_form",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update some data",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"birth_date\":\"12/06/1999\",\r\n    \"degree\":\"\",\r\n    \"career\":\"actriz\",\r\n    \"general_interest\":[\"Origami\"],\r\n    \"city\":\"La Paz Cercado\",\r\n    \"country\":\"Bolivia\",\r\n    \"description\":\"asdfgsdngj\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/extended_form/32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"extended_form",
+						"32"
 					]
 				}
 			},

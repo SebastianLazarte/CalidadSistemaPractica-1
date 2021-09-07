@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos/issues"
   },
-  "homepage": "https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos#readme"
+  "homepage": "https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos#readme",
+  "dependencies": {
+    "pg": "^8.7.1"
+  }
 }
