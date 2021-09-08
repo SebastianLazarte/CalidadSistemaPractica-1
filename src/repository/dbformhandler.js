@@ -2,7 +2,7 @@ const Pool = require("pg").Pool;
 
 const pool = new Pool({
   user: "postgres",
-  password: "yigadrian",
+  password: "",//use your pass my friend
   database: "volunteer_database",
   host: "localhost",
   port: 5432
@@ -17,23 +17,23 @@ class DbHandler
     async getData(data){
       const { id } = data.params;
       const volunteer = await pool.query(
-        "SELECT * FROM volunteer_data WHERE volunteer_id = $1", [id]);
+        "SELECT * FROM usuarios WHERE id_usuario = $1", [id]);
       return volunteer;
     }
    async putdata(data){
-      const { birth_date, degree, career, general_interest, city, country, description } = data;
+      const { fecha_de_nacimiento, nivel_de_estudios, carrera, intereses_generales, ciudad_de_recidencia, pais_de_recidencia, descripcion_personal,id_autenticacion } = data;
       const newVolunteer = await pool.query(
-        "INSERT INTO volunteer_data (birth_date, degree, career, general_interest, city, country, description) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
-      [birth_date, degree, career, general_interest, city, country, description]
+        "INSERT INTO usuarios (fecha_de_nacimiento, nivel_de_estudios, carrera, intereses_generales, ciudad_de_recidencia, pais_de_recidencia, descripcion_personal, id_autenticacion) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *",
+      [fecha_de_nacimiento, nivel_de_estudios, carrera, intereses_generales, ciudad_de_recidencia, pais_de_recidencia, descripcion_personal,id_autenticacion]
     );
     return newVolunteer;
     }
     async update_volunteer(id,data){
-      console.log(id)
-      const { birth_date, degree, career, general_interest, city, country, description } = data;
+      console.log(id) 
+      const { fecha_de_nacimiento, nivel_de_estudios, carrera, intereses_generales, ciudad_de_recidencia, pais_de_recidencia, descripcion_personal,id_autenticacion } = data;
       const update_volunteer = await pool.query(
-        "UPDATE volunteer_data SET birth_date=$1, degree=$2,career=$3,general_interest=$4,city=$5,country=$6,description=$7 WHERE volunteer_id = $8",
-        [birth_date, degree, career, general_interest, city, country, description, id]);
+        "UPDATE usuarios SET fecha_de_nacimiento=$1, nivel_de_estudios=$2,carrera=$3,intereses_generales=$4,ciudad_de_recidencia=$5,pais_de_recidencia=$6,descripcion_personal=$7,id_autenticacion=$8 WHERE id_usuario = $9",
+        [fecha_de_nacimiento, nivel_de_estudios, carrera, intereses_generales, ciudad_de_recidencia, pais_de_recidencia, descripcion_personal, id_autenticacion,id]);
       return update_volunteer
       }
 

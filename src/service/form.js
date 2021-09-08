@@ -29,7 +29,7 @@ class FormService
       }
     }
     check_changes(data){
-      let date_to_check = new Date(data["birth_date"]);
+      let date_to_check = new Date(data["fecha_de_nacimiento"]);
       let today = new Date();
       date_to_check=date_to_check.getFullYear()
       today=today.getFullYear()
