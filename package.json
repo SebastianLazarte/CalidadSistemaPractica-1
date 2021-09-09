@@ -1,0 +1,22 @@
+{
+  "name": "startapp-serviciodatos",
+  "version": "1.0.0",
+  "description": "https://nodejs.org/es/\r ## Comando para instalar packetes\r npm install  \r node app.js  --Comienza a escuchar en el puerto 3000--",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos/issues"
+  },
+  "homepage": "https://github.com/TallerDeDesarrollo-UCB-START/StartApp-ServicioDatos#readme",
+  "dependencies": {
+    "pg": "^8.7.1"
+  }
+}
