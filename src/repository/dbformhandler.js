@@ -17,7 +17,7 @@ class DbHandler
     async getData(data){
       const { id } = data.params;
       const volunteer = await pool.query(
-        "SELECT * FROM usuarios WHERE id_usuario = $1", [id]);
+        "SELECT * FROM usuarios WHERE id_autenticacion = $1", [id]);
       return volunteer;
     }
    async putdata(data){
