@@ -4,6 +4,7 @@
   "description": "https://nodejs.org/es/\r ## Comando para instalar packetes\r npm install  \r node app.js  --Comienza a escuchar en el puerto 3000--",
   "main": "index.js",
   "scripts": {
+    "start": "node ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
