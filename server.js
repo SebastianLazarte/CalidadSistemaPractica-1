@@ -60,6 +60,15 @@ app.post("/extended_form", async (req, res) => {
       .send('{ "message": "Check the info that you sending", "data": ""}');
   }
 });
+
+app.get("/", async (req, res) => {
+  try {
+    res.status(201).send(`{"message":""}`);
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).send('{ "message": "Error"}');
+  }
+});
 app.put("/extended_form/:id", async (req, res) => {
   try {
     let { id } = req.params;
@@ -87,6 +96,6 @@ app.get("/extended_form/:id", async (req, res) => {
   }
 });
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
