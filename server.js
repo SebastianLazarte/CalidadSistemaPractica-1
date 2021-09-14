@@ -1,5 +1,5 @@
-const _service = require("./src/service/proyectoServicio");
-const _service_form = require("./src/service/form");
+const _service = require("./services/proyectoServicio");
+const _service_form = require("./services/form");
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -64,7 +64,6 @@ app.put("/extended_form/:id", async (req, res) => {
   try {
     let { id } = req.params;
     const changedVolunteer = await service_form.do_changes(id, req.body);
-    console.log(changedVolunteer);
     res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
   } catch (error) {
     console.error(error.message);
