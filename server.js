@@ -1,11 +1,13 @@
 const _service = require("./services/proyectoServicio");
 const _service_form = require("./services/form");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const service = new _service();
 const service_form = new _service_form();
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/create_proyecto", async (req, res) => {
   //Crear
