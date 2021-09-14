@@ -2,7 +2,6 @@ const _service = require("./services/proyectoServicio");
 const _service_form = require("./services/form");
 const express = require("express");
 const app = express();
-const port = 3000;
 const service = new _service();
 const service_form = new _service_form();
 
@@ -95,7 +94,7 @@ app.get("/extended_form/:id", async (req, res) => {
       );
   }
 });
-
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on PORT http://localhost:${PORT}`);
+});
