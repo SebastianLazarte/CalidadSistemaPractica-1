@@ -6,6 +6,9 @@ const app = express();
 const service = new _service();
 const service_form = new _service_form();
 
+const _service_evento = require("./services/eventoServicio");
+const service_evento = new _service_evento();
+
 app.use(express.json());
 app.use(cors());
 
@@ -47,6 +50,21 @@ app.get("/get_proyecto/:id", async (req, res) => {
     res.status(404);
   }
 });
+
+
+//-------------------------------EVENTO-----------------------------------------//
+
+app.post("/createevento", async (req, res) => {
+  //Crear
+  try {
+    const nuevoEvento = await service_evento.create_evento(req.body);
+    res.status(201).json(req.body);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+
 
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
@@ -97,8 +115,13 @@ app.get("/extended_form/:id", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT http://localhost:${PORT}`);
 });
+
+
+
+
+
