@@ -31,6 +31,16 @@ app.put("/update_proyecto/:id", async (req, res) => {
     res.status(404);
   }
 });
+app.delete("/delete_proyecto/:id", async (req, res) => {
+  //Eliminar por ide
+  try {
+    const { id } = req.params;
+    const proyectoElimanado = await service.delete_proyecto(id);
+    res.status(200).json(proyectoElimanado.rows);
+  } catch (error){
+    res.status(500);
+  }
+});
 app.get("/get_proyectos", async (req, res) => {
   //Obtener
   try {

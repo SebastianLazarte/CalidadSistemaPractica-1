@@ -49,5 +49,13 @@ class ProyectoServicio {
       return error;
     }
   }
+
+  async delete_proyecto(id) {
+    try {
+      return await this.repository.delete_proyecto(id);
+    } catch (error) {
+      return error;
+    }
+  }
 }
 module.exports = ProyectoServicio;

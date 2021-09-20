@@ -38,7 +38,12 @@ class DbProyectoRepositorio {
     [id])
     return proyecto_a_actualizar
   }
-
+  async delete_proyecto(id) {
+    const proyecto_a_eliminar = await pool.query("DELETE FROM proyectos WHERE id_proyecto = $1", 
+      [id]
+    );
+    return proyecto_a_eliminar;
+  }
 }
 
 module.exports = DbProyectoRepositorio
