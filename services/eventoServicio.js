@@ -17,13 +17,13 @@ class EventoServicio {
     return true;
   }
 
-  // async get_proyectos(data) {
-  //   return await this.repository.get_proyectos(data);
-  // }
+  async get_eventos(data) {
+    return await this.repository.get_eventos(data);
+  }
 
-  // async get_proyecto(data) {
-  //   return await this.repository.get_proyecto(data);
-  // }
+  async get_evento(data) {
+    return await this.repository.get_evento(data);
+  }
 
   async create_evento(data) {
     try {
