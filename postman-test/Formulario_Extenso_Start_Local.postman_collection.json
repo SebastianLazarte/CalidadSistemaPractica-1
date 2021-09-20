@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "58a69195-4dc9-4117-b084-4bad26ead739",
+		"name": "Formulario_Extenso_Start_Local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post (tienes que poner un id_autenticacion existente por eso esta 1, pero deberia ser el que se crea a la part del otro)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Messi\",\r\n    \"telefono\":\"769696969\",\r\n    \"id_autenticacion\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/extended_form",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"extended_form"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/extended_form/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"extended_form",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update some data",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Perez\",\r\n    \"fecha_de_nacimiento\":\"01/01/2002\",\r\n    \"pais_de_recidencia\":\"Bolvia\",\r\n    \"ciudad_de_recidencia\":\"Cochabamba\",\r\n    \"carrera\":\"Derecho\",\r\n    \"nivel_de_estudios\":\"Doctor\",\r\n    \"descripcion_personal\":\"Soy muy feliz y me gustan las hamburguesas\",\r\n    \"telefono\":\"789898989\",\r\n    \"genero\":\"masculino\",\r\n    \"estado_de_cuenta\": \"activa\",\r\n    \"rol\":\"voluntario\",\r\n    \"id_autenticacion\":1\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/extended_form/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"extended_form",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

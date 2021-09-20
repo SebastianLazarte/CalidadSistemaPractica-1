@@ -3,11 +3,15 @@ class FormService {
   constructor() {
     this.repository = new _repository();
   }
-  async get_volunteer_data(data) {
-    return await this.repository.getData(data);
+
+  async get_volunteer_data(id) {
+    return await this.repository.getData(id);
   }
+
   async register_changes(data) {
     try {
+      data.rol = "voluntario";
+      data.estado_de_cuenta = "activa";
       if (this.check_changes(data)) return await this.repository.putdata(data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
@@ -15,6 +19,7 @@ class FormService {
       return error;
     }
   }
+
   async do_changes(id, data) {
     try {
       if (this.check_changes(data))
@@ -24,6 +29,7 @@ class FormService {
       return false;
     }
   }
+  
   check_changes(data) {
     let date_to_check = new Date(data["fecha_de_nacimiento"]);
     let today = new Date();
