@@ -26,6 +26,7 @@ class DbEventoRepositorio {
   //     const {id} =data.params
   //     const proyecto= await pool.query("SELECT * FROM public.proyectos WHERE id=$1",[id]);
   //     return proyecto
+  //
   // }
   async create_evento(data) {
     const {
