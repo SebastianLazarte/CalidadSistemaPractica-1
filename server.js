@@ -54,7 +54,7 @@ app.get("/get_proyecto/:id", async (req, res) => {
 
 //-------------------------------EVENTO-----------------------------------------//
 
-app.post("/createevento", async (req, res) => {
+app.post("/eventos/crearevento", async (req, res) => {
   //Crear
   try {
     const nuevoEvento = await service_evento.create_evento(req.body);
@@ -115,7 +115,7 @@ app.get("/extended_form/:id", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT http://localhost:${PORT}`);
