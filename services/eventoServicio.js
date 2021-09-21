@@ -17,14 +17,6 @@ class EventoServicio {
     return true;
   }
 
-  // async get_proyectos(data) {
-  //   return await this.repository.get_proyectos(data);
-  // }
-
-  // async get_proyecto(data) {
-  //   return await this.repository.get_proyecto(data);
-  // }
-
   async create_evento(data) {
     try {
       if (this.validar(data)) {
@@ -38,16 +30,5 @@ class EventoServicio {
     }
   }
 
-  // async update_proyecto(id, data) {
-  //   try {
-  //     if (this.validar(data)) {
-  //       return await this.repository.update_proyecto(id, data);
-  //     } else {
-  //       throw console.error("Algo inesperado paso con el repositorio");
-  //     }
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
 }
 module.exports = EventoServicio;
