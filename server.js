@@ -51,7 +51,6 @@ app.get("/get_proyecto/:id", async (req, res) => {
   }
 });
 
-
 //-------------------------------EVENTO-----------------------------------------//
 
 app.post("/createevento", async (req, res) => {
@@ -64,7 +63,15 @@ app.post("/createevento", async (req, res) => {
   }
 });
 
-
+app.get("/eventos", async (req, res) => {
+  //Obtener
+  try {
+    const nuevoProyecto = await service_evento.get_eventos(req);
+    res.status(200).json(nuevoProyecto.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
 
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
@@ -120,8 +127,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on PORT http://localhost:${PORT}`);
 });
-
-
-
-
-

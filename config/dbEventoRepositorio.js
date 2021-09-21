@@ -3,9 +3,9 @@ const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "postgres",
   password: "admin",
-  database: "eventos",
+  database: "postgres",
   host: "localhost",
-  port: 5000,
+  port: 5432,
 });
 
 module.exports = pool;
@@ -15,8 +15,8 @@ class DbEventoRepositorio {
   }
 
   async get_eventos(data) {
-    const proyectos = await pool.query("SELECT * FROM public.proyectos");
-    return proyectos;
+    const eventos = await pool.query("SELECT * FROM public.eventos");
+    return eventos;
   }
   // async get_proyecto(data)
   // {
