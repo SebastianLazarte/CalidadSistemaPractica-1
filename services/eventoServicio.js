@@ -37,17 +37,5 @@ class EventoServicio {
       return error;
     }
   }
-
-  // async update_proyecto(id, data) {
-  //   try {
-  //     if (this.validar(data)) {
-  //       return await this.repository.update_proyecto(id, data);
-  //     } else {
-  //       throw console.error("Algo inesperado paso con el repositorio");
-  //     }
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
 }
 module.exports = EventoServicio;
