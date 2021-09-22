@@ -21,28 +21,15 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
-  async create_evento(data) {
-    const {
-      nombre_evento,
-      descripcion_evento,
-      modalidad_evento,
-      lugar_evento,
-      fecha_evento,
-      proyecto,
-    } = data;
-    const new_evento = await pool.query(
-      "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto)VALUES ($1, $2, $3, $4, $5, $6)",
-      [
-        nombre_evento,
-        descripcion_evento,
-        modalidad_evento,
-        lugar_evento,
-        fecha_evento,
-        proyecto,
-      ]
-    );
-    return new_evento;
+
+  async create_evento(data)
+  {
+      const {nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto}= data
+      const new_evento = await pool.query("INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto) VALUES ($1, $2, $3, $4, $5, $6)",
+      [nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto]);
+      return new_evento
   }
+
 }
 
 module.exports = DbEventoRepositorio;

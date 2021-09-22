@@ -53,7 +53,7 @@ app.get("/get_proyecto/:id", async (req, res) => {
 
 //-------------------------------EVENTO-----------------------------------------//
 
-app.post("/createevento", async (req, res) => {
+app.post("/eventos/crearevento", async (req, res) => {
   //Crear
   try {
     const nuevoEvento = await service_evento.create_evento(req.body);

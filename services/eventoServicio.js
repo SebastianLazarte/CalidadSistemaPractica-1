@@ -37,5 +37,6 @@ class EventoServicio {
       return error;
     }
   }
+
 }
 module.exports = EventoServicio;
