@@ -18,11 +18,22 @@ class DbHandler {
   }
   
   async getData(id) {
-    //const { id } = data.params;
     const volunteer = await pool.query(
       "SELECT * FROM usuarios WHERE id_usuario = $1",
       [id]
     );
+    
+    const intereses = await pool.query(
+      "SELECT interes FROM intereses I JOIN intereses_de_usuarios D ON I.id_interes=D.id_interes WHERE id_usuario = $1",
+      [id]
+    );
+    
+    volunteer.rows[0].intereses=[];
+
+    intereses.rows.forEach(element => {
+      volunteer.rows[0].intereses.push(element.interes)
+    });
+
     return volunteer;
   }
 
