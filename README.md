@@ -3,4 +3,4 @@
 https://nodejs.org/es/
 ## Comando para instalar packetes
 npm install  
-node app.js  --Comienza a escuchar en el puerto 3000--
+node server.js  --Comienza a escuchar en el puerto 3000--

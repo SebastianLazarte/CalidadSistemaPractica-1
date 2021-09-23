@@ -95,11 +95,14 @@ app.get("/", async (req, res) => {
     res.status(400).send('{ "message": "Error"}');
   }
 });
+
 app.put("/extended_form/:id", async (req, res) => {
   try {
     let { id } = req.params;
     const changedVolunteer = await service_form.do_changes(id, req.body);
-    res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
+    let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
+    res.status(202).send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
+    // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
   } catch (error) {
     console.error(error.message);
     res
@@ -107,9 +110,10 @@ app.put("/extended_form/:id", async (req, res) => {
       .send(`{"message":"Changes are not commited", "data":false}`);
   }
 });
+
 app.get("/extended_form/:id", async (req, res) => {
   try {
-    const newVolunteer = await service_form.get_volunteer_data(req);
+    const newVolunteer = await service_form.get_volunteer_data(req.params.id);
     let data_to_send = JSON.stringify(newVolunteer.rows[0]);
     res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
   } catch (err) {
