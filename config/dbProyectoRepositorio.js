@@ -29,19 +29,19 @@ class DbProyectoRepositorio {
     return proyecto;
   }
   async create_proyecto(data) {
-    const { titulo, descripcion, objetivos, lider } = data;
+    const { titulo, descripcion, objetivo, lider } = data;
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivos, lider)VALUES ($1, $2, $3, $4)",
-      [titulo, descripcion, objetivos, lider]
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider)VALUES ($1, $2, $3, $4)",
+      [titulo, descripcion, objetivo, lider]
     );
     return new_proyeto;
   }
   async update_proyecto(id, data) {
     console.log(id);
-    const { titulo, descripcion, objetivos, lider } = data;
+    const { titulo, descripcion, objetivo, lider } = data;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=$2, descripcion=$3, objetivos=$4, lider=$5 WHERE id = $1",
-      [id, titulo, descripcion, objetivos, lider]
+      "UPDATE proyectos SET titulo=$2, descripcion=$3, objetivo=$4, lider=$5 WHERE id = $1",
+      [id, titulo, descripcion, objetivo, lider]
     );
     return data;
   }
