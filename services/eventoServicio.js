@@ -38,5 +38,19 @@ class EventoServicio {
     }
   }
 
+  //Elminar Evento
+  async delete_evento(data){
+    try {
+      if (this.validar(data)) {
+        return await this.repository.delete_evento(data);
+      } else {
+        throw console.error("Algo inesperado paso con el repositorio");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+
 }
 module.exports = EventoServicio;

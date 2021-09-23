@@ -72,6 +72,18 @@ app.get("/eventos", async (req, res) => {
     res.status(404);
   }
 });
+//Eliminar evento por nombre
+//despues se le cambia por el id cuanod sea necesario
+app.delete("/eventos/:nombre_evento", async (req, res) => {
+  try {
+    const eliminarEvento = await service_evento.delete_evento(req.params.nombre_evento);
+    res.status(200).json(eliminarEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+
 
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {

@@ -29,6 +29,11 @@ class DbEventoRepositorio {
       [nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto]);
       return new_evento
   }
+  //Eliminar evento por nombre despues se puede cambiar por el id
+  async delete_evento(data) {
+    const eliminar_evento = await pool.query('DELETE FROM public.eventos WHERE nombre_evento = $1', [data]);
+    return eliminar_evento;
+  }
 
 }
 
