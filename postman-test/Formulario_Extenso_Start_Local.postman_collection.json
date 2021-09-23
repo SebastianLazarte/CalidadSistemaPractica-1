@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Perez\",\r\n    \"fecha_de_nacimiento\":\"01/01/2002\",\r\n    \"pais_de_recidencia\":\"Bolvia\",\r\n    \"ciudad_de_recidencia\":\"Cochabamba\",\r\n    \"carrera\":\"Derecho\",\r\n    \"nivel_de_estudios\":\"Doctor\",\r\n    \"descripcion_personal\":\"Soy muy feliz y me gustan las hamburguesas\",\r\n    \"telefono\":\"789898989\",\r\n    \"genero\":\"masculino\",\r\n    \"estado_de_cuenta\": \"activa\",\r\n    \"rol\":\"voluntario\",\r\n    \"id_autenticacion\":1\r\n    \r\n}",
+					"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Perez\",\r\n    \"fecha_de_nacimiento\":\"01/01/2002\",\r\n    \"pais_de_recidencia\":\"Bolvia\",\r\n    \"ciudad_de_recidencia\":\"Cochabamba\",\r\n    \"carrera\":\"Derecho\",\r\n    \"nivel_de_estudios\":\"Doctor\",\r\n    \"descripcion_personal\":\"Soy muy feliz y me gustan las hamburguesas\",\r\n    \"telefono\":\"789898989\",\r\n    \"genero\":\"masculino\",\r\n    \"estado_de_cuenta\": \"activa\",\r\n    \"rol\":\"voluntario\",\r\n    \"id_autenticacion\":1,\r\n    \"intereses\":[\"Niños y niñas\",\"Asilos\", \"Educacion\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
