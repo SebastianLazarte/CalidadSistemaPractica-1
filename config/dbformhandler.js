@@ -23,19 +23,12 @@ class DbHandler {
       [id]
     );
     
-    const intereses = await pool.query(
-      "SELECT interes FROM intereses I JOIN intereses_de_usuarios D ON I.id_interes=D.id_interes WHERE id_usuario = $1",
-      [id]
-    );
-    
-    volunteer.rows[0].intereses=[];
-
-    intereses.rows.forEach(element => {
-      volunteer.rows[0].intereses.push(element.interes)
-    });
+    volunteer.rows[0].intereses = await this.getIntereses(id);
 
     return volunteer;
   }
+
+  
 
   async putdata(data) {
     const {
@@ -75,7 +68,8 @@ class DbHandler {
       estado_de_cuenta,
       genero,
       rol,
-      id_autenticacion
+      id_autenticacion,
+      intereses
     } = data;
     
     const update_volunteer = await pool.query(
@@ -97,8 +91,51 @@ class DbHandler {
         id,
       ]
     );
+
+    await this.update_intereses(id, intereses);
+
+    update_volunteer.rows[0].intereses = intereses;
+
     return update_volunteer;
   }
+
+  async update_intereses(id, intereses_nuevos) {
+ 
+    await pool.query(
+      "DELETE FROM intereses_de_usuarios WHERE id_usuario = $1",
+      [id]
+    );
+
+
+    var seSQL = "SELECT id_interes FROM intereses WHERE interes = '" + intereses_nuevos[0]+ "'" ;
+    for(let i = 1; i < intereses_nuevos.length; i++)
+    {
+      seSQL = seSQL + " OR interes = '" + intereses_nuevos[i] + "'";
+    }
+
+    const idsIntereses = await pool.query(seSQL);
+
+    var seSQL2 = "";
+    idsIntereses.rows.forEach(element => {
+      seSQL2 = seSQL2 + "INSERT INTO intereses_de_usuarios (id_usuario, id_interes) VALUES(" + id + "," + element.id_interes + ");";
+    });
+    
+    await pool.query(seSQL2);
+  }
+
+  async getIntereses(id_usuario) {
+    var intereses = [];
+    const intereses_usuario = await pool.query(
+      "SELECT interes FROM intereses I JOIN intereses_de_usuarios D ON I.id_interes=D.id_interes WHERE id_usuario = $1",
+      [id_usuario]
+    );
+
+    intereses_usuario.rows.forEach(element => {
+      intereses.push(element.interes)
+    });
+    return intereses;
+  }
+  
 }
 
 module.exports = DbHandler;
