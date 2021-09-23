@@ -25,8 +25,9 @@ app.put("/update_proyecto/:id", async (req, res) => {
   //Actualizar
   try {
     let { id } = req.params;
+    req.body["id"]=id;
     const proyectoActualizado = await service.update_proyecto(id, req.body);
-    res.status(200).json(proyectoActualizado.rows);
+    res.status(200).json(req.body);
   } catch (error) {
     res.status(404);
   }
