@@ -32,7 +32,9 @@ class DbEventoRepositorio {
   
   async delete_evento(id,data) {
     console.log(id)
-    const eliminar_evento = await pool.query('DELETE FROM public.eventos WHERE id_evento = $7', [data,id]);
+    const {nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto}= data
+    const eliminar_evento = await pool.query('DELETE FROM public.eventos WHERE id_evento = $7', 
+    [nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,id]);
     return eliminar_evento;
   }
 
