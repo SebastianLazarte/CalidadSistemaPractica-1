@@ -73,7 +73,7 @@ app.get("/eventos", async (req, res) => {
   }
 });
 
-app.delete("/eventos/eliminarEvento/:id", async (req, res) => {
+app.delete("/eventos/:id", async (req, res) => {
   try {
     let { id } = req.params;
     const eliminarEvento = await service_evento.delete_evento(id, req.body);
