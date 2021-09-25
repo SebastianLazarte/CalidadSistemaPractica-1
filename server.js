@@ -73,6 +73,16 @@ app.get("/eventos", async (req, res) => {
   }
 });
 
+app.get("/eventos/:id", async (req, res) => {
+  //Obtener
+  try {
+    const nuevoEvento = await service_evento.get_evento(req);
+    res.status(200).json(nuevoEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
   try {
@@ -101,7 +111,9 @@ app.put("/extended_form/:id", async (req, res) => {
     let { id } = req.params;
     const changedVolunteer = await service_form.do_changes(id, req.body);
     let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
-    res.status(202).send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
+    res
+      .status(202)
+      .send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
     // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
   } catch (error) {
     console.error(error.message);
