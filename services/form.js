@@ -5,14 +5,14 @@ class FormService {
   }
 
   async get_volunteer_data(id) {
-    return await this.repository.getData(id);
+    return await this.repository.GetUser(id);
   }
 
   async register_changes(data) {
     try {
       data.rol = "voluntario";
       data.estado_de_cuenta = "activa";
-      if (this.check_changes(data)) return await this.repository.putdata(data);
+      if (this.check_changes(data)) return await this.repository.CreateUser(data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
       console.error(error.message);
@@ -23,7 +23,7 @@ class FormService {
   async do_changes(id, data) {
     try {
       if (this.check_changes(data))
-        return await this.repository.update_volunteer(id, data);
+        return await this.repository.UpdateUser(id, data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
       return false;
