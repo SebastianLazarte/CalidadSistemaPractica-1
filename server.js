@@ -98,11 +98,12 @@ app.get("/", async (req, res) => {
 
 app.put("/extended_form/:id", async (req, res) => {
   try {
+
     let { id } = req.params;
     const changedVolunteer = await service_form.do_changes(id, req.body);
     let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
     res.status(202).send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
-    // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
+    // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`); 
   } catch (error) {
     console.error(error.message);
     res
