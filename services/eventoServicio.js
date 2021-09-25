@@ -38,11 +38,10 @@ class EventoServicio {
     }
   }
 
-  //Elminar Evento
-  async delete_evento(data){
+  async delete_evento(id,data){
     try {
       if (this.validar(data)) {
-        return await this.repository.delete_evento(data);
+        return await this.repository.delete_evento(id,data);
       } else {
         throw console.error("Algo inesperado paso con el repositorio");
       }
