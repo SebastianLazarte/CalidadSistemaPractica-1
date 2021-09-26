@@ -62,6 +62,20 @@ app.get("/get_proyecto/:id", async (req, res) => {
   }
 });
 
+app.put("/participate_proyecto/:id/sesion/:id_autenticacion",async(req, res) => {
+  debugger
+  try
+  {
+    const { id,id_autenticacion } = req.params;
+    const proyecto_a_actualizar= await service.participate_proyecto(id,id_autenticacion);
+    res.status(200).json(proyecto_a_actualizar);
+  }
+  catch(err)
+  {
+    res.status(404)
+  }
+});
+
 //-------------------------------EVENTO-----------------------------------------//
 
 app.post("/eventos/crearevento", async (req, res) => {
@@ -80,9 +94,9 @@ app.get("/eventos", async (req, res) => {
     const nuevoProyecto = await service_evento.get_eventos(req);
     res.status(200).json(nuevoProyecto.rows);
   } catch (err) {
-    res.status(404);
-  }
-});
+    res.status(404);}});
+
+
 
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
