@@ -12,8 +12,12 @@ const service_evento = new _service_evento();
 app.use(express.json());
 app.use(cors());
 
+
+
+
 app.post("/create_proyecto", async (req, res) => {
   //Crear
+  debugger;
   try {
     const nuevoProyecto = await service.create_proyecto(req.body);
     res.status(201).json(req.body);
@@ -21,6 +25,7 @@ app.post("/create_proyecto", async (req, res) => {
     res.status(404);
   }
 });
+
 app.put("/update_proyecto/:id", async (req, res) => {
   //Actualizar
   try {
@@ -61,6 +66,7 @@ app.get("/get_proyecto/:id", async (req, res) => {
     res.status(404);
   }
 });
+
 
 app.put("/participate_proyecto/:id/sesion/:id_autenticacion",async(req, res) => {
   debugger
