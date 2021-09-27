@@ -52,6 +52,18 @@ class DbEventoRepositorio {
     );
     return new_evento;
   }
+  async participate_evento(id,id_autenticacion)
+  {
+    const participate_evento = await pool.query(
+        "INSERT INTO participantes_eventos(id_usuario, id_proyecto)VALUES((select id_usuario from usuarios where id_autenticacion=$1),$2)",
+        [id_autenticacion,id]
+    );
+    debugger
+    const incrementar_participantes = await pool.query(
+      "UPDATE proyectos SET numero_participantes=numero_participantes+1 WHERE id=$1",
+      [id]);
+    return participate_evento>0
+  }
 }
 
 module.exports = DbEventoRepositorio;

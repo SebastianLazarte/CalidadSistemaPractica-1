@@ -83,6 +83,21 @@ app.get("/eventos/:id", async (req, res) => {
   }
 });
 
+app.put("/participate_evento/:id/sesion/:id_autenticacion",async(req, res) => {
+  debugger
+  try
+  {
+    const { id,id_autenticacion } = req.params;
+    const evento_a_actualizar= await service_evento.participate_evento(id,id_autenticacion);
+    res.status(200).json(true);
+  }
+  catch(err)
+  {
+    res.status(404)
+  }
+});
+
+
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
   try {
