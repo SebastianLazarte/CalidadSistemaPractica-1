@@ -29,6 +29,13 @@ class DbEventoRepositorio {
       [nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto]);
       return new_evento
   }
+  
+  async delete_evento(id) {
+    console.log(id)
+    const eliminar_evento = await pool.query('DELETE FROM public.eventos WHERE id = $1', 
+    [id]);
+    return eliminar_evento;
+  }
 
 }
 

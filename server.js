@@ -179,6 +179,18 @@ app.get("/eventos", async (req, res) => {
 
 
 
+app.delete("/eventos/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    const eliminarEvento = await service_evento.delete_evento(id, req.body);
+    res.status(200).json(eliminarEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+
+
 //-----------------------------------------------yiga-------------------
 app.post("/extended_form", async (req, res) => {
   try {
