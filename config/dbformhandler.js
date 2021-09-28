@@ -17,11 +17,11 @@ class DbHandler {
     this.cursor = null;
   }
   
-  async GetUser(id_user) {
+  async GetUsuario(id_autenticacion) {
 
     const user = await pool.query(
-      "SELECT * FROM usuarios WHERE id_usuario = $1",
-      [id_user]
+      "SELECT * FROM usuarios WHERE id_autenticacion = $1",
+      [id_autenticacion]
     );
     
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_user);
@@ -31,7 +31,7 @@ class DbHandler {
 
   
 
-  async CreateUser(data) {
+  async CreateUsuario(data) {
 
     const {
       nombre, apellido, telefono, rol,
@@ -48,7 +48,7 @@ class DbHandler {
     return newUser;
   }
 
-  async UpdateUser(id_user, data) {
+  async UpdateUsuario(id_user, data) {
 
     const {
       nombre, apellido, fecha_de_nacimiento, pais_de_recidencia,
