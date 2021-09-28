@@ -15,6 +15,81 @@ app.use(cors());
 
 
 
+
+
+
+
+
+//-----------------------------------------------yiga-------------------
+app.post("/extended_form", async (req, res) => {
+  try {
+    const newVolunteer = await service_form.register_changes(req.body);
+    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+    res.status(201).send(`{"message":"", "data": ${data_to_send}}`);
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(400)
+      .send('{ "message": "Check the info that you sending", "data": ""}');
+  }
+});
+
+app.get("/", async (req, res) => {
+  try {
+    res.status(201).send(`{"message":""}`);
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).send('{ "message": "Error"}');
+  }
+});
+app.put("/extended_form/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    const changedVolunteer = await service_form.do_changes(id, req.body);
+    res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .send(`{"message":"Changes are not commited", "data":false}`);
+  }
+});
+app.get("/extended_form/:id", async (req, res) => {
+  try {
+    const newVolunteer = await service_form.get_volunteer_data(req);
+    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+    res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(204)
+      .send(
+        `{ "message": "The volunteer with id ${req.params[0]} does not exit"", "data": ""}`
+      );
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.post("/create_proyecto", async (req, res) => {
   //Crear
   debugger;
