@@ -36,6 +36,18 @@ class DbEventoRepositorio {
     [id]);
     return eliminar_evento;
   }
+  //Archivar evento
+  async update_evento_estado1(data){
+    console.log(data.id);
+      const actualizar_estado = await pool.query('UPDATE public.eventos SET estado = 0  WHERE id = $1', [data]);   
+    return actualizar_estado;
+  }
+  //Mostrar Evento
+  async update_evento_estado2(data){
+    console.log(data.id);
+      const actualizar_estado = await pool.query('UPDATE public.eventos SET estado = 1  WHERE id = $1', [data]);   
+    return actualizar_estado;
+  }
 
 }
 

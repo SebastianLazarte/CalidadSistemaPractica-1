@@ -165,6 +165,28 @@ app.delete("/eventos/:id", async (req, res) => {
   }
 });
 
+//Archivar
+app.put("/eventos/archivar_evento/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    const archivarEvento = await service_evento.update_evento_estado1(id, req.body);
+    res.status(200).json(archivarEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+//Mostrar
+app.put("/eventos/mostrar_evento/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    const archivarEvento = await service_evento.update_evento_estado2(id, req.body);
+    res.status(200).json(archivarEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
