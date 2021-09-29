@@ -44,7 +44,7 @@ class DbProyectoRepositorio {
   async update_proyecto(id, data) {
     const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce(objetivo || $4,objetivo), lider=coalesce(lider ||$5,lider), numero_participantes=coalesce($6,numero_participantes) WHERE id = $1",
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes) WHERE id = $1",
       [id, titulo, descripcion, objetivo, lider, numero_participantes]
     );
     return data;
