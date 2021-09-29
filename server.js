@@ -84,7 +84,7 @@ app.get("/eventos/:id", async (req, res) => {
 });
 
 app.post(
-  "eventos/participate_evento/:id/sesion/:id_autenticacion",
+  "/eventos/participate_evento/:id/sesion/:id_autenticacion",
   async (req, res) => {
     debugger;
     try {
