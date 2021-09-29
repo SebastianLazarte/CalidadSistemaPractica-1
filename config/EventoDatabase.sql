@@ -7,5 +7,6 @@ CREATE TABLE evento_data(
     modalidad_evento VARCHAR(400),
     lugar_evento VARCHAR(10),
     fecha_evento VARCHAR(50),
-    proyecto VARCHAR
+    proyecto VARCHAR,
+    estado VARCHAR
 );
