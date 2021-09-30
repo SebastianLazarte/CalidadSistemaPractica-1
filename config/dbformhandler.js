@@ -24,7 +24,7 @@ class DbHandler {
       [id_autenticacion]
     );
     
-    user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_user);
+    user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_autenticacion);
 
     return user;
   }
