@@ -77,5 +77,12 @@ class EventoServicio {
     }
   }
 
+  async participate_evento(id, id_autenticacion) {
+    try {
+      return await this.repository.participate_evento(id, id_autenticacion);
+    } catch (error) {
+      throw console.error("El " + id.toString() + " del evento no existe");
+    }
+  }
 }
 module.exports = EventoServicio;

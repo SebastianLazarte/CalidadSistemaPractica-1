@@ -153,6 +153,46 @@ app.get("/eventos", async (req, res) => {
   } catch (err) {
     res.status(404);}});
 
+app.get("/eventos/:id", async (req, res) => {
+  //Obtener
+  try {
+    const nuevoEvento = await service_evento.get_evento(req);
+    res.status(200).json(nuevoEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+});
+
+app.post(
+  "/eventos/participate_evento/:id/sesion/:id_autenticacion",
+  async (req, res) => {
+    debugger;
+    try {
+      const { id, id_autenticacion } = req.params;
+      const evento_a_actualizar = await service_evento.participate_evento(
+        id,
+        id_autenticacion
+      );
+      res.status(200).json(true);
+    } catch (err) {
+      res.status(404);
+    }
+  }
+);
+
+//-----------------------------------------------yiga-------------------
+app.post("/extended_form", async (req, res) => {
+  try {
+    const newVolunteer = await service_form.register_changes(req.body);
+    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+    res.status(201).send(`{"message":"", "data": ${data_to_send}}`);
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(400)
+      .send('{ "message": "Check the info that you sending", "data": ""}');
+  }
+});
 
 
 app.delete("/eventos/:id", async (req, res) => {
@@ -173,6 +213,18 @@ app.put("/eventos/archivar_evento/:id", async (req, res) => {
     res.status(200).json(archivarEvento.rows);
   } catch (err) {
     res.status(404);
+  }
+  try{
+    const changedVolunteer = await service_form.do_changes(id, req.body);
+    let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
+    res
+      .status(202)
+      .send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .send(`{"message":"Changes are not commited", "data":false}`);
   }
 });
 
