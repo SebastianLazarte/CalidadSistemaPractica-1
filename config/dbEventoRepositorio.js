@@ -21,6 +21,15 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
+
+  async create_evento(data)
+  {
+      const {nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado}= data
+      const new_evento = await pool.query("INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado]);
+      return new_evento
+  }
+  
   async get_evento(data) {
     const { id } = data.params;
     const evento = await pool.query(
@@ -28,6 +37,25 @@ class DbEventoRepositorio {
       [id]
     );
     return evento;
+  }
+  
+  async delete_evento(id) {
+    console.log(id)
+    const eliminar_evento = await pool.query('DELETE FROM public.eventos WHERE id = $1', 
+    [id]);
+    return eliminar_evento;
+  }
+  //Archivar evento
+  async update_evento_estado1(data){
+    console.log(data.id);
+      const actualizar_estado = await pool.query('UPDATE public.eventos SET estado = 0  WHERE id = $1', [data]);   
+    return actualizar_estado;
+  }
+  //Mostrar Evento
+  async update_evento_estado2(data){
+    console.log(data.id);
+      const actualizar_estado = await pool.query('UPDATE public.eventos SET estado = 1  WHERE id = $1', [data]);   
+    return actualizar_estado;
   }
 
   async create_evento(data) {

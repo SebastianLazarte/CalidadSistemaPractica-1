@@ -37,6 +37,46 @@ class EventoServicio {
       return error;
     }
   }
+
+  async delete_evento(data){
+    try {
+      if (this.validar(data)) {
+        return await this.repository.delete_evento(data);
+      } else {
+        throw console.error("Algo inesperado paso con el repositorio");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+  // actualizar estado para archivar
+  async update_evento_estado1(data){
+    try {
+      if (this.validar(data)) {
+        return await this.repository.update_evento_estado1(data);
+      } else {
+        throw console.error("Algo inesperado paso con el repositorio");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+  //actualizar estado para mostrar
+  async update_evento_estado2(data){
+    try {
+      if (this.validar(data)) {
+        return await this.repository.update_evento_estado2(data);
+      } else {
+        throw console.error("Algo inesperado paso con el repositorio");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+
   async participate_evento(id, id_autenticacion) {
     try {
       return await this.repository.participate_evento(id, id_autenticacion);

@@ -12,8 +12,63 @@ const service_evento = new _service_evento();
 app.use(express.json());
 app.use(cors());
 
+//----------------------------PERFIL----------------------
+app.post("/extended_form", async (req, res) => {
+  try {
+    const newVolunteer = await service_form.register_changes(req.body);
+    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+    res.status(201).send(`{"message":"", "data": ${data_to_send}}`);
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(400)
+      .send('{ "message": "Check the info that you sending", "data": ""}');
+  }
+});
+
+app.get("/", async (req, res) => {
+  try {
+    res.status(201).send(`{"message":""}`);
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).send('{ "message": "Error"}');
+  }
+});
+
+app.put("/extended_form/:id", async (req, res) => {
+  try {
+
+    let { id } = req.params;
+    const changedVolunteer = await service_form.do_changes(id, req.body);
+    let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
+    res.status(202).send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
+    // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`); 
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .send(`{"message":"Changes are not commited", "data":false}`);
+  }
+});
+
+app.get("/extended_form/:id", async (req, res) => {
+  try {
+    const newVolunteer = await service_form.get_volunteer_data(req.params.id);
+    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+    res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
+  } catch (err) {
+    console.error(err.message);
+    res
+      .status(204)
+      .send(
+        `{ "message": "The volunteer with id ${req.params[0]} does not exit"", "data": ""}`
+      );
+  }
+});
+//-------------------------------PROYECTOS-----------------------------------------
 app.post("/create_proyecto", async (req, res) => {
   //Crear
+  debugger;
   try {
     const nuevoProyecto = await service.create_proyecto(req.body);
     res.status(201).json(req.body);
@@ -21,14 +76,26 @@ app.post("/create_proyecto", async (req, res) => {
     res.status(404);
   }
 });
+
 app.put("/update_proyecto/:id", async (req, res) => {
   //Actualizar
   try {
     let { id } = req.params;
+    req.body["id"]=id;
     const proyectoActualizado = await service.update_proyecto(id, req.body);
-    res.status(200).json(proyectoActualizado.rows);
+    res.status(200).json(req.body);
   } catch (error) {
     res.status(404);
+  }
+});
+app.delete("/delete_proyecto/:id", async (req, res) => {
+  //Eliminar por ide
+  try {
+    const { id } = req.params;
+    const proyectoElimanado = await service.delete_proyecto(id);
+    res.status(200).json(proyectoElimanado.rows);
+  } catch (error){
+    res.status(500);
   }
 });
 app.get("/get_proyectos", async (req, res) => {
@@ -51,6 +118,21 @@ app.get("/get_proyecto/:id", async (req, res) => {
   }
 });
 
+
+app.put("/participate_proyecto/:id/sesion/:id_autenticacion",async(req, res) => {
+  debugger
+  try
+  {
+    const { id,id_autenticacion } = req.params;
+    const proyecto_a_actualizar= await service.participate_proyecto(id,id_autenticacion);
+    res.status(200).json(proyecto_a_actualizar);
+  }
+  catch(err)
+  {
+    res.status(404)
+  }
+});
+
 //-------------------------------EVENTO-----------------------------------------//
 
 app.post("/eventos/crearevento", async (req, res) => {
@@ -69,9 +151,7 @@ app.get("/eventos", async (req, res) => {
     const nuevoProyecto = await service_evento.get_eventos(req);
     res.status(200).json(nuevoProyecto.rows);
   } catch (err) {
-    res.status(404);
-  }
-});
+    res.status(404);}});
 
 app.get("/eventos/:id", async (req, res) => {
   //Obtener
@@ -114,24 +194,32 @@ app.post("/extended_form", async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
+
+app.delete("/eventos/:id", async (req, res) => {
   try {
-    res.status(201).send(`{"message":""}`);
+    let { id } = req.params;
+    const eliminarEvento = await service_evento.delete_evento(id, req.body);
+    res.status(200).json(eliminarEvento.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(400).send('{ "message": "Error"}');
+    res.status(404);
   }
 });
 
-app.put("/extended_form/:id", async (req, res) => {
+//Archivar
+app.put("/eventos/archivar_evento/:id", async (req, res) => {
   try {
     let { id } = req.params;
+    const archivarEvento = await service_evento.update_evento_estado1(id, req.body);
+    res.status(200).json(archivarEvento.rows);
+  } catch (err) {
+    res.status(404);
+  }
+  try{
     const changedVolunteer = await service_form.do_changes(id, req.body);
     let data_to_send = JSON.stringify(changedVolunteer.rows[0]);
     res
       .status(202)
       .send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
-    // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
   } catch (error) {
     console.error(error.message);
     res
@@ -140,18 +228,14 @@ app.put("/extended_form/:id", async (req, res) => {
   }
 });
 
-app.get("/extended_form/:id", async (req, res) => {
+//Mostrar
+app.put("/eventos/mostrar_evento/:id", async (req, res) => {
   try {
-    const newVolunteer = await service_form.get_volunteer_data(req.params.id);
-    let data_to_send = JSON.stringify(newVolunteer.rows[0]);
-    res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
+    let { id } = req.params;
+    const archivarEvento = await service_evento.update_evento_estado2(id, req.body);
+    res.status(200).json(archivarEvento.rows);
   } catch (err) {
-    console.error(err.message);
-    res
-      .status(204)
-      .send(
-        `{ "message": "The volunteer with id ${req.params[0]} does not exit"", "data": ""}`
-      );
+    res.status(404);
   }
 });
 
