@@ -3,27 +3,33 @@ class FormService {
   constructor() {
     this.repository = new _repository();
   }
-  async get_volunteer_data(data) {
-    return await this.repository.getData(data);
+
+  async get_volunteer_data(id) {
+    return await this.repository.GetUsuario(id);
   }
+
   async register_changes(data) {
     try {
-      if (this.check_changes(data)) return await this.repository.putdata(data);
+      data.rol = "voluntario";
+      data.estado_de_cuenta = "activa";
+      if (this.check_changes(data)) return await this.repository.CreateUsuario(data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
       console.error(error.message);
       return error;
     }
   }
+
   async do_changes(id, data) {
     try {
       if (this.check_changes(data))
-        return await this.repository.update_volunteer(id, data);
+        return await this.repository.UpdateUsuario(id, data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
       return false;
     }
   }
+  
   check_changes(data) {
     let date_to_check = new Date(data["fecha_de_nacimiento"]);
     let today = new Date();
