@@ -1,7 +1,7 @@
-const _repository = require("../config/dbformhandler.js");
-class FormService {
+const DbUsuarioRepositorio = require("../config/dbUsuarioRepositorio.js");
+class usuarioServicio {
   constructor() {
-    this.repository = new _repository();
+    this.repository = new DbUsuarioRepositorio();
   }
 
   async get_volunteer_data(id) {
@@ -12,7 +12,8 @@ class FormService {
     try {
       data.rol = "voluntario";
       data.estado_de_cuenta = "activa";
-      if (this.check_changes(data)) return await this.repository.CreateUsuario(data);
+      if (this.check_changes(data))
+        return await this.repository.CreateUsuario(data);
       else throw console.error("Something is hapening with dbhandler");
     } catch (error) {
       console.error(error.message);
@@ -29,7 +30,7 @@ class FormService {
       return false;
     }
   }
-  
+
   check_changes(data) {
     let date_to_check = new Date(data["fecha_de_nacimiento"]);
     let today = new Date();
@@ -46,4 +47,4 @@ class FormService {
     return true;
   }
 }
-module.exports = FormService;
+module.exports = usuarioServicio;
