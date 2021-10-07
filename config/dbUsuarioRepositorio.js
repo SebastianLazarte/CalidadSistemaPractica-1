@@ -17,14 +17,14 @@ class DbUsuarioRepositorio {
     this.cursor = null;
   }
 
-  async GetUsuario(id_autenticacion) {
+  async GetUsuario(id_usuario) {
     const user = await pool.query(
-      "SELECT * FROM usuarios WHERE id_autenticacion = $1",
-      [id_autenticacion]
+      "SELECT * FROM usuarios WHERE id_usuario = $1",
+      [id_usuario]
     );
 
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(
-      id_autenticacion
+      id_usuario
     );
 
     return user;
@@ -41,13 +41,13 @@ class DbUsuarioRepositorio {
     } = data;
 
     const newUser = await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, id_autenticacion) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
+      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, id_usuario) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
       [nombre, apellido, telefono, rol, estado_de_cuenta, id_autenticacion]
     );
     return newUser;
   }
 
-  async UpdateUsuario(id_user, data) {
+  async UpdateUsuario(id_usuario, data) {
     const {
       nombre,
       apellido,
@@ -61,14 +61,13 @@ class DbUsuarioRepositorio {
       telefono,
       estado_de_cuenta,
       genero,
-      rol,
-      id_autenticacion,
+      
     } = data;
 
     const intereses_lista = intereses.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, rol=$12 ,id_autenticacion=$13  WHERE id_usuario=$14 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11  WHERE id_usuario=$12 RETURNING *",
       [
         nombre,
         apellido,
@@ -81,14 +80,12 @@ class DbUsuarioRepositorio {
         telefono,
         genero,
         estado_de_cuenta,
-        rol,
-        id_autenticacion,
-        id_user,
+        id_usuario
       ]
     );
 
     update_user.rows[0].intereses = await this.UpdateIntereses(
-      id_user,
+      id_usuario,
       intereses_lista
     );
 
