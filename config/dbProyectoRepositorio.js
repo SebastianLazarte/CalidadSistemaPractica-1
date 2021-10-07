@@ -54,7 +54,7 @@ class DbProyectoRepositorio {
     const res1 = Boolean(
       (
         await pool.query(
-          "SELECT EXISTS(select id_usuario from usuarios where id_autenticacion=$1)",
+          "SELECT EXISTS(select id_usuario from usuarios where id_usuario=$1)",
           [id_autenticacion]
         )
       ).rows[0]["exists"]
@@ -63,14 +63,14 @@ class DbProyectoRepositorio {
     const res = Boolean(
       (
         await pool.query(
-          "SELECT NOT EXISTS( SELECT id_usuario FROM participantes_proyectos WHERE id_usuario=(select id_usuario from usuarios where id_autenticacion=$1) and id_proyecto=$2)",
+          "SELECT NOT EXISTS( SELECT id_usuario FROM participantes_proyectos WHERE id_usuario=(select id_usuario from usuarios where id_usuario=$1) and id_proyecto=$2)",
           [id_autenticacion, id]
         )
       ).rows[0]["?column?"]
     );
     if (res && res1) {
       const participate_proyecto = await pool.query(
-        "INSERT INTO participantes_proyectos(id_usuario, id_proyecto)VALUES((select id_usuario from usuarios where id_autenticacion=$1),$2)",
+        "INSERT INTO participantes_proyectos(id_usuario, id_proyecto)VALUES((select id_usuario from usuarios where id_usuario=$1),$2)",
         [id_autenticacion, id]
       );
       debugger;
