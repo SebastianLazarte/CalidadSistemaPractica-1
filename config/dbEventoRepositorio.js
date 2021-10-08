@@ -21,6 +21,12 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
+  async get_participantes_eventos(data) {
+    const participantes_eventos = await pool.query(
+      "SELECT * FROM public.participantes_eventos"
+    );
+    return participantes_eventos;
+  }
 
   async create_evento(data) {
     const {
