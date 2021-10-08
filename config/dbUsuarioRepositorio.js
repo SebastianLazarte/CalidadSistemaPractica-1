@@ -23,9 +23,9 @@ class DbUsuarioRepositorio {
       [id_usuario]
     );
 
-    /*user.rows[0].intereses = await this.GetInteresesByIdUsuario(
+    user.rows[0].intereses = await this.GetInteresesByIdUsuario(
       id_usuario
-    );*/
+    );
 
     return user;
   }
