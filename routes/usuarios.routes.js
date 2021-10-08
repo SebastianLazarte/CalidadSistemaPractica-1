@@ -52,4 +52,20 @@ module.exports = function (app) {
         );
     }
   });
+  app.get("/extended_form", async (req, res) => {
+    try {
+      const volunteers = await usuarioService.get_volunteers_data();
+      let data_to_send = JSON.stringify(volunteers.rows);
+      res.status(200).send(`{"message":"", "data": ${data_to_send}}`)
+    } catch (err) {
+      console.error(err.message);
+      res
+        .status(204)
+        .send(
+          `{ "message": "there are no volunteers", "data": ""}`
+        );
+    }
+
+
+  });
 };

@@ -30,6 +30,13 @@ class DbUsuarioRepositorio {
     return user;
   }
 
+  async GetUsuarios() {
+    const users = await pool.query(
+      "SELECT nombre,apellido,telefono,rol,ciudad_de_recidencia FROM usuarios ORDER BY apellido"
+    )
+    return users;
+  }
+
   async CreateUsuario(data) {
     const {
       nombre,

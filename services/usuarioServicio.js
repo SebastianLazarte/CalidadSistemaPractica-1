@@ -7,7 +7,9 @@ class usuarioServicio {
   async get_volunteer_data(id) {
     return await this.repository.GetUsuario(id);
   }
-
+  async get_volunteers_data() {
+    return await this.repository.GetUsuarios();
+  }
   async register_changes(data) {
     try {
       data.rol = "voluntario";
