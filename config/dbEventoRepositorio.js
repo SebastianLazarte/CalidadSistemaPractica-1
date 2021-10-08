@@ -107,7 +107,7 @@ class DbEventoRepositorio {
   }
   async participate_evento(id, id_autenticacion) {
     const participate_evento = await pool.query(
-      "INSERT INTO participantes_eventos(id_usuario, id_evento)VALUES((select id_usuario from usuarios where id_usuario=$1),$2)",
+      "INSERT INTO participantes_eventos(id_usuario, id_evento)VALUES($1,$2)",
       [id_autenticacion, id]
     );
     // debugger;

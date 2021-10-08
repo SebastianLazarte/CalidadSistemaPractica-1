@@ -31,7 +31,6 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
   app.post(
     "/eventos/participate_evento/:id/sesion/:id_autenticacion",
     async (req, res) => {
