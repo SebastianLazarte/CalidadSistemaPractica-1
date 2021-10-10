@@ -27,6 +27,13 @@ class DbEventoRepositorio {
     );
     return participantes_eventos;
   }
+  async get_participantes_eventos_nombres(id) {
+    const participantes_eventos = await pool.query(
+      "SELECT nombre, apellido FROM usuarios WHERE id_usuario=id",
+      [id]
+    );
+    return participantes_eventos;
+  }
 
   async create_evento(data) {
     const {
