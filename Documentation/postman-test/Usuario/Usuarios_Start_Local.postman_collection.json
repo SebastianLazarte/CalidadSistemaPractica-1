@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "58a69195-4dc9-4117-b084-4bad26ead739",
-		"name": "Formulario_Extenso_Start_Local",
+		"_postman_id": "5401e8e4-0aab-4109-b1de-ab3c883648d6",
+		"name": "Usuarios_Start_Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Perez\",\r\n    \"fecha_de_nacimiento\":\"01/01/2002\",\r\n    \"pais_de_recidencia\":\"Bolvia\",\r\n    \"ciudad_de_recidencia\":\"Cochabamba\",\r\n    \"carrera\":\"Derecho\",\r\n    \"nivel_de_estudios\":\"Doctor\",\r\n    \"descripcion_personal\":\"Soy muy feliz y me gustan las hamburguesas\",\r\n    \"telefono\":\"789898989\",\r\n    \"genero\":\"masculino\",\r\n    \"estado_de_cuenta\": \"activa\",\r\n    \"rol\":\"voluntario\",\r\n    \"id_autenticacion\":1,\r\n    \"intereses\":\"Niños y niñas:Asilos:Educacion\"\r\n}",
+					"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Perez\",\r\n    \"fecha_de_nacimiento\":\"01/01/2002\",\r\n    \"pais_de_recidencia\":\"Bolvia\",\r\n    \"ciudad_de_recidencia\":\"Cochabamba\",\r\n    \"carrera\":\"Derecho\",\r\n    \"nivel_de_estudios\":\"Doctor\",\r\n    \"descripcion_personal\":\"Soy muy feliz y me gustan las hamburguesas\",\r\n    \"telefono\":\"789898989\",\r\n    \"genero\":\"masculino\",\r\n    \"estado_de_cuenta\": \"activa\",\r\n    \"intereses\":\"Medio ambiente\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

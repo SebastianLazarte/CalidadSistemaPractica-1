@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "a9e27d67-e6dd-4d47-9392-9f48a77002d5",
+		"name": "ProyectosAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ver proyectos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_proyectos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver proyecto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_proyecto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_proyecto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear proyecto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"titulo\": \"Start Proyecto General\",\r\n        \"descripcion\": \"Desarrollamos proyectos que generen un triple impacto: social, ambiental y económico a partir de problemáticas locales co-creando soluciones impulsadas por voluntarios.\",\r\n        \"objetivo\": [\"START es como una maquina donde por una parte insertamos pasión, creatividad, talento, por otra parte inyectamos recursos recursos y nos alimentamos en desafíos reales que evidenciamos en nuestro entorno para así diseñar y co-crear soluciones de impacto.\"],\r\n        \"lider\": [\"Salvador\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/create_proyecto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"create_proyecto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar proyecto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"lider\":[\"Nahim Aliss\"]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/update_proyecto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"update_proyecto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Participar proyecto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/participate_proyecto/37/sesion/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"participate_proyecto",
+						"37",
+						"sesion",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar proyecto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/delete_proyecto/36",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"delete_proyecto",
+						"36"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ParticipoProyecto?",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/participate/37/sesion/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"participate",
+						"37",
+						"sesion",
+						"25"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
