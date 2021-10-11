@@ -4,7 +4,6 @@ const service = new _service();
 module.exports = function (app) {
   //Crear
   app.post("/create_proyecto", async (req, res) => {
-    debugger;
     try {
       const nuevoProyecto = await service.create_proyecto(req.body);
       res.status(201).json(req.body);
@@ -52,11 +51,10 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
+  //Participar en proyecto
   app.put(
     "/participate_proyecto/:id/sesion/:id_autenticacion",
     async (req, res) => {
-      debugger;
       try {
         const { id, id_autenticacion } = req.params;
         const proyecto_a_actualizar = await service.participate_proyecto(
@@ -69,4 +67,18 @@ module.exports = function (app) {
       }
     }
   );
+  //Voluntario participa en proyecto
+  app.get(
+    "/participate/:id/sesion/:id_autenticacion",
+    async(req,res)=>{
+      try
+      {
+        const {id,id_autenticacion}= req.params;
+        const esta_participando=await service.participation(id,id_autenticacion);
+        res.status(200).json(esta_participando);
+      }catch(err){
+        res.status(404)
+      }
+    }
+  )
 };
