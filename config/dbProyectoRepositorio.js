@@ -81,6 +81,10 @@ class DbProyectoRepositorio {
     return res && res1;
   }
 
+
+
+  
+
   async participation(id,id_autenticacion)
   {
     const res1 = Boolean(
