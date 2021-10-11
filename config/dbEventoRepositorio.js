@@ -29,9 +29,11 @@ class DbEventoRepositorio {
   }
   async get_participantes_eventos_nombres(id) {
     const participantes_eventos = await pool.query(
-      "SELECT nombre, apellido FROM usuarios WHERE id_usuario=id",
+      "SELECT CONCAT(nombre,' ',apellido) FROM usuarios WHERE id_usuario=$1",
       [id]
     );
+    console.log("PARTICIPANTES EVENTOS", participantes_eventos["rows"][0]);
+
     return participantes_eventos;
   }
 
