@@ -41,10 +41,10 @@ class DbProyectoRepositorio {
     return new_proyeto;
   }
   async update_proyecto(id, data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes, estado } = data;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes) WHERE id = $1",
-      [id, titulo, descripcion, objetivo, lider, numero_participantes]
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado) WHERE id = $1",
+      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado]
     );
     return data;
   }
@@ -97,6 +97,8 @@ class DbProyectoRepositorio {
     );
     return res1
   }
+
+  
 
   async delete_proyecto(id) {
     const proyecto_a_eliminar = await pool.query(
