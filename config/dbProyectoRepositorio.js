@@ -41,16 +41,17 @@ class DbProyectoRepositorio {
     return new_proyeto;
   }
   async update_proyecto(id, data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes, estado } = data;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes) WHERE id = $1",
-      [id, titulo, descripcion, objetivo, lider, numero_participantes]
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado) WHERE id = $1",
+      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado]
     );
     return data;
   }
 
   async participate_proyecto(id, id_autenticacion) {
     //si existe un usuario no tiene que aumentar
+    debugger
     const res1 = Boolean(
       (
         await pool.query(
@@ -59,7 +60,6 @@ class DbProyectoRepositorio {
         )
       ).rows[0]["exists"]
     );
-    console.log(res1);
     const res = Boolean(
       (
         await pool.query(
@@ -73,13 +73,25 @@ class DbProyectoRepositorio {
         "INSERT INTO participantes_proyectos(id_usuario, id_proyecto)VALUES((select id_usuario from usuarios where id_usuario=$1),$2)",
         [id_autenticacion, id]
       );
-      debugger;
       const incrementar_participantes = await pool.query(
         "UPDATE proyectos SET numero_participantes=numero_participantes+1 WHERE id=$1",
         [id]
       );
     }
     return res && res1;
+  }
+
+  async participation(id,id_autenticacion)
+  {
+    const res1 = Boolean(
+      (
+        await pool.query(
+          "SELECT EXISTS(select id_participantes_proyectos from participantes_proyectos where id_usuario=$1 and id_proyecto=$2)",
+          [id_autenticacion,id]
+        )
+      ).rows[0]["exists"]
+    );
+    return res1
   }
 
   async delete_proyecto(id) {
