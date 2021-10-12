@@ -107,6 +107,22 @@ class DbProyectoRepositorio {
     );
     return proyecto_a_eliminar;
   }
+  async getParticipants_proyecto_simple(id) {
+
+    const res1 = Boolean( 
+      (
+        await pool.query("SELECT EXISTS(select id from public.proyectos where id=$1)",[id])
+      ).rows[0]["exists"] 
+        );
+    if(res1){
+      const participantsSimple = await pool.query(
+        "SELECT us.nombre FROM public.participantes_proyectos as pro, public.usuarios as us where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1",
+        [id]
+      );
+      return participantsSimple;
+    }
+    return res1;
+  }
 }
 
 module.exports = DbProyectoRepositorio;
