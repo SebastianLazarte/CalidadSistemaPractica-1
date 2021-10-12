@@ -11,7 +11,7 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
+  
   //Actualizar
   app.put("/update_proyecto/:id", async (req, res) => {
     try {
@@ -68,17 +68,27 @@ module.exports = function (app) {
     }
   );
   //Voluntario participa en proyecto
-  app.get(
-    "/participate/:id/sesion/:id_autenticacion",
-    async(req,res)=>{
+  app.get("/participate/:id/sesion/:id_autenticacion",async(req,res)=>{
       try
       {
         const {id,id_autenticacion}= req.params;
         const esta_participando=await service.participation(id,id_autenticacion);
         res.status(200).json(esta_participando);
       }catch(err){
-        res.status(404)
+        res.status(404);
       }
     }
   )
+   //Obtener lista simple de participantes 
+   app.get("/get_proyectos_simple/:id", async (req, res) => {
+    try {
+      const {id}= req.params;
+      const lista_simple = await service.getParticipants_proyecto_simple(id);
+      if(lista_simple==false)
+        res.status(404).send("El id: "+ parseInt(id).toString()  +    " no existe");
+      res.status(200).json(lista_simple.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
 };

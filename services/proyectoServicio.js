@@ -96,5 +96,16 @@ class ProyectoServicio {
       throw console.error("El "+id.toString()+" del proyecto No existe");
     }
   }
+  async getParticipants_proyecto_simple(id) 
+  {
+    try 
+    {
+      const validar= await this.repository.getParticipants_proyecto_simple(id);   
+      return validar;
+    }catch (error) 
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+  }
 }
 module.exports = ProyectoServicio;
