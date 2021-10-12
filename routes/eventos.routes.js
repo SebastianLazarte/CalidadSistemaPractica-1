@@ -112,7 +112,7 @@ module.exports = function (app) {
   //Obtener eventos de un usuario participante
   app.get("/eventos/participante/:id", async (req, res) => {
     try {
-      const eventosDelUsuario = await service_evento.get_eventos_usuario(req);
+      const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
       res.status(200).json(eventosDelUsuario.rows);
     } catch (err) {
       res.status(404);

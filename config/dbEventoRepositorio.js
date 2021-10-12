@@ -121,14 +121,16 @@ class DbEventoRepositorio {
   }
 
   //Obtener Id de eventos donde participa un usuario 
+  
   async get_eventos_usuario(id_usuario) {
-    console.log("ID Usuario", id_usuario);
+
     const eventos_usuario = await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
       [id_usuario]
     );
     return eventos_usuario;
   }
+
 }
 
 module.exports = DbEventoRepositorio;
