@@ -29,16 +29,6 @@ class DbEventoRepositorio {
     );
     return participantes_eventos;
   }
-  // async get_participantes_eventos_nombres(id) {
-  //   const participantes_eventos = await pool.query(
-  //     "SELECT CONCAT(nombre,' ',apellido) FROM usuarios WHERE id_usuario=$1",
-  //     [id]
-  //   );
-  //   console.log("PARTICIPANTES EVENTOS", participantes_eventos["rows"][0]);
-
-  //   return participantes_eventos;
-  // }
-
   async create_evento(data) {
     const {
       nombre_evento,
