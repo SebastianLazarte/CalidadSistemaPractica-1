@@ -24,6 +24,10 @@ class EventoServicio {
     return await this.repository.get_participantes_eventos(data);
   }
 
+  async get_eventos_usuario(data) {
+    return await this.repository.get_eventos_usuario(data);
+  }
+
   async get_evento(data) {
     return await this.repository.get_evento(data);
   }
