@@ -117,11 +117,6 @@ class DbEventoRepositorio {
       "INSERT INTO participantes_eventos(id_usuario, id_evento)VALUES($1,$2)",
       [id_autenticacion, id]
     );
-    // debugger;
-    // const incrementar_participantes = await pool.query(
-    //   "UPDATE proyectos SET numero_participantes=numero_participantes+1 WHERE id=$1",
-    //   [id]
-    // );
     return true;
   }
 }
