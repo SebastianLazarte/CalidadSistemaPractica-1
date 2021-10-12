@@ -94,6 +94,8 @@ class DbProyectoRepositorio {
     return res1
   }
 
+  
+
   async delete_proyecto(id) {
     const proyecto_a_eliminar = await pool.query(
       "DELETE FROM proyectos WHERE id = $1",
