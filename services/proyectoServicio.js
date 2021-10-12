@@ -100,9 +100,7 @@ class ProyectoServicio {
   {
     try 
     {
-      const validar=await this.repository.getParticipants_proyecto_simple(id);
-      if(validar==false)
-        throw console.error("El "+id.toString()+" del proyecto No existe");
+      const validar= await this.repository.getParticipants_proyecto_simple(id);   
       return validar;
     }catch (error) 
     {

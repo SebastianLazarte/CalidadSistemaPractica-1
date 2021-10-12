@@ -80,10 +80,12 @@ module.exports = function (app) {
     }
   )
    //Obtener lista simple de participantes 
-  app.get("/get_proyectos_simple/:id", async (req, res) => {
+   app.get("/get_proyectos_simple/:id", async (req, res) => {
     try {
       const {id}= req.params;
       const lista_simple = await service.getParticipants_proyecto_simple(id);
+      if(lista_simple==false)
+        res.status(404).send("El id: "+ parseInt(id).toString()  +    " no existe");       //.json("El id: $1 no existe",id);
       res.status(200).json(lista_simple.rows);
     } catch (err) {
       res.status(404);
