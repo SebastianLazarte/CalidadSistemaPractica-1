@@ -71,7 +71,18 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("El "+id.toString()+" del proyecto No existe");
+      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe");
+    }
+  }
+  async participation(id,id_autenticacion)
+  {
+    try
+    {
+      return await this.repository.participation(id,id_autenticacion)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe"); 
     }
   }
 
