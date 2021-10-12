@@ -68,13 +68,15 @@ class DbUsuarioRepositorio {
       telefono,
       estado_de_cuenta,
       genero,
-      
+      nombre_contacto_de_emergencia,
+      numero_contacto_de_emergencia,
+      relacion_contacto_de_emergencia,
     } = data;
 
     const intereses_lista = intereses.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11  WHERE id_usuario=$12 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14  WHERE id_usuario=$15 RETURNING *",
       [
         nombre,
         apellido,
@@ -87,6 +89,9 @@ class DbUsuarioRepositorio {
         telefono,
         genero,
         estado_de_cuenta,
+        nombre_contacto_de_emergencia,
+        numero_contacto_de_emergencia,
+        relacion_contacto_de_emergencia,
         id_usuario
       ]
     );
