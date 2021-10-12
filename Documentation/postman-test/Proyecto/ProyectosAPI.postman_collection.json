@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a9e27d67-e6dd-4d47-9392-9f48a77002d5",
-		"name": "ProyectosAPI",
+		"_postman_id": "9957e28a-0bd2-4986-a75c-3f486d719e95",
+		"name": "ProyectosAPI Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -79,7 +79,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"lider\":[\"Nahim Aliss\"]\r\n    }",
+					"raw": "    {\r\n        \"lider\":[\"Nahim Aliss\"],\r\n        \"estado\":\"{acabado}\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
