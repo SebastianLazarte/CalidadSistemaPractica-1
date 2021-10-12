@@ -21,21 +21,23 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
-  async get_participantes_eventos(data) {
+  async get_participantes_eventos(id_evento) {
+    console.log("ID EVENTO", id_evento);
     const participantes_eventos = await pool.query(
-      "SELECT * FROM public.participantes_eventos"
+      "SELECT  usuarios.nombre AS Nombre,usuarios.apellido AS Apellido, participantes_eventos.id_evento AS id_evento, participantes_eventos.id_participantes_eventos AS id FROM usuarios JOIN participantes_eventos ON usuarios.id_usuario=participantes_eventos.id_usuario WHERE participantes_eventos.id_evento = $1;",
+      [id_evento]
     );
     return participantes_eventos;
   }
-  async get_participantes_eventos_nombres(id) {
-    const participantes_eventos = await pool.query(
-      "SELECT CONCAT(nombre,' ',apellido) FROM usuarios WHERE id_usuario=$1",
-      [id]
-    );
-    console.log("PARTICIPANTES EVENTOS", participantes_eventos["rows"][0]);
+  // async get_participantes_eventos_nombres(id) {
+  //   const participantes_eventos = await pool.query(
+  //     "SELECT CONCAT(nombre,' ',apellido) FROM usuarios WHERE id_usuario=$1",
+  //     [id]
+  //   );
+  //   console.log("PARTICIPANTES EVENTOS", participantes_eventos["rows"][0]);
 
-    return participantes_eventos;
-  }
+  //   return participantes_eventos;
+  // }
 
   async create_evento(data) {
     const {

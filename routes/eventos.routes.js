@@ -22,26 +22,26 @@ module.exports = function (app) {
     }
   });
   //Obtener
-  app.get("/eventos/participantes", async (req, res) => {
-    try {
-      const participantes_eventos =
-        await service_evento.get_participantes_eventos(req);
-      res.status(200).json(participantes_eventos.rows);
-    } catch (err) {
-      res.status(404);
-    }
-  });
   app.get("/eventos/participantes/:id", async (req, res) => {
     try {
       const participantes_eventos =
-        await service_evento.get_participantes_eventos_nombres(
-          req.params["id"]
-        );
+        await service_evento.get_participantes_eventos(req.params["id"]);
       res.status(200).json(participantes_eventos.rows);
     } catch (err) {
       res.status(404);
     }
   });
+  // app.get("/eventos/participantes/:id", async (req, res) => {
+  //   try {
+  //     const participantes_eventos =
+  //       await service_evento.get_participantes_eventos_nombres(
+  //         req.params["id"]
+  //       );
+  //     res.status(200).json(participantes_eventos.rows);
+  //   } catch (err) {
+  //     res.status(404);
+  //   }
+  // });
 
   //Obtener
   app.get("/eventos/:id", async (req, res) => {
