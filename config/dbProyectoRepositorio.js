@@ -29,22 +29,23 @@ class DbProyectoRepositorio {
     return proyecto;
   }
   async create_proyecto(data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes, estado} = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
       numero_participantes_oficial = 0;
     }
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes)VALUES ($1, $2, $3, $4, $5)",
-      [titulo, descripcion, objetivo, lider, numero_participantes_oficial]
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio)VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [titulo, descripcion, objetivo, lider, numero_participantes_oficial, estado, new Date()]
     );
     return new_proyeto;
   }
   async update_proyecto(id, data) {
     const { titulo, descripcion, objetivo, lider, numero_participantes, estado } = data;
+    const fechaFin = (estado == "ACABADO") ? new Date() : null;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado) WHERE id = $1",
-      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado]
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin) WHERE id = $1",
+      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado, fechaFin]
     );
     return data;
   }
