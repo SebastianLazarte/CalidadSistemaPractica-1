@@ -22,7 +22,6 @@ class DbEventoRepositorio {
     return eventos;
   }
   async get_participantes_eventos(id_evento) {
-    //console.log("ID EVENTO", id_evento);
     const participantes_eventos = await pool.query(
       "SELECT  usuarios.nombre AS Nombre,usuarios.apellido AS Apellido, participantes_eventos.id_evento AS id_evento, participantes_eventos.id_participantes_eventos AS id, usuarios.rol AS rol FROM usuarios JOIN participantes_eventos ON usuarios.id_usuario=participantes_eventos.id_usuario WHERE participantes_eventos.id_evento = $1;",
       [id_evento]
@@ -64,7 +63,6 @@ class DbEventoRepositorio {
   }
 
   async delete_evento(id) {
-    console.log(id);
     const eliminar_evento = await pool.query(
       "DELETE FROM public.eventos WHERE id = $1",
       [id]
@@ -73,7 +71,6 @@ class DbEventoRepositorio {
   }
   //Archivar evento
   async update_evento_estado1(data) {
-    console.log(data.id);
     const actualizar_estado = await pool.query(
       "UPDATE public.eventos SET estado = 0  WHERE id = $1",
       [data]
@@ -82,7 +79,6 @@ class DbEventoRepositorio {
   }
   //Mostrar Evento
   async update_evento_estado2(data) {
-    console.log(data.id);
     const actualizar_estado = await pool.query(
       "UPDATE public.eventos SET estado = 1  WHERE id = $1",
       [data]
@@ -123,19 +119,16 @@ class DbEventoRepositorio {
   //Obtener Id de eventos donde participa un usuario 
   
   async get_eventos_usuario(id_usuario) {
-    console.log("ID USUARIO: ", id_usuario);
     const eventos_usuario = await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
       [id_usuario]
     );
-    console.log(eventos_usuario['rows'][0]);
     return eventos_usuario;
   }
 
 
   //Eliminar participacion de un evento
   async eliminar_participacion(idEvento,idUsuario) {
-
     const eliminar_participacion = await pool.query(
       "DELETE FROM participantes_eventos WHERE id_evento = $1 AND id_usuario = $2",
       [idEvento,idUsuario]
