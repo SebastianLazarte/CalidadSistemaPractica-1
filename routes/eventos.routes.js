@@ -115,7 +115,7 @@ module.exports = function (app) {
     try {
       const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
       
-      res.status(200).json(eventosDelUsuario.rows[0]);
+      res.status(200).json(eventosDelUsuario.rows);
     } catch (err) {
       res.status(404);
     }
