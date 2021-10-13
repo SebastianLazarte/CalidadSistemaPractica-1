@@ -21,7 +21,8 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-  //Obtener
+
+  //Obtener participantes de un evento
   app.get("/eventos/participantes/:id", async (req, res) => {
     try {
       const participantes_eventos =
@@ -107,4 +108,27 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+
+  //Obtener eventos de un usuario participante
+  app.get("/eventos/participante/:id", async (req, res) => {
+    try {
+      const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
+      res.status(200).json(eventosDelUsuario.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
+  app.delete("/eventos/eliminar_participacion/:idEvento/:idUsuario", async (req, res) => {
+    try {
+      const { idEvento, idUsuario } = req.params;
+      const eliminarParticipacion = await service_evento.eliminar_participacion(idEvento, idUsuario);
+      res.status(200).json(eliminarParticipacion.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
+
+
 };
