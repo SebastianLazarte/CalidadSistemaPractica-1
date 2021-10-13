@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/1",
+					"raw": "http://localhost:5000/get_proyecto/37",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"1"
+						"37"
 					]
 				}
 			},
@@ -51,7 +51,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"titulo\": \"Start Proyecto General\",\r\n        \"descripcion\": \"Desarrollamos proyectos que generen un triple impacto: social, ambiental y económico a partir de problemáticas locales co-creando soluciones impulsadas por voluntarios.\",\r\n        \"objetivo\": [\"START es como una maquina donde por una parte insertamos pasión, creatividad, talento, por otra parte inyectamos recursos recursos y nos alimentamos en desafíos reales que evidenciamos en nuestro entorno para así diseñar y co-crear soluciones de impacto.\"],\r\n        \"lider\": [\"Salvador\"]\r\n}",
+					"raw": "{\r\n        \"titulo\": \"Start Proyecto General\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\"Alimentacion\"],\r\n        \"lider\": [\"Salvador\"],\r\n        \"categoria\":\"Social\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,7 +87,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/update_proyecto/1",
+					"raw": "http://localhost:5000/update_proyecto/19",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -95,7 +95,7 @@
 					"port": "5000",
 					"path": [
 						"update_proyecto",
-						"1"
+						"19"
 					]
 				}
 			},
@@ -116,7 +116,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/participate_proyecto/37/sesion/15",
+					"raw": "http://localhost:5000/participate_proyecto/37/sesion/24",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,7 +126,7 @@
 						"participate_proyecto",
 						"37",
 						"sesion",
-						"15"
+						"24"
 					]
 				}
 			},
@@ -138,7 +138,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/delete_proyecto/36",
+					"raw": "http://localhost:5000/delete_proyecto/18",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -146,7 +146,7 @@
 					"port": "5000",
 					"path": [
 						"delete_proyecto",
-						"36"
+						"18"
 					]
 				}
 			},
@@ -158,7 +158,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/participate/37/sesion/25",
+					"raw": "http://localhost:5000/participate/37/sesion/24",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -168,7 +168,7 @@
 						"participate",
 						"37",
 						"sesion",
-						"25"
+						"24"
 					]
 				}
 			},
@@ -179,7 +179,38 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://localhost:5000/get_participantes_proyecto_simple/37",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_participantes_proyecto_simple",
+						"37"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_categorias_protectos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_proyectos/Social",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_proyectos",
+						"Social"
+					]
+				}
 			},
 			"response": []
 		}
