@@ -29,22 +29,22 @@ class DbProyectoRepositorio {
     return proyecto;
   }
   async create_proyecto(data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes,categoria } = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
       numero_participantes_oficial = 0;
     }
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes)VALUES ($1, $2, $3, $4, $5)",
-      [titulo, descripcion, objetivo, lider, numero_participantes_oficial]
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, categoria)VALUES ($1, $2, $3, $4, $5, $6)",
+      [titulo, descripcion, objetivo, lider, numero_participantes_oficial,categoria]
     );
     return new_proyeto;
   }
   async update_proyecto(id, data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes, estado } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes, estado,categoria } = data;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado) WHERE id = $1",
-      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado]
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), categoria=coalesce($8,categoria) WHERE id = $1",
+      [id, titulo, descripcion, objetivo, lider, numero_participantes, estado,categoria]
     );
     return data;
   }
@@ -82,9 +82,6 @@ class DbProyectoRepositorio {
   }
 
 
-
-  
-
   async participation(id,id_autenticacion)
   {
     const res1 = Boolean(
@@ -107,8 +104,7 @@ class DbProyectoRepositorio {
     );
     return proyecto_a_eliminar;
   }
-  async getParticipants_proyecto_simple(id) {
-
+  async get_participantes_proyecto_simple(id) {
     const existeProyecto = Boolean( 
       (
         await pool.query("SELECT EXISTS(select id from public.proyectos where id=$1)",[id])
@@ -123,6 +119,13 @@ class DbProyectoRepositorio {
       return participantsSimple;
     }
     return existeProyecto;
+  }
+  async get_categorias_proyectos(categoria) {
+      const categorias = await pool.query(
+        "SELECT * FROM public.proyectos WHERE categoria=$1",
+        [categoria]
+      );
+      return categorias;
   }
 }
 
