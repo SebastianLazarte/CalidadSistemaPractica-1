@@ -103,7 +103,7 @@ class DbProyectoRepositorio {
       "DELETE FROM proyectos WHERE id = $1",
       [id]
     );
-    return proyecto_a_eliminar;
+    return proyecto_a_eliminar
   }
   async get_participantes_proyecto_simple(id) {
     const existeProyecto = Boolean( 
