@@ -90,5 +90,8 @@ class ProyectoServicio {
       throw console.error("Algo inesperado paso con la Base de datos"); 
     }
   }
+
+
+
 }
 module.exports = ProyectoServicio;

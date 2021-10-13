@@ -79,8 +79,8 @@ module.exports = function (app) {
       }
     }
   )
-   //Obtener lista simple de participantes 
-   app.get("/get_proyectos_simple/:id", async (req, res) => {
+  //Obtener lista simple de participantes 
+  app.get("/get_proyectos_simple/:id", async (req, res) => {
     try {
       const {id}= req.params;
       const lista_simple = await service.getParticipants_proyecto_simple(id);
@@ -91,4 +91,8 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+
+
+
+
 };

@@ -105,7 +105,7 @@ class DbProyectoRepositorio {
       "DELETE FROM proyectos WHERE id = $1",
       [id]
     );
-    return proyecto_a_eliminar;
+    return proyecto_a_eliminar
   }
   async getParticipants_proyecto_simple(id) {
 
@@ -124,6 +124,10 @@ class DbProyectoRepositorio {
     }
     return existeProyecto;
   }
+
+
+
+
 }
 
 module.exports = DbProyectoRepositorio;
