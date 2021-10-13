@@ -29,14 +29,14 @@ class DbProyectoRepositorio {
     return proyecto;
   }
   async create_proyecto(data) {
-    const { titulo, descripcion, objetivo, lider, numero_participantes } = data;
+    const { titulo, descripcion, objetivo, lider, numero_participantes, estado} = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
       numero_participantes_oficial = 0;
     }
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes)VALUES ($1, $2, $3, $4, $5)",
-      [titulo, descripcion, objetivo, lider, numero_participantes_oficial]
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado)VALUES ($1, $2, $3, $4, $5, $6)",
+      [titulo, descripcion, objetivo, lider, numero_participantes_oficial, estado]
     );
     return new_proyeto;
   }
