@@ -20,8 +20,20 @@ class EventoServicio {
   async get_eventos(data) {
     return await this.repository.get_eventos(data);
   }
+
+  //Obtener eventos de participacion de un usuario
   async get_participantes_eventos(data) {
     return await this.repository.get_participantes_eventos(data);
+  }
+
+  //Eliminar participacion en un evento 
+  async eliminar_participacion(idEvento,idUsuario) {
+    try {
+      return await this.repository.eliminar_participacion(idEvento,idUsuario);
+    } catch (error) {
+      console.error("Error al eliminar participacion");
+      return error;
+    }
   }
 
   async get_eventos_usuario(data) {

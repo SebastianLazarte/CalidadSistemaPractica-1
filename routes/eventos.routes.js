@@ -111,13 +111,26 @@ module.exports = function (app) {
 
   //Obtener eventos de un usuario participante
   app.get("/eventos/participante/:id", async (req, res) => {
+    console.log("REQ: ", req.params["id"]);
     try {
       const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
-      res.status(200).json(eventosDelUsuario.rows);
+      
+      res.status(200).json(eventosDelUsuario.rows[0]);
     } catch (err) {
       res.status(404);
     }
   });
+
+  app.delete("/eventos/eliminar_participacion/:idEvento/:idUsuario", async (req, res) => {
+    try {
+      const { idEvento, idUsuario } = req.params;
+      const eliminarParticipacion = await service_evento.eliminar_participacion(idEvento, idUsuario);
+      res.status(200).json(eliminarParticipacion.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
 
 
 };
