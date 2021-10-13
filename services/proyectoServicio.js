@@ -79,16 +79,19 @@ class ProyectoServicio {
       throw console.error("El " + id.toString() + " del proyecto No existe");
     }
   }
-  async getParticipants_proyecto_simple(id) 
+  async get_participantes_proyecto_simple(id) 
   {
     try 
     {
-      const validar= await this.repository.getParticipants_proyecto_simple(id);   
+      const validar= await this.repository.get_participantes_proyecto_simple(id);   
       return validar;
     }catch (error) 
     {
       throw console.error("Algo inesperado paso con la Base de datos"); 
     }
+  }
+  async get_categorias_proyectos(data) {
+    return await this.repository.get_categorias_proyectos(data);
   }
 }
 module.exports = ProyectoServicio;

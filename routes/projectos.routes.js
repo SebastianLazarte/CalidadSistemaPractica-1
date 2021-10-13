@@ -80,13 +80,23 @@ module.exports = function (app) {
     }
   )
    //Obtener lista simple de participantes 
-   app.get("/get_proyectos_simple/:id", async (req, res) => {
+  app.get("/get_participantes_proyecto_simple/:id", async (req, res) => {
     try {
       const {id}= req.params;
-      const lista_simple = await service.getParticipants_proyecto_simple(id);
+      const lista_simple = await service.get_participantes_proyecto_simple(id);
       if(lista_simple==false)
         res.status(404).send("El id: "+ parseInt(id).toString()  +    " no existe");
       res.status(200).json(lista_simple.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+  //Obtener Proyectos por categoria
+  app.get("/get_proyectos/:categoria", async (req, res) => {
+    try {
+      const {categoria}= req.params;
+      const nuevoProyecto = await service.get_categorias_proyectos(categoria);
+      res.status(200).json(nuevoProyecto.rows);
     } catch (err) {
       res.status(404);
     }
