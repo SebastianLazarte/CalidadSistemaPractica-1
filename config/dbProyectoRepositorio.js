@@ -103,6 +103,10 @@ class DbProyectoRepositorio {
       "DELETE FROM proyectos WHERE id = $1",
       [id]
     );
+    const eliminar_voluntarios_proyecto= await pool.query(
+      "DELETE FROM public.participantes_proyectos WHERE id_proyecto = $1",
+      [id]
+    );
     return proyecto_a_eliminar
   }
   async get_participantes_proyecto_simple(id) {
@@ -128,6 +132,66 @@ class DbProyectoRepositorio {
       );
       return categorias;
   }
+
+  async cancel_participate_proyecto(id, id_autenticacion)
+  {
+    const res1 = Boolean(
+      (
+        await pool.query(
+          "SELECT EXISTS(select id_usuario from participantes_proyectos where id_usuario=$1)",
+          [id_autenticacion]
+        )
+      ).rows[0]["exists"]
+    );
+    const res = Boolean(
+      (
+        await pool.query(
+          "SELECT EXISTS(select id_proyecto from participantes_proyectos where id_proyecto=$1)",
+          [id]
+        )
+      ).rows[0]["exists"]
+    );
+    if (res && res1) {
+      const cancel_participate_proyecto = await pool.query(
+        "DELETE FROM public.participantes_proyectos WHERE id_usuario=$1 and id_proyecto=$2",
+        [id_autenticacion, id]
+      );
+      const decrementar_participantes = await pool.query(
+        "UPDATE proyectos SET numero_participantes=numero_participantes-1 WHERE id=$1",
+        [id]
+      );
+    }
+    return res && res1;
+
+  }
+
+  async get_my_proyectos(id_autenticacion)
+  {
+    debugger
+    const existe_usuario = Boolean(
+      (
+        await pool.query(
+          "SELECT EXISTS(select id_usuario from participantes_proyectos where id_usuario=$1)",
+          [id_autenticacion]
+        )
+      ).rows[0]["exists"]
+    );
+    if(existe_usuario)
+    {
+      const my_proyectos = await pool.query(
+        "select p.* from proyectos p where exists (select par.id_proyecto from participantes_proyectos par where par.id_usuario=$1 and p.id = par.id_proyecto) ",
+        [id_autenticacion]
+      );
+      return my_proyectos;
+    }
+    return existe_usuario
+  }
+
+  
+
+
+
+
 }
 
 

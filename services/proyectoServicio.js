@@ -93,5 +93,34 @@ class ProyectoServicio {
   async get_categorias_proyectos(data) {
     return await this.repository.get_categorias_proyectos(data);
   }
+
+
+  async cancel_participate_proyecto(id,id_autenticacion) 
+  {
+    try 
+    {
+      return await this.repository.cancel_participate_proyecto(id,id_autenticacion)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe");
+    }
+  }
+
+  async get_my_proyectos(id_autenticacion)
+  {
+    try
+    {
+        return await this.repository.get_my_proyectos(id_autenticacion)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos o el id del participante no existe");
+    }
+  }
+
+
+
+
 }
 module.exports = ProyectoServicio;

@@ -101,4 +101,41 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+
+
+    //Cancelar participacion de un voluntario en el proyecto
+    app.delete("/cancel_participate_proyecto/:id/sesion/:id_autenticacion",async (req, res) => {
+      try {
+        const { id, id_autenticacion } = req.params;
+        const voluntario_retirado = await service.cancel_participate_proyecto(
+          id,
+          id_autenticacion
+        );
+        res.status(200).json(voluntario_retirado);
+      } catch (err) {
+        res.status(404);
+      }
+    }
+  );
+
+  //Obtener todos los nombres de los proyectos en los que un voluntario esta participando
+  app.get("/sesion/:id_autenticacion/get_my_proyectos",async(req,res)=>{
+    try{
+      const {id_autenticacion}=req.params;
+      const mis_proyectos=await service.get_my_proyectos(id_autenticacion);
+      if(mis_proyectos==false)
+        res.status(404).send("El id : "+ parseInt(id_autenticacion).toString()  +    " no existe entre los voluntarios");
+      else
+      {
+        res.status(200).json(mis_proyectos.rows);
+      }
+    }catch(err){
+      res.status(404);
+    }
+  });
+  
+
+
+
+
 };
