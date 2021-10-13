@@ -20,6 +20,9 @@ class EventoServicio {
   async get_eventos(data) {
     return await this.repository.get_eventos(data);
   }
+  async get_participantes_eventos(data) {
+    return await this.repository.get_participantes_eventos(data);
+  }
 
   async get_evento(data) {
     return await this.repository.get_evento(data);
@@ -38,7 +41,7 @@ class EventoServicio {
     }
   }
 
-  async delete_evento(data){
+  async delete_evento(data) {
     try {
       if (this.validar(data)) {
         return await this.repository.delete_evento(data);
@@ -51,7 +54,7 @@ class EventoServicio {
     }
   }
   // actualizar estado para archivar
-  async update_evento_estado1(data){
+  async update_evento_estado1(data) {
     try {
       if (this.validar(data)) {
         return await this.repository.update_evento_estado1(data);
@@ -64,7 +67,7 @@ class EventoServicio {
     }
   }
   //actualizar estado para mostrar
-  async update_evento_estado2(data){
+  async update_evento_estado2(data) {
     try {
       if (this.validar(data)) {
         return await this.repository.update_evento_estado2(data);

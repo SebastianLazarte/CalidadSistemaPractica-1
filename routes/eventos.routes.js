@@ -21,6 +21,16 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+  //Obtener
+  app.get("/eventos/participantes/:id", async (req, res) => {
+    try {
+      const participantes_eventos =
+        await service_evento.get_participantes_eventos(req.params["id"]);
+      res.status(200).json(participantes_eventos.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
 
   //Obtener
   app.get("/eventos/:id", async (req, res) => {
@@ -31,7 +41,6 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
   app.post(
     "/eventos/participate_evento/:id/sesion/:id_autenticacion",
     async (req, res) => {

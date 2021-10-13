@@ -4,8 +4,7 @@ class ProyectoServicio {
   constructor() {
     this.repository = new _repository();
   }
-  validar(data) 
-  {
+  validar(data) {
     let nombre_proyecto = data["titulo"];
     try {
       if (nombre_proyecto == "") {
@@ -17,49 +16,36 @@ class ProyectoServicio {
     }
     return true;
   }
-  async get_proyectos(data) 
-  {
+  async get_proyectos(data) {
     return await this.repository.get_proyectos(data);
   }
-  async get_proyecto(data) 
-  {
+  async get_proyecto(data) {
     return await this.repository.get_proyecto(data);
   }
 
-  async create_proyecto(data) 
-  {
-    try 
-    {
-      if (this.validar(data)) 
-      {
+  async create_proyecto(data) {
+    try {
+      if (this.validar(data)) {
         return await this.repository.create_proyecto(data);
-      } else 
-      {
+      } else {
         throw console.error("Algo inesperado paso en la base de datos");
       }
-    } catch (error) 
-    {
+    } catch (error) {
       console.error(error.message);
       return error;
     }
   }
 
-  async update_proyecto(id, data) 
-  {
+  async update_proyecto(id, data) {
     //debugger
     //let new_data=await this.llenar_vacios(id,data)
-    try 
-    {
-      if (this.validar(data)) 
-      {
+    try {
+      if (this.validar(data)) {
         return await this.repository.update_proyecto(id, data);
-      } 
-      else 
-      {
+      } else {
         throw console.error("Algo inesperado paso en la base de datos");
       }
-    } catch (error) 
-    {
+    } catch (error) {
       return error;
     }
   }
@@ -86,14 +72,11 @@ class ProyectoServicio {
     }
   }
 
-  async delete_proyecto(id) 
-  {
-    try 
-    {
+  async delete_proyecto(id) {
+    try {
       return await this.repository.delete_proyecto(id);
-    } catch (error) 
-    {
-      throw console.error("El "+id.toString()+" del proyecto No existe");
+    } catch (error) {
+      throw console.error("El " + id.toString() + " del proyecto No existe");
     }
   }
   async getParticipants_proyecto_simple(id) 
