@@ -56,16 +56,12 @@ module.exports = function (app) {
     try {
       const volunteers = await usuarioService.get_volunteers_data();
       let data_to_send = JSON.stringify(volunteers.rows);
-      res.status(200).send(`{"message":"", "data": ${data_to_send}}`)
+      res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
     } catch (err) {
       console.error(err.message);
       res
         .status(204)
-        .send(
-          `{ "message": "there are no volunteers", "data": ""}`
-        );
+        .send(`{ "message": "there are no volunteers", "data": ""}`);
     }
-
-
   });
 };

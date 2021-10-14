@@ -16,7 +16,6 @@ class usuarioServicio {
       data.estado_de_cuenta = "activa";
       return await this.repository.CreateUsuario(data);
     } catch (error) {
-      console.error(error.message);
       return error;
     }
   }
@@ -29,7 +28,6 @@ class usuarioServicio {
         usuario_a_editar,
         data
       );
-      console.log(data_update);
       return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       return false;
@@ -54,13 +52,6 @@ class usuarioServicio {
     } catch (error) {
       return false;
     }
-  }
-
-  transformar_fecha_a_string(fecha) {
-    var dd = String(fecha.getDate()).padStart(2, "0");
-    var mm = String(fecha.getMonth() + 1).padStart(2, "0");
-    var yyyy = fecha.getFullYear();
-    return mm + "/" + dd + "/" + yyyy;
   }
 }
 module.exports = usuarioServicio;
