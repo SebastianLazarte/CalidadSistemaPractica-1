@@ -40,7 +40,10 @@ class usuarioServicio {
         if (!data.hasOwnProperty(`${prop}`)) {
           if (prop === "id_usuario") continue; // Este campo no debe estar en el json
           if (prop === "intereses") {
-            // al recuperar de la base de datos se obtiene un array y el siguiente paso requiere un string
+            data[prop] = usuario_a_editar[prop].join(",");
+            continue;
+          }
+          if (prop === "cualidades") {
             data[prop] = usuario_a_editar[prop].join(",");
             continue;
           }
