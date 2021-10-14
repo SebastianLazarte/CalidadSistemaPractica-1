@@ -187,6 +187,23 @@ class DbProyectoRepositorio {
     return existe_usuario
   }
 
+
+  async get_lideres()
+  {
+    const lideres = await pool.query
+    ("SELECT nombre FROM public.usuarios WHERE estado_de_disponibilidad='disponible' and estado_de_cuenta='activa' and rol='lider'");
+    return lideres;
+  }
+
+  async get_rol(id_autenticacion)
+  {
+    debugger
+    const rol = await pool.query(
+      "SELECT rol FROM public.usuarios WHERE id_usuario = $1",
+      [id_autenticacion]);
+    return rol;
+  }
+
   
 
 

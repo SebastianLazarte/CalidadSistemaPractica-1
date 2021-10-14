@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/37",
+					"raw": "http://localhost:5000/get_proyecto/35",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"37"
+						"35"
 					]
 				}
 			},
@@ -252,6 +252,45 @@
 						"sesion",
 						"12",
 						"get_my_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lideres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_lideres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_lideres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get rol de usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_rol/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_rol",
+						"13"
 					]
 				}
 			},

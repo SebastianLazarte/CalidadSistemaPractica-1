@@ -119,6 +119,25 @@ class ProyectoServicio {
     }
   }
 
+  
+  async get_lideres(){
+    return await this.repository.get_lideres();
+  }
+
+  async get_rol(id_autenticacion)
+  {
+    debugger
+    try
+    {
+      return await this.repository.get_rol(id_autenticacion);
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos");
+    }
+
+  }
+
 
 
 
