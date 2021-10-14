@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "hgpmlfhmjxvnfr",
-  password: "e3fcf341e4ff4a68075b951e1c9a75239afaa42d7eccc3e9c7db81bda6c77a05", //use your pass my friend
-  database: "d966qfatdj765h",
-  host: "ec2-54-173-138-144.compute-1.amazonaws.com",
+  user: "kucbjwwgviyzmk",
+  password: "a52262572f4bc3c60cc7947fed57d4b618fd1aa8a0a05d6615666ae106e087e9", //use your pass my friend
+  database: "d2t7r859pdvtd5",
+  host: "ec2-107-20-24-247.compute-1.amazonaws.com",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -23,9 +23,7 @@ class DbUsuarioRepositorio {
       [id_usuario]
     );
 
-    user.rows[0].intereses = await this.GetInteresesByIdUsuario(
-      id_usuario
-    );
+    user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_usuario);
 
     return user;
   }
@@ -33,7 +31,7 @@ class DbUsuarioRepositorio {
   async GetUsuarios() {
     const users = await pool.query(
       "SELECT nombre,apellido,telefono,rol,ciudad_de_recidencia FROM usuarios ORDER BY apellido"
-    )
+    );
     return users;
   }
 
@@ -72,9 +70,27 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
     } = data;
+    console.log({
+      nombre,
+      apellido,
+      fecha_de_nacimiento,
+      pais_de_recidencia,
+      ciudad_de_recidencia,
+      carrera,
+      nivel_de_estudios,
+      intereses,
+      descripcion_personal,
+      telefono,
+      estado_de_cuenta,
+      genero,
+      nombre_contacto_de_emergencia,
+      numero_contacto_de_emergencia,
+      relacion_contacto_de_emergencia,
+    });
+    console.log(intereses);
 
     const intereses_lista = intereses.split(",");
-
+    console.log(intereses_lista);
     const update_user = await pool.query(
       "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14  WHERE id_usuario=$15 RETURNING *",
       [
@@ -92,7 +108,7 @@ class DbUsuarioRepositorio {
         nombre_contacto_de_emergencia,
         numero_contacto_de_emergencia,
         relacion_contacto_de_emergencia,
-        id_usuario
+        id_usuario,
       ]
     );
 

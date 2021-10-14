@@ -22,12 +22,45 @@ class usuarioServicio {
   }
 
   async do_changes(id, data) {
+    // return await this.repository.UpdateUsuario(id, data);
     try {
-      return await this.repository.UpdateUsuario(id, data);
+      const usuario_a_editar = (await this.repository.GetUsuario(id)).rows[0];
+      const data_update = this.completar_form_a_actualizar(
+        usuario_a_editar,
+        data
+      );
+      console.log(data_update);
+      return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       return false;
     }
   }
 
+  completar_form_a_actualizar(usuario_a_editar, data) {
+    try {
+      for (const prop in usuario_a_editar) {
+        if (!data.hasOwnProperty(`${prop}`)) {
+          if (prop === "id_usuario") continue; // Este campo no debe estar en el json
+          if (prop === "intereses") {
+            // al recuperar de la base de datos se obtiene un array y el siguiente paso requiere un string
+            data[prop] = usuario_a_editar[prop].join(",");
+            continue;
+          }
+          data[prop] = usuario_a_editar[prop];
+          continue;
+        }
+      }
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  transformar_fecha_a_string(fecha) {
+    var dd = String(fecha.getDate()).padStart(2, "0");
+    var mm = String(fecha.getMonth() + 1).padStart(2, "0");
+    var yyyy = fecha.getFullYear();
+    return mm + "/" + dd + "/" + yyyy;
+  }
 }
 module.exports = usuarioServicio;
