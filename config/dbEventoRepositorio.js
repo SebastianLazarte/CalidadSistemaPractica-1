@@ -19,7 +19,13 @@ class DbEventoRepositorio {
 
   async get_eventos(data) {
     const eventos = await pool.query("SELECT * FROM public.eventos");
+    console.log("EVENTOS", eventos);
     return eventos;
+  }
+  async get_categorias(data) {
+    const categorias = await pool.query("SELECT * FROM public.intereses");
+    console.log("CATEGORIAS", categorias);
+    return categorias;
   }
 
   async create_evento(data) {
