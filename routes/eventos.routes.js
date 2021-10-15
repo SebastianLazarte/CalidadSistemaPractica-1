@@ -107,4 +107,15 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+
+  app.get("/lideres", async (req, res) => {
+    try {
+      console.log("Lideres: ");
+      const lideres = await service_evento.get_lideres(req);
+      res.status(200).json(lideres.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
 };

@@ -105,6 +105,12 @@ class DbEventoRepositorio {
     );
     return true;
   }
+
+  
+  async get_lideres(data) {
+    const lideres = await pool.query("SELECT usuarios.rol AS rol, usuarios.nombre AS Nombre,usuarios.apellido AS Apellido FROM usuarios  WHERE usuarios.rol = 'lider'");
+    return lideres;
+  }
 }
 
 module.exports = DbEventoRepositorio;

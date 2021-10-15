@@ -87,5 +87,10 @@ class EventoServicio {
       throw console.error("El " + id.toString() + " del evento no existe");
     }
   }
+
+  //Obtener Lideres
+  async get_lideres(data) {
+    return await this.repository.get_lideres(data);
+  }
 }
 module.exports = EventoServicio;
