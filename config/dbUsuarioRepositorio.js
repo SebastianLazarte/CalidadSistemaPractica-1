@@ -24,7 +24,7 @@ class DbUsuarioRepositorio {
     );
 
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_usuario);
-
+    user.rows[0].cualidades = await this.GetCualidadesByIdUsuario(id_usuario);
     return user;
   }
 
@@ -60,8 +60,9 @@ class DbUsuarioRepositorio {
       pais_de_recidencia,
       ciudad_de_recidencia,
       carrera,
-      nivel_de_estudios,
+      ocupacion,
       intereses,
+      cualidades,
       descripcion_personal,
       telefono,
       estado_de_cuenta,
@@ -73,8 +74,9 @@ class DbUsuarioRepositorio {
     } = data;
 
     const intereses_lista = intereses.split(",");
+    const cualidades_lista = cualidades.split(",");
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
       [
         nombre,
         apellido,
@@ -82,7 +84,7 @@ class DbUsuarioRepositorio {
         pais_de_recidencia,
         ciudad_de_recidencia,
         carrera,
-        nivel_de_estudios,
+        ocupacion,
         descripcion_personal,
         telefono,
         genero,
@@ -99,8 +101,48 @@ class DbUsuarioRepositorio {
       id_usuario,
       intereses_lista
     );
+    update_user.rows[0].cualidades = await this.UpdateCualidades(
+      id_usuario,
+      cualidades_lista
+    );
 
     return update_user;
+  }
+
+  async UpdateCualidades(id_user, cualidades_nuevas) {
+    await pool.query(
+      "DELETE FROM cualidades_de_usuarios WHERE id_usuario = $1",
+      [id_user]
+    );
+
+    var seSQL =
+      "SELECT id_cualidad FROM cualidades WHERE cualidad = '" +
+      cualidades_nuevas[0] +
+      "'";
+    for (let i = 1; i < cualidades_nuevas.length; i++) {
+      seSQL = seSQL + " OR cualidad = '" + cualidades_nuevas[i] + "'";
+    }
+
+    const idsCualidades = await pool.query(seSQL);
+
+    var seSQL2 = "";
+    if (idsCualidades.rows.length === 0) {
+      cualidades_nuevas = [];
+    } else {
+      idsCualidades.rows.forEach((element) => {
+        seSQL2 =
+          seSQL2 +
+          "INSERT INTO cualidades_de_usuarios (id_usuario, id_cualidad) VALUES(" +
+          id_user +
+          "," +
+          element.id_cualidad +
+          ");";
+      });
+    }
+
+    await pool.query(seSQL2);
+
+    return cualidades_nuevas;
   }
 
   async UpdateIntereses(id_user, intereses_nuevos) {
@@ -150,6 +192,19 @@ class DbUsuarioRepositorio {
       intereses.push(element.interes);
     });
     return intereses;
+  }
+
+  async GetCualidadesByIdUsuario(id_usuario) {
+    var cualidades = [];
+    const cualidades_usuario = await pool.query(
+      "SELECT cualidad FROM cualidades I JOIN cualidades_de_usuarios D ON I.id_cualidad=D.id_cualidad WHERE id_usuario = $1",
+      [id_usuario]
+    );
+
+    cualidades_usuario.rows.forEach((element) => {
+      cualidades.push(element.cualidad);
+    });
+    return cualidades;
   }
 }
 
