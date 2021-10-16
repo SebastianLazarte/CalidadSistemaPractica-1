@@ -11,6 +11,7 @@ const pool = new Pool({
   },
 });
 
+
 module.exports = pool;
 class DbUsuarioRepositorio {
   constructor() {
@@ -151,6 +152,13 @@ class DbUsuarioRepositorio {
       intereses.push(element.interes);
     });
     return intereses;
+  }
+  async disableUser(id_user){
+    let user_to_disable =  await pool.query(
+      "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",
+      [id_user]
+    );
+    return user_to_disable.rowCount > 0; 
   }
 }
 

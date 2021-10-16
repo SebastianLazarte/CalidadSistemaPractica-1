@@ -28,6 +28,13 @@ class usuarioServicio {
       return false;
     }
   }
+  async disable_user(id){
+    try {
+      return await this.repository.disableUser(id);
+    } catch (error) {
+      return false;
+    }
+  }
 
 }
 module.exports = usuarioServicio;
