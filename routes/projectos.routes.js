@@ -155,7 +155,15 @@ module.exports = function (app) {
       res.status(404);
     }
   })
-
+  app.get("/get_numero_participantes/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const numero_participantes_proyecto = await service.get_numero_participantes(id);
+      res.status(200).json(numero_participantes_proyecto);
+    } catch (err) {
+      res.status(404);
+    }
+  });
 
 
 

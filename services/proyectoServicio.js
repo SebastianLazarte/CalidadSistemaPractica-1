@@ -138,8 +138,16 @@ class ProyectoServicio {
 
   }
 
-
-
-
+  async get_numero_participantes(id_proyecto)
+  {
+    try
+    {
+        return await this.repository.get_numero_participantes(id_proyecto)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos");
+    }
+  }
 }
 module.exports = ProyectoServicio;

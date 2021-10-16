@@ -204,9 +204,15 @@ class DbProyectoRepositorio {
     return rol;
   }
 
-  
+  async get_numero_participantes(id_proyecto)
+  {
+    const numero_participantes_proyecto = await pool.query
+    ("select count(id_usuario) from public.participantes_proyectos WHERE id_proyecto=$1",[id_proyecto]);
+    const res= numero_participantes_proyecto.rows[0];
 
 
+    return res;
+  }
 
 
 }
