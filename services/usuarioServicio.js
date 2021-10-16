@@ -36,6 +36,14 @@ class usuarioServicio {
       return false;
     }
   }
+  async disable_user(id){
+    try {
+      return await this.repository.disableUser(id);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   completar_form_a_actualizar(usuario_a_editar, data) {
     try {

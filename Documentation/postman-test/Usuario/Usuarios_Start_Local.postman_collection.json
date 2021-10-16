@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5401e8e4-0aab-4109-b1de-ab3c883648d6",
+		"_postman_id": "6d66799c-730f-4f7a-8050-f31ac32732bd",
 		"name": "Usuarios_Start_Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -100,6 +100,104 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Dar de baja un usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/disable_user/19",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"disable_user",
+						"19"
+					]
+				},
+				"description": "Elimina el correo y password de la tabla autenticaciones con el id pasado como parametro (internamente se maneja como un put aunque el REQUEST sea un DELETE)"
+			},
+			"response": [
+				{
+					"name": "Succesful example",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/disable_user/19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"disable_user",
+								"19"
+							]
+						}
+					},
+					"status": "Reset Content",
+					"code": 205,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"39-JPhQQSpgeojVNWb5PWpuibANbqs\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Oct 2021 07:39:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User was disabled succesfully\",\n    \"data\": true\n}"
+				}
+			]
 		}
 	]
 }

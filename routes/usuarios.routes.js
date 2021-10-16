@@ -64,4 +64,24 @@ module.exports = function (app) {
         .send(`{ "message": "there are no volunteers", "data": ""}`);
     }
   });
+  app.delete("/disable_user/:id", async (req, res) => {
+    try {
+      let stateOfDisable = await usuarioService.disable_user(req.params.id);
+      if (stateOfDisable){
+        res
+        .status(205)
+        .send(`{"message":"User was disabled succesfully", "data": ${stateOfDisable}}`);
+      }else{
+        res
+        .status(500)
+        .send(`{"message":"User is not disable", "data": ${stateOfDisable}}`);
+      }      
+    }catch (error) {
+      console.error(error.message);
+      res
+        .status(400)
+        .send(`{"message":"Changes are not commited", "data":false}`);
+    }
+  });
+
 };
