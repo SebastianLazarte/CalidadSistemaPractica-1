@@ -71,10 +71,12 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
+      aptitudes_tecnicas
     } = data;
-
     const intereses_lista = intereses.split(",");
     const cualidades_lista = cualidades.split(",");
+    const aptitudes_lista = aptitudes_tecnicas.split(",");
+
     const update_user = await pool.query(
       "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
       [
@@ -96,7 +98,7 @@ class DbUsuarioRepositorio {
         id_usuario,
       ]
     );
-
+ 
     update_user.rows[0].intereses = await this.UpdateIntereses(
       id_usuario,
       intereses_lista
@@ -106,6 +108,10 @@ class DbUsuarioRepositorio {
       cualidades_lista
     );
 
+    update_user.rows[0].aptitudes_tecnicas = await this.UpdateAptitudes(
+      id_usuario,
+      aptitudes_lista
+    );
     return update_user;
   }
 
@@ -179,6 +185,41 @@ class DbUsuarioRepositorio {
     await pool.query(seSQL2);
 
     return intereses_nuevos;
+  }
+  async UpdateAptitudes(id_user, aptitudes_nuevos) {
+    await pool.query(
+      "DELETE FROM aptitudes_de_usuarios WHERE id_usuario = $1",
+      [id_user]
+    );
+  
+    var seSQL =
+      "SELECT id_aptitud  FROM aptitudes_tecnicas WHERE aptitud_tecnica  = '" +
+      aptitudes_nuevos[0] +
+      "'";
+    for (let i = 1; i < aptitudes_nuevos.length; i++) {
+      seSQL = seSQL + " OR aptitud_tecnica  = '" + aptitudes_nuevos[i] + "'";
+    }
+  
+    const idsAptitudes = await pool.query(seSQL);
+  
+    var seSQL2 = "";
+    if (idsAptitudes.rows.length == 0) {
+      aptitudes_nuevos = [];
+    } else {
+      idsAptitudes.rows.forEach((element) => {
+        seSQL2 =
+          seSQL2 +
+          "INSERT INTO aptitudes_de_usuarios (id_usuario, id_aptitud) VALUES(" +
+          id_user +
+          "," +
+          element.id_aptitud  +
+          ");";
+      });
+    }
+  
+    await pool.query(seSQL2);
+  
+    return aptitudes_nuevos;
   }
 
   async GetInteresesByIdUsuario(id_usuario) {
