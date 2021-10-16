@@ -164,7 +164,15 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
+  app.get("/get_eventos_proyecto/:id",async(req,res)=>{
+    try {
+      const { id } = req.params;
+      const eventos = await service.get_eventos_proyecto(id);
+      res.status(200).json(eventos.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
 
 
 };

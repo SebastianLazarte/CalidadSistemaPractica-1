@@ -149,5 +149,15 @@ class ProyectoServicio {
       throw console.error("Algo inesperado paso con la Base de datos");
     }
   }
+  async get_eventos_proyecto(id_proyecto) 
+  {
+    try 
+    {
+      return await this.repository.get_eventos_proyecto(id_proyecto);   
+    }catch (error) 
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+  }
 }
 module.exports = ProyectoServicio;

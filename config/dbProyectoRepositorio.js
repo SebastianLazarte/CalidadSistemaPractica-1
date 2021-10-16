@@ -213,7 +213,13 @@ class DbProyectoRepositorio {
 
     return res;
   }
-
+  async get_eventos_proyecto(id_proyecto)
+  {
+    const eventos = await pool.query
+    ("SELECT * FROM public.eventos WHERE id_proyecto=$1",[id_proyecto]);
+  
+    return eventos;
+  }
 
 }
 
