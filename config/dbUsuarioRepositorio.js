@@ -42,17 +42,19 @@ class DbUsuarioRepositorio {
       telefono,
       rol,
       estado_de_cuenta,
+      estado_de_disponibilidad,
       id_autenticacion,
     } = data;
 
     const newUser = await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, id_usuario) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
-      [nombre, apellido, telefono, rol, estado_de_cuenta, id_autenticacion]
+      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+      [nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_autenticacion]
     );
     return newUser;
   }
 
   async UpdateUsuario(id_usuario, data) {
+    
     const {
       nombre,
       apellido,
@@ -60,7 +62,7 @@ class DbUsuarioRepositorio {
       pais_de_recidencia,
       ciudad_de_recidencia,
       carrera,
-      ocupacion,
+      nivel_de_estudios,
       intereses,
       cualidades,
       descripcion_personal,
@@ -73,12 +75,14 @@ class DbUsuarioRepositorio {
       estado_de_disponibilidad,
       aptitudes_tecnicas
     } = data;
+    
+    
     const intereses_lista = intereses.split(",");
     const cualidades_lista = cualidades.split(",");
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
       [
         nombre,
         apellido,
@@ -86,7 +90,7 @@ class DbUsuarioRepositorio {
         pais_de_recidencia,
         ciudad_de_recidencia,
         carrera,
-        ocupacion,
+        nivel_de_estudios,
         descripcion_personal,
         telefono,
         genero,

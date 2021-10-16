@@ -14,6 +14,7 @@ class usuarioServicio {
     try {
       data.rol = "voluntario";
       data.estado_de_cuenta = "activa";
+      data.estado_de_disponibilidad = "disponible";
       return await this.repository.CreateUsuario(data);
     } catch (error) {
       return error;
@@ -31,6 +32,7 @@ class usuarioServicio {
     
       return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
@@ -55,6 +57,10 @@ class usuarioServicio {
           data[prop] = usuario_a_editar[prop];
           continue;
         }
+      }
+      if(data.fecha_de_nacimiento === "")
+      {
+        data.fecha_de_nacimiento=null;
       }
       return data;
     } catch (error) {
