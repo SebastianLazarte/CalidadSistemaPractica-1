@@ -64,7 +64,7 @@ class DbUsuarioRepositorio {
       pais_de_recidencia,
       ciudad_de_recidencia,
       carrera,
-      nivel_de_estudios,
+      ocupacion,
       intereses,
       cualidades,
       descripcion_personal,
@@ -84,7 +84,7 @@ class DbUsuarioRepositorio {
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, nivel_de_estudios=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
       [
         nombre,
         apellido,
@@ -92,7 +92,7 @@ class DbUsuarioRepositorio {
         pais_de_recidencia,
         ciudad_de_recidencia,
         carrera,
-        nivel_de_estudios,
+        ocupacion,
         descripcion_personal,
         telefono,
         genero,
