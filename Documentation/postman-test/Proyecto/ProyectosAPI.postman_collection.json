@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b9076216-5a02-4f44-95aa-7da5d28cbf66",
-		"name": "ProyectosAPI Copy",
+		"_postman_id": "cc98e480-7a07-471d-bfb0-681040931bed",
+		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -282,7 +282,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_rol/13",
+					"raw": "http://localhost:5000/get_rol/11",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -290,7 +290,27 @@
 					"port": "5000",
 					"path": [
 						"get_rol",
-						"13"
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_numero_participantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_numero_participantes/53",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_numero_participantes",
+						"53"
 					]
 				}
 			},
