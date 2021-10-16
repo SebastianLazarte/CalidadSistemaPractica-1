@@ -28,6 +28,7 @@ class usuarioServicio {
         usuario_a_editar,
         data
       );
+    
       return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       return false;
@@ -44,6 +45,10 @@ class usuarioServicio {
             continue;
           }
           if (prop === "cualidades") {
+            data[prop] = usuario_a_editar[prop].join(",");
+            continue;
+          }
+          if (prop === "aptitudes_tecnicas") {
             data[prop] = usuario_a_editar[prop].join(",");
             continue;
           }
