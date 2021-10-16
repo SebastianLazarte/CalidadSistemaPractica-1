@@ -187,10 +187,39 @@ class DbProyectoRepositorio {
     return existe_usuario
   }
 
+
+  async get_lideres()
+  {
+    const lideres = await pool.query
+    ("SELECT nombre FROM public.usuarios WHERE estado_de_disponibilidad='disponible' and estado_de_cuenta='activa' and rol='lider'");
+    return lideres;
+  }
+
+  async get_rol(id_autenticacion)
+  {
+    debugger
+    const rol = await pool.query(
+      "SELECT rol FROM public.usuarios WHERE id_usuario = $1",
+      [id_autenticacion]);
+    return rol;
+  }
+
+  async get_numero_participantes(id_proyecto)
+  {
+    const numero_participantes_proyecto = await pool.query
+    ("select count(id_usuario) from public.participantes_proyectos WHERE id_proyecto=$1",[id_proyecto]);
+    const res= numero_participantes_proyecto.rows[0];
+
+
+    return res;
+  }
+  async get_eventos_proyecto(id_proyecto)
+  {
+    const eventos = await pool.query
+    ("SELECT * FROM public.eventos WHERE id_proyecto=$1",[id_proyecto]);
   
-
-
-
+    return eventos;
+  }
 
 }
 

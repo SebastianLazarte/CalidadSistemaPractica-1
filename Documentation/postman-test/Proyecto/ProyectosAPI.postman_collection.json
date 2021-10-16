@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b9076216-5a02-4f44-95aa-7da5d28cbf66",
-		"name": "ProyectosAPI Copy",
+		"_postman_id": "cc98e480-7a07-471d-bfb0-681040931bed",
+		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/37",
+					"raw": "http://localhost:5000/get_proyecto/35",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"37"
+						"35"
 					]
 				}
 			},
@@ -252,6 +252,85 @@
 						"sesion",
 						"12",
 						"get_my_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lideres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_lideres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_lideres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get rol de usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_rol/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_rol",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_numero_participantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_numero_participantes/53",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_numero_participantes",
+						"53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_eventos_proyectos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_eventos_proyecto/54",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_eventos_proyecto",
+						"54"
 					]
 				}
 			},

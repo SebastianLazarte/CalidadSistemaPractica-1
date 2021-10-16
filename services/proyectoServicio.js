@@ -119,8 +119,45 @@ class ProyectoServicio {
     }
   }
 
+  
+  async get_lideres(){
+    return await this.repository.get_lideres();
+  }
 
+  async get_rol(id_autenticacion)
+  {
+    debugger
+    try
+    {
+      return await this.repository.get_rol(id_autenticacion);
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos");
+    }
 
+  }
 
+  async get_numero_participantes(id_proyecto)
+  {
+    try
+    {
+        return await this.repository.get_numero_participantes(id_proyecto)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos");
+    }
+  }
+  async get_eventos_proyecto(id_proyecto) 
+  {
+    try 
+    {
+      return await this.repository.get_eventos_proyecto(id_proyecto);   
+    }catch (error) 
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+  }
 }
 module.exports = ProyectoServicio;

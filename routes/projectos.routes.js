@@ -133,9 +133,46 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-  
+
+  //Obtener todos los lideres existentes en la tabla usuarios
+  app.get("/get_lideres",async(req,res)=>{
+    try {
+      const lideres = await service.get_lideres();
+      res.status(200).json(lideres.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  })
 
 
+  //Obtener el rol de un id autentificado 
+  app.get("/get_rol/:id_autenticacion",async(req,res)=>{
+    try {
+      const {id_autenticacion}=req.params;
+      const rol = await service.get_rol(id_autenticacion);
+      res.status(200).json(rol.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  })
+  app.get("/get_numero_participantes/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const numero_participantes_proyecto = await service.get_numero_participantes(id);
+      res.status(200).json(numero_participantes_proyecto);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+  app.get("/get_eventos_proyecto/:id",async(req,res)=>{
+    try {
+      const { id } = req.params;
+      const eventos = await service.get_eventos_proyecto(id);
+      res.status(200).json(eventos.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
 
 
 };
