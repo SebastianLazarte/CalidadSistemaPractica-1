@@ -40,6 +40,7 @@ class usuarioServicio {
     try {
       return await this.repository.disableUser(id);
     } catch (error) {
+      console.log(error);
       return false;
     }
   }

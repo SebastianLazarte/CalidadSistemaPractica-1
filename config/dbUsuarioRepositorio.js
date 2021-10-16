@@ -266,6 +266,14 @@ class DbUsuarioRepositorio {
     });
     return aptitudes_tecnicas;
   }
+  async disableUser(id_user){
+    let user_to_disable =  await pool.query(
+      "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",
+      [id_user]
+    );
+    return user_to_disable.rowCount > 0; 
+  }
+  
 }
 
 module.exports = DbUsuarioRepositorio;
