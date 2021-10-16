@@ -21,6 +21,15 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+  app.get("/eventos/categorias", async (req, res) => {
+    try {
+      const categorias = await service_evento.get_categorias(req);
+      res.status(200).json(categorias.rows);
+    } catch (err) {
+      console.log("error de ruta");
+      res.status(404);
+    }
+  });
   //Obtener
   app.get("/eventos/participantes/:id", async (req, res) => {
     try {
@@ -116,5 +125,4 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
 };

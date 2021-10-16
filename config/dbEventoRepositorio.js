@@ -21,6 +21,10 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
+  async get_categorias(data) {
+    const categorias = await pool.query("SELECT * FROM public.intereses");
+    return categorias;
+  }
   async get_participantes_eventos(id_evento) {
     console.log("ID EVENTO", id_evento);
     const participantes_eventos = await pool.query(
@@ -106,9 +110,10 @@ class DbEventoRepositorio {
     return true;
   }
 
-  
   async get_lideres(data) {
-    const lideres = await pool.query("SELECT usuarios.rol AS rol, usuarios.nombre AS Nombre,usuarios.apellido AS Apellido FROM usuarios  WHERE usuarios.rol = 'lider'");
+    const lideres = await pool.query(
+      "SELECT usuarios.rol AS rol, usuarios.nombre AS Nombre,usuarios.apellido AS Apellido FROM usuarios  WHERE usuarios.rol = 'lider'"
+    );
     return lideres;
   }
 }

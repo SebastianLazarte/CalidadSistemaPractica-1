@@ -20,6 +20,9 @@ class EventoServicio {
   async get_eventos(data) {
     return await this.repository.get_eventos(data);
   }
+  async get_categorias(data) {
+    return await this.repository.get_categorias(data);
+  }
   async get_participantes_eventos(data) {
     return await this.repository.get_participantes_eventos(data);
   }
