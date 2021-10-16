@@ -25,6 +25,8 @@ class DbUsuarioRepositorio {
 
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_usuario);
     user.rows[0].cualidades = await this.GetCualidadesByIdUsuario(id_usuario);
+    user.rows[0].aptitudes_tecnicas = await this.GetAptitudesByIdUsuario(id_usuario);
+    
     return user;
   }
 
@@ -250,6 +252,19 @@ class DbUsuarioRepositorio {
       cualidades.push(element.cualidad);
     });
     return cualidades;
+  }
+
+  async GetAptitudesByIdUsuario(id_usuario) {
+    var aptitudes_tecnicas = [];
+    const aptitudes_usuario = await pool.query(
+      "SELECT aptitud_tecnica FROM aptitudes_tecnicas I JOIN aptitudes_de_usuarios D ON I.id_aptitud=D.id_aptitud WHERE id_usuario = $1",
+      [id_usuario]
+    );
+
+    aptitudes_usuario.rows.forEach((element) => {
+      aptitudes_tecnicas.push(element.cualidad);
+    });
+    return aptitudes_tecnicas;
   }
 }
 
