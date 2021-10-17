@@ -262,7 +262,7 @@ class DbUsuarioRepositorio {
     );
 
     aptitudes_usuario.rows.forEach((element) => {
-      aptitudes_tecnicas.push(element.cualidad);
+      aptitudes_tecnicas.push(element.aptitud_tecnica);
     });
     return aptitudes_tecnicas;
   }
