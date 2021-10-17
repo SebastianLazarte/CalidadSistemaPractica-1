@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "hgpmlfhmjxvnfr",
-  password: "e3fcf341e4ff4a68075b951e1c9a75239afaa42d7eccc3e9c7db81bda6c77a05", //use your pass my friend
-  database: "d966qfatdj765h",
-  host: "ec2-54-173-138-144.compute-1.amazonaws.com",
+  user: "fgkpjbonvunxib",
+  password: "5838355190c7b36a8a6b206611a34da971b5a278ed199d455eaf9c68ba70e4a1", //use your pass my friend
+  database: "dfbgju17k67ar8",
+  host: "ec2-52-206-193-199.compute-1.amazonaws.com",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -25,8 +25,10 @@ class DbUsuarioRepositorio {
 
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_usuario);
     user.rows[0].cualidades = await this.GetCualidadesByIdUsuario(id_usuario);
-    user.rows[0].aptitudes_tecnicas = await this.GetAptitudesByIdUsuario(id_usuario);
-    
+    user.rows[0].aptitudes_tecnicas = await this.GetAptitudesByIdUsuario(
+      id_usuario
+    );
+
     return user;
   }
 
@@ -50,13 +52,20 @@ class DbUsuarioRepositorio {
 
     const newUser = await pool.query(
       "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
-      [nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_autenticacion]
+      [
+        nombre,
+        apellido,
+        telefono,
+        rol,
+        estado_de_cuenta,
+        estado_de_disponibilidad,
+        id_autenticacion,
+      ]
     );
     return newUser;
   }
 
   async UpdateUsuario(id_usuario, data) {
-    
     const {
       nombre,
       apellido,
@@ -75,10 +84,9 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
-      aptitudes_tecnicas
+      aptitudes_tecnicas,
     } = data;
-    
-    
+
     const intereses_lista = intereses.split(",");
     const cualidades_lista = cualidades.split(",");
     const aptitudes_lista = aptitudes_tecnicas.split(",");
@@ -104,7 +112,7 @@ class DbUsuarioRepositorio {
         id_usuario,
       ]
     );
- 
+
     update_user.rows[0].intereses = await this.UpdateIntereses(
       id_usuario,
       intereses_lista
@@ -197,7 +205,7 @@ class DbUsuarioRepositorio {
       "DELETE FROM aptitudes_de_usuarios WHERE id_usuario = $1",
       [id_user]
     );
-  
+
     var seSQL =
       "SELECT id_aptitud  FROM aptitudes_tecnicas WHERE aptitud_tecnica  = '" +
       aptitudes_nuevos[0] +
@@ -205,9 +213,9 @@ class DbUsuarioRepositorio {
     for (let i = 1; i < aptitudes_nuevos.length; i++) {
       seSQL = seSQL + " OR aptitud_tecnica  = '" + aptitudes_nuevos[i] + "'";
     }
-  
+
     const idsAptitudes = await pool.query(seSQL);
-  
+
     var seSQL2 = "";
     if (idsAptitudes.rows.length == 0) {
       aptitudes_nuevos = [];
@@ -218,13 +226,13 @@ class DbUsuarioRepositorio {
           "INSERT INTO aptitudes_de_usuarios (id_usuario, id_aptitud) VALUES(" +
           id_user +
           "," +
-          element.id_aptitud  +
+          element.id_aptitud +
           ");";
       });
     }
-  
+
     await pool.query(seSQL2);
-  
+
     return aptitudes_nuevos;
   }
 
@@ -266,14 +274,13 @@ class DbUsuarioRepositorio {
     });
     return aptitudes_tecnicas;
   }
-  async disableUser(id_user){
-    let user_to_disable =  await pool.query(
+  async disableUser(id_user) {
+    let user_to_disable = await pool.query(
       "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",
       [id_user]
     );
-    return user_to_disable.rowCount > 0; 
+    return user_to_disable.rowCount > 0;
   }
-  
 }
 
 module.exports = DbUsuarioRepositorio;

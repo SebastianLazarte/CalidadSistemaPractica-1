@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "hgpmlfhmjxvnfr",
-  password: "e3fcf341e4ff4a68075b951e1c9a75239afaa42d7eccc3e9c7db81bda6c77a05", //use your pass my friend
-  database: "d966qfatdj765h",
-  host: "ec2-54-173-138-144.compute-1.amazonaws.com",
+  user: "fgkpjbonvunxib",
+  password: "5838355190c7b36a8a6b206611a34da971b5a278ed199d455eaf9c68ba70e4a1", //use your pass my friend
+  database: "dfbgju17k67ar8",
+  host: "ec2-52-206-193-199.compute-1.amazonaws.com",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -106,8 +106,8 @@ class DbEventoRepositorio {
     return true;
   }
 
-  //Obtener Id de eventos donde participa un usuario 
-  
+  //Obtener Id de eventos donde participa un usuario
+
   async get_eventos_usuario(id_usuario) {
     const eventos_usuario = await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
@@ -116,15 +116,15 @@ class DbEventoRepositorio {
     return eventos_usuario;
   }
 
-
   //Eliminar participacion de un evento
-  async eliminar_participacion(idEvento,idUsuario) {
+  async eliminar_participacion(idEvento, idUsuario) {
     const eliminar_participacion = await pool.query(
       "DELETE FROM participantes_eventos WHERE id_evento = $1 AND id_usuario = $2",
-      [idEvento,idUsuario]
+      [idEvento, idUsuario]
     );
     return eliminar_evento;
   }
+<<<<<<< HEAD
 
   async get_lideres(data) {
     const lideres = await pool.query(
@@ -152,6 +152,8 @@ class DbEventoRepositorio {
     return existe_usuario;
   }
 
+=======
+>>>>>>> a188b82 (se agrego la base de datos)
 }
 
 module.exports = DbEventoRepositorio;
