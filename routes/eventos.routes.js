@@ -23,6 +23,17 @@ module.exports = function (app) {
   });
 
   //Obtener participantes de un evento
+  app.get("/eventos/categorias", async (req, res) => {
+    try {
+      const categorias = await service_evento.get_categorias(req);
+      res.status(200).json(categorias.rows);
+    } catch (err) {
+      console.log("error de ruta");
+      res.status(404);
+    }
+  });
+  
+  //Obtener
   app.get("/eventos/participantes/:id", async (req, res) => {
     try {
       const participantes_eventos =
@@ -114,6 +125,15 @@ module.exports = function (app) {
     try {
       const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
       res.status(200).json(eventosDelUsuario.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
+  app.get("/lideres", async (req, res) => {
+    try {
+      const lideres = await service_evento.get_lideres(req);
+      res.status(200).json(lideres.rows);
     } catch (err) {
       res.status(404);
     }

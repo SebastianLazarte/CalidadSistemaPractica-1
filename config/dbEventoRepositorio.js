@@ -21,6 +21,10 @@ class DbEventoRepositorio {
     const eventos = await pool.query("SELECT * FROM public.eventos");
     return eventos;
   }
+  async get_categorias(data) {
+    const categorias = await pool.query("SELECT * FROM public.intereses");
+    return categorias;
+  }
   async get_participantes_eventos(id_evento) {
     const participantes_eventos = await pool.query(
       "SELECT  usuarios.nombre AS Nombre,usuarios.apellido AS Apellido, participantes_eventos.id_evento AS id_evento, participantes_eventos.id_participantes_eventos AS id, usuarios.rol AS rol FROM usuarios JOIN participantes_eventos ON usuarios.id_usuario=participantes_eventos.id_usuario WHERE participantes_eventos.id_evento = $1;",
@@ -37,9 +41,13 @@ class DbEventoRepositorio {
       fecha_evento,
       proyecto,
       estado,
+      categoria,
+      hora_inicio,
+      hora_fin,
+      lider,
     } = data;
     const new_evento = await pool.query(
-      "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado,categoria,hora_inicio,hora_fin,lider) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       [
         nombre_evento,
         descripcion_evento,
@@ -48,6 +56,10 @@ class DbEventoRepositorio {
         fecha_evento,
         proyecto,
         estado,
+        categoria,
+        hora_inicio,
+        hora_fin,
+        lider,
       ]
     );
     return new_evento;
@@ -86,28 +98,6 @@ class DbEventoRepositorio {
     return actualizar_estado;
   }
 
-  async create_evento(data) {
-    const {
-      nombre_evento,
-      descripcion_evento,
-      modalidad_evento,
-      lugar_evento,
-      fecha_evento,
-      proyecto,
-    } = data;
-    const new_evento = await pool.query(
-      "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto) VALUES ($1, $2, $3, $4, $5, $6)",
-      [
-        nombre_evento,
-        descripcion_evento,
-        modalidad_evento,
-        lugar_evento,
-        fecha_evento,
-        proyecto,
-      ]
-    );
-    return new_evento;
-  }
   async participate_evento(id, id_autenticacion) {
     const participate_evento = await pool.query(
       "INSERT INTO participantes_eventos(id_usuario, id_evento)VALUES($1,$2)",
@@ -136,6 +126,12 @@ class DbEventoRepositorio {
     return eliminar_evento;
   }
 
+  async get_lideres(data) {
+    const lideres = await pool.query(
+      "SELECT usuarios.rol AS rol, usuarios.nombre AS Nombre,usuarios.apellido AS Apellido FROM usuarios  WHERE usuarios.rol = 'lider'"
+    );
+    return lideres;
+  }
 }
 
 module.exports = DbEventoRepositorio;

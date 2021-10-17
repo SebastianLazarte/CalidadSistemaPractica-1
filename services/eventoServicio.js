@@ -22,6 +22,10 @@ class EventoServicio {
   }
 
   //Obtener eventos de participacion de un usuario
+  async get_categorias(data) {
+    return await this.repository.get_categorias(data);
+  }
+  
   async get_participantes_eventos(data) {
     return await this.repository.get_participantes_eventos(data);
   }
@@ -102,6 +106,11 @@ class EventoServicio {
     } catch (error) {
       throw console.error("El " + id.toString() + " del evento no existe");
     }
+  }
+
+  //Obtener Lideres
+  async get_lideres(data) {
+    return await this.repository.get_lideres(data);
   }
 }
 module.exports = EventoServicio;

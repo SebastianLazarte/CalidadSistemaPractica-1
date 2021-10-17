@@ -7,6 +7,10 @@ CREATE TABLE evento_data(
     modalidad_evento VARCHAR(400),
     lugar_evento VARCHAR(10),
     fecha_evento VARCHAR(50),
-    proyecto VARCHAR,
-    estado VARCHAR
+    proyecto VARCHAR(400),
+    estado VARCHAR(400),
+    categoria VARCHAR(400),
+    hora_inicio VARCHAR(50),
+    hora_fin VARCHAR(50),
+    lider VARCHAR(400),
 );
