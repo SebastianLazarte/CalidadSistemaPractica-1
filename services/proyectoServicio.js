@@ -124,6 +124,10 @@ class ProyectoServicio {
     return await this.repository.get_lideres();
   }
 
+  async get_roles(){
+    return await this.repository.get_roles();
+  }
+
   async get_rol(id_autenticacion)
   {
     debugger
