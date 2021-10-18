@@ -144,6 +144,15 @@ module.exports = function (app) {
     }
   })
 
+  app.get("/get_roles",async(req,res)=>{
+    try {
+      const roles = await service.get_roles();
+      res.status(200).json(roles.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  })
+
 
   //Obtener el rol de un id autentificado 
   app.get("/get_rol/:id_autenticacion",async(req,res)=>{

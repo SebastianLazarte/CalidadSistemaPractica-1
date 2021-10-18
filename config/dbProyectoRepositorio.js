@@ -195,6 +195,13 @@ class DbProyectoRepositorio {
     return lideres;
   }
 
+  async get_roles()
+  {
+    const roles = await pool.query
+    ("SELECT DISTINCT rol FROM public.usuarios WHERE estado_de_disponibilidad='disponible' and estado_de_cuenta='activa'");
+    return roles;
+  }
+
   async get_rol(id_autenticacion)
   {
     debugger
