@@ -118,5 +118,17 @@ class EventoServicio {
   async get_lideres(data) {
     return await this.repository.get_lideres(data);
   }
+
+  async get_my_eventos(id_autenticacion)
+  {
+    try
+    {
+        return await this.repository.get_my_eventos(id_autenticacion)
+    }
+    catch(error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos o el id del participante no existe");
+    }
+  }
 }
 module.exports = EventoServicio;
