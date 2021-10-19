@@ -133,9 +133,7 @@ class DbEventoRepositorio {
     return lideres;
   }
 
-  async get_my_eventos(id_autenticacion)
-  {
-    debugger
+  async get_my_eventos(id_autenticacion){
     const existe_usuario = Boolean(
       (
         await pool.query(
@@ -144,16 +142,16 @@ class DbEventoRepositorio {
         )
       ).rows[0]["exists"]
     );
-    if(existe_usuario)
-    {
-      const my_eventos= await pool.query(
-        "select p.* from eventos p where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and p.id = par.id_evento) ",
+    if(existe_usuario){
+      const my_eventos = await pool.query(
+        "select e.* from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
         [id_autenticacion]
       );
       return my_eventos;
     }
-    return existe_usuario
+    return existe_usuario;
   }
+
 }
 
 module.exports = DbEventoRepositorio;

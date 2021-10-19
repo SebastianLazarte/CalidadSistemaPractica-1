@@ -119,11 +119,10 @@ class EventoServicio {
     return await this.repository.get_lideres(data);
   }
 
-  async get_my_eventos(id_autenticacion)
-  {
-    try
-    {
-        return await this.repository.get_my_eventos(id_autenticacion)
+  //Obtener participaciones en eventos de 1 voluntario
+  async get_my_eventos(id_autenticacion){
+    try{
+      return await this.repository.get_my_eventos(id_autenticacion);
     }
     catch(error)
     {
