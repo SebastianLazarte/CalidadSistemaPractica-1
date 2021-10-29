@@ -44,10 +44,14 @@ class ProyectoServicio {
     var proyecto = await this.repository.get_proyecto(data);
     var fecha_inicio = proyecto.rows[0].fecha_inicio
     var fecha_fin = proyecto.rows[0].fecha_fin
-    var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
-    var fecha_fin_string=this.convertir_fecha(fecha_fin)
-    proyecto.rows[0].fecha_inicio=fecha_inicio_string
-    proyecto.rows[0].fecha_fin=fecha_fin_string
+    if (fecha_inicio!=null){
+      var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+      proyecto.rows[0].fecha_inicio=fecha_inicio_string
+    }
+    if (fecha_fin!=null){
+      var fecha_fin_string=this.convertir_fecha(fecha_fin)
+      proyecto.rows[0].fecha_fin=fecha_fin_string
+    }
     return proyecto
   }
 
