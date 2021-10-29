@@ -51,6 +51,7 @@ class DbProyectoRepositorio {
     const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
       id,
     ]);
+    
     return proyecto;
   }
 
