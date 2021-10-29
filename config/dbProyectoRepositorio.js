@@ -41,13 +41,17 @@ class DbProyectoRepositorio {
     return new_proyeto;
   }
   async update_proyecto(id, data) {
+    debugger
     const { titulo, descripcion, objetivo, lider, numero_participantes, estado,categoria } = data;
     const fechaFin = (estado == "ACABADO") ? new Date() : null;
     const proyecto_a_actualizar = await pool.query(
       "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria=coalesce($9,categoria) WHERE id = $1",
       [id, titulo, descripcion, objetivo, lider, numero_participantes, estado, fechaFin,categoria]
     );
-    return data;
+    const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
+      id,
+    ]);
+    return proyecto;
   }
 
   async participate_proyecto(id, id_autenticacion) {
