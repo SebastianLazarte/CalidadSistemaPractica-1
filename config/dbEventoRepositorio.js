@@ -106,8 +106,8 @@ class DbEventoRepositorio {
     return true;
   }
 
-  //Obtener Id de eventos donde participa un usuario 
-  
+  //Obtener Id de eventos donde participa un usuario
+
   async get_eventos_usuario(id_usuario) {
     const eventos_usuario = await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
@@ -116,12 +116,11 @@ class DbEventoRepositorio {
     return eventos_usuario;
   }
 
-
   //Eliminar participacion de un evento
-  async eliminar_participacion(idEvento,idUsuario) {
+  async eliminar_participacion(idEvento, idUsuario) {
     const eliminar_participacion = await pool.query(
       "DELETE FROM participantes_eventos WHERE id_evento = $1 AND id_usuario = $2",
-      [idEvento,idUsuario]
+      [idEvento, idUsuario]
     );
     return eliminar_evento;
   }
@@ -133,7 +132,7 @@ class DbEventoRepositorio {
     return lideres;
   }
 
-  async get_my_eventos(id_autenticacion){
+  async get_my_eventos(id_autenticacion) {
     const existe_usuario = Boolean(
       (
         await pool.query(
@@ -142,7 +141,7 @@ class DbEventoRepositorio {
         )
       ).rows[0]["exists"]
     );
-    if(existe_usuario){
+    if (existe_usuario) {
       const my_eventos = await pool.query(
         "select e.id, e.nombre_evento, e.descripcion_evento, e.lider, e.modalidad_evento, e.categoria, e.id_proyecto, e.proyecto, e.fecha_evento, e.hora_inicio, e.hora_fin  from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
         [id_autenticacion]
@@ -152,6 +151,44 @@ class DbEventoRepositorio {
     return existe_usuario;
   }
 
+  async actualizar_evento(id, data) {
+    console.log("Id Erick", id);
+    console.log("Cuerpo", data);
+
+    const {
+      nombre_evento,
+      descripcion_evento,
+      modalidad_evento,
+      lugar_evento,
+      fecha_evento,
+      proyecto,
+      estado,
+      categoria,
+      hora_inicio,
+      hora_fin,
+      lider,
+    } = data;
+    const evento_a_actualizar = await pool.query(
+      "UPDATE public.eventos SET nombre_evento=$2, descripcion_evento=$3, modalidad_evento= $4, lugar_evento=$5,fecha_evento=$6,proyecto=$7,estado=$8,categoria=$9,hora_inicio=$10, hora_fin=$11, lider=$12 WHERE id=$1",
+      [
+        id,
+        nombre_evento,
+        descripcion_evento,
+        modalidad_evento,
+        lugar_evento,
+        fecha_evento,
+        proyecto,
+        estado,
+        categoria,
+        hora_inicio,
+        hora_fin,
+        lider,
+      ]
+    );
+    const evento = await pool.query("SELECT * FROM eventos WHERE id=$1", [id]);
+
+    return evento;
+  }
 }
 
 module.exports = DbEventoRepositorio;

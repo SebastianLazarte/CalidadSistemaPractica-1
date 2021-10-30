@@ -31,15 +31,15 @@ class EventoServicio {
   async get_categorias(data) {
     return await this.repository.get_categorias(data);
   }
-  
+
   async get_participantes_eventos(data) {
     return await this.repository.get_participantes_eventos(data);
   }
 
-  //Eliminar participacion en un evento 
-  async eliminar_participacion(idEvento,idUsuario) {
+  //Eliminar participacion en un evento
+  async eliminar_participacion(idEvento, idUsuario) {
     try {
-      return await this.repository.eliminar_participacion(idEvento,idUsuario);
+      return await this.repository.eliminar_participacion(idEvento, idUsuario);
     } catch (error) {
       console.error("Error al eliminar participacion");
       return error;
@@ -106,6 +106,19 @@ class EventoServicio {
     }
   }
 
+  async actualizar_evento(data, id) {
+    try {
+      if (this.validar(data)) {
+        return await this.repository.actualizar_evento(data, id);
+      } else {
+        throw console.error("Error al actualizar evento!");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+
   async participate_evento(id, id_autenticacion) {
     try {
       return await this.repository.participate_evento(id, id_autenticacion);
@@ -120,13 +133,13 @@ class EventoServicio {
   }
 
   //Obtener participaciones en eventos de 1 voluntario
-  async get_my_eventos(id_autenticacion){
-    try{
+  async get_my_eventos(id_autenticacion) {
+    try {
       return await this.repository.get_my_eventos(id_autenticacion);
-    }
-    catch(error)
-    {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del participante no existe");
+    } catch (error) {
+      throw console.error(
+        "Algo inesperado paso con la Base de datos o el id del participante no existe"
+      );
     }
   }
 }
