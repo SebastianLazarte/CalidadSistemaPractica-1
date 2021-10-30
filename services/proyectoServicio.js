@@ -17,7 +17,7 @@ class ProyectoServicio {
     return true;
   }
   convertir_fecha(data){
-    var fecha=data.toLocaleDateString();
+    var fecha=data.toLocaleDateString("en-GB");
     return fecha
   }
   async get_proyectos(data) {
@@ -58,7 +58,18 @@ class ProyectoServicio {
   async create_proyecto(data) {
     try {
       if (this.validar(data)) {
-        return await this.repository.create_proyecto(data);
+        var proyecto=await this.repository.create_proyecto(data);
+        var fecha_inicio = proyecto.rows[0].fecha_inicio
+        var fecha_fin = proyecto.rows[0].fecha_fin
+        if (fecha_inicio!=null){
+          var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+          proyecto.rows[0].fecha_inicio=fecha_inicio_string
+        }
+        if (fecha_fin!=null){
+          var fecha_fin_string=this.convertir_fecha(fecha_fin)
+          proyecto.rows[0].fecha_fin=fecha_fin_string
+        }
+        return proyecto
       } else {
         throw console.error("Algo inesperado paso en la base de datos");
       }
@@ -72,8 +83,20 @@ class ProyectoServicio {
     //debugger
     //let new_data=await this.llenar_vacios(id,data)
     try {
+      debugger
       if (this.validar(data)) {
-        return await this.repository.update_proyecto(id, data);
+        var proyecto=await this.repository.update_proyecto(id, data);
+        var fecha_inicio = proyecto.rows[0].fecha_inicio
+        var fecha_fin = proyecto.rows[0].fecha_fin
+        if (fecha_inicio!=null){
+          var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+          proyecto.rows[0].fecha_inicio=fecha_inicio_string
+        }
+        if (fecha_fin!=null){
+          var fecha_fin_string=this.convertir_fecha(fecha_fin)
+          proyecto.rows[0].fecha_fin=fecha_fin_string
+        }
+        return proyecto
       } else {
         throw console.error("Algo inesperado paso en la base de datos");
       }
@@ -143,7 +166,23 @@ class ProyectoServicio {
   {
     try
     {
-        return await this.repository.get_my_proyectos(id_autenticacion)
+      var resultado=await this.repository.get_my_proyectos(id_autenticacion)
+      var i=0
+      var tamanio=resultado.rows.length
+      while(i < tamanio){
+        var fecha_inicio = resultado.rows[i].fecha_inicio
+        var fecha_fin = resultado.rows[i].fecha_fin
+        if (fecha_inicio!=null){
+          var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+          resultado.rows[i].fecha_inicio=fecha_inicio_string
+        }
+        if (fecha_fin!=null){
+          var fecha_fin_string=this.convertir_fecha(fecha_fin)
+          resultado.rows[i].fecha_fin=fecha_fin_string
+        }
+        i=i+1
+      }
+      return resultado      
     }
     catch(error)
     {

@@ -38,7 +38,8 @@ class DbProyectoRepositorio {
       "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
       [titulo, descripcion, objetivo, lider, numero_participantes_oficial, estado, new Date(),categoria] 
     );
-    return new_proyeto;
+    const proyecto_to_show= await pool.query("SELECT * FROM proyectos ORDER BY ID DESC LIMIT 1");
+    return proyecto_to_show;
   }
   async update_proyecto(id, data) {
     debugger

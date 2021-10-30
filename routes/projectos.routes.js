@@ -6,7 +6,7 @@ module.exports = function (app) {
   app.post("/create_proyecto", async (req, res) => {
     try {
       const nuevoProyecto = await service.create_proyecto(req.body);
-      res.status(201).json(req.body);
+      res.status(201).json(nuevoProyecto.rows);
     } catch (err) {
       res.status(404);
     }
