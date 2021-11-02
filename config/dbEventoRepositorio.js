@@ -106,8 +106,8 @@ class DbEventoRepositorio {
     return true;
   }
 
-  //Obtener Id de eventos donde participa un usuario 
-  
+  //Obtener Id de eventos donde participa un usuario
+
   async get_eventos_usuario(id_usuario) {
     const eventos_usuario = await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
@@ -116,12 +116,11 @@ class DbEventoRepositorio {
     return eventos_usuario;
   }
 
-
   //Eliminar participacion de un evento
-  async eliminar_participacion(idEvento,idUsuario) {
+  async eliminar_participacion(idEvento, idUsuario) {
     const eliminar_participacion = await pool.query(
       "DELETE FROM participantes_eventos WHERE id_evento = $1 AND id_usuario = $2",
-      [idEvento,idUsuario]
+      [idEvento, idUsuario]
     );
     return eliminar_evento;
   }
@@ -133,7 +132,7 @@ class DbEventoRepositorio {
     return lideres;
   }
 
-  async get_my_eventos(id_autenticacion){
+  async get_my_eventos(id_autenticacion) {
     const existe_usuario = Boolean(
       (
         await pool.query(
@@ -142,7 +141,7 @@ class DbEventoRepositorio {
         )
       ).rows[0]["exists"]
     );
-    if(existe_usuario){
+    if (existe_usuario) {
       const my_eventos = await pool.query(
         "select e.id, e.nombre_evento, e.descripcion_evento, e.lider, e.modalidad_evento, e.categoria, e.id_proyecto, e.proyecto, e.fecha_evento, e.hora_inicio, e.hora_fin  from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
         [id_autenticacion]
@@ -151,7 +150,6 @@ class DbEventoRepositorio {
     }
     return existe_usuario;
   }
-
 }
 
 module.exports = DbEventoRepositorio;

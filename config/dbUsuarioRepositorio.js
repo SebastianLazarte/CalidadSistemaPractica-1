@@ -25,8 +25,10 @@ class DbUsuarioRepositorio {
 
     user.rows[0].intereses = await this.GetInteresesByIdUsuario(id_usuario);
     user.rows[0].cualidades = await this.GetCualidadesByIdUsuario(id_usuario);
-    user.rows[0].aptitudes_tecnicas = await this.GetAptitudesByIdUsuario(id_usuario);
-    
+    user.rows[0].aptitudes_tecnicas = await this.GetAptitudesByIdUsuario(
+      id_usuario
+    );
+
     return user;
   }
 
@@ -45,18 +47,26 @@ class DbUsuarioRepositorio {
       rol,
       estado_de_cuenta,
       estado_de_disponibilidad,
+      foto_url,
       id_autenticacion,
     } = data;
-
     const newUser = await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
-      [nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_autenticacion]
+      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [
+        nombre,
+        apellido,
+        telefono,
+        rol,
+        estado_de_cuenta,
+        estado_de_disponibilidad,
+        foto_url,
+        id_autenticacion,
+      ]
     );
     return newUser;
   }
 
   async UpdateUsuario(id_usuario, data) {
-    
     const {
       nombre,
       apellido,
@@ -75,16 +85,16 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
-      aptitudes_tecnicas
+      foto_url,
+      aptitudes_tecnicas,
     } = data;
-    
-    
+
     const intereses_lista = intereses.split(",");
     const cualidades_lista = cualidades.split(",");
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, foto_url=$16 WHERE id_usuario=$17 RETURNING *",
       [
         nombre,
         apellido,
@@ -101,10 +111,11 @@ class DbUsuarioRepositorio {
         numero_contacto_de_emergencia,
         relacion_contacto_de_emergencia,
         estado_de_disponibilidad,
+        foto_url,
         id_usuario,
       ]
     );
- 
+
     update_user.rows[0].intereses = await this.UpdateIntereses(
       id_usuario,
       intereses_lista
@@ -197,7 +208,7 @@ class DbUsuarioRepositorio {
       "DELETE FROM aptitudes_de_usuarios WHERE id_usuario = $1",
       [id_user]
     );
-  
+
     var seSQL =
       "SELECT id_aptitud  FROM aptitudes_tecnicas WHERE aptitud_tecnica  = '" +
       aptitudes_nuevos[0] +
@@ -205,9 +216,9 @@ class DbUsuarioRepositorio {
     for (let i = 1; i < aptitudes_nuevos.length; i++) {
       seSQL = seSQL + " OR aptitud_tecnica  = '" + aptitudes_nuevos[i] + "'";
     }
-  
+
     const idsAptitudes = await pool.query(seSQL);
-  
+
     var seSQL2 = "";
     if (idsAptitudes.rows.length == 0) {
       aptitudes_nuevos = [];
@@ -218,13 +229,13 @@ class DbUsuarioRepositorio {
           "INSERT INTO aptitudes_de_usuarios (id_usuario, id_aptitud) VALUES(" +
           id_user +
           "," +
-          element.id_aptitud  +
+          element.id_aptitud +
           ");";
       });
     }
-  
+
     await pool.query(seSQL2);
-  
+
     return aptitudes_nuevos;
   }
 
@@ -266,14 +277,13 @@ class DbUsuarioRepositorio {
     });
     return aptitudes_tecnicas;
   }
-  async disableUser(id_user){
-    let user_to_disable =  await pool.query(
+  async disableUser(id_user) {
+    let user_to_disable = await pool.query(
       "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",
       [id_user]
     );
-    return user_to_disable.rowCount > 0; 
+    return user_to_disable.rowCount > 0;
   }
-  
 }
 
 module.exports = DbUsuarioRepositorio;
