@@ -50,7 +50,6 @@ class DbUsuarioRepositorio {
       foto_url,
       id_autenticacion,
     } = data;
-    console.log(foto_url);
     const newUser = await pool.query(
       "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
@@ -64,7 +63,6 @@ class DbUsuarioRepositorio {
         id_autenticacion,
       ]
     );
-    console.log(newUser);
     return newUser;
   }
 
