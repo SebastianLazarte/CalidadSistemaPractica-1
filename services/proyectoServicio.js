@@ -1,38 +1,48 @@
-const _repository = require("../config/dbProyectoRepositorio.js");
+const _repository = require("../config/dbProyectoRepositorio.js")
 
 class ProyectoServicio {
-  constructor() {
-    this.repository = new _repository();
+  constructor() 
+  {
+    this.repository = new _repository()
   }
-  validar(data) {
-    let nombre_proyecto = data["titulo"];
-    try {
-      if (nombre_proyecto == "") {
-        throw new Error("Por favor ingrese el nombre del proyecto");
+  validar(data) 
+  {
+    let nombre_proyecto = data["titulo"]
+    try 
+    {
+      if (nombre_proyecto == "") 
+      {
+        throw new Error("Por favor ingrese el nombre del proyecto")
       }
-    } catch (error) {
-      console.error(error.message);
-      return false;
+    } catch (error) 
+    {
+      console.error(error.message)
+      return false
     }
-    return true;
+    return true
   }
-  convertir_fecha(data){
-    var fecha=data.toLocaleDateString("en-GB");
+  convertir_fecha(data)
+  {
+    var fecha=data.toLocaleDateString("en-GB")
     return fecha
   }
-  async get_proyectos(data) {
-    debugger
-    var resultado=await this.repository.get_proyectos(data);
+  async get_proyectos(data) 
+  {
+    
+    var resultado=await this.repository.get_proyectos(data)
     var i=0
     var tamanio=resultado.rows.length
-    while(i < tamanio){
+    while(i < tamanio)
+    {
       var fecha_inicio = resultado.rows[i].fecha_inicio
       var fecha_fin = resultado.rows[i].fecha_fin
-      if (fecha_inicio!=null){
+      if (fecha_inicio!=null)
+      {
         var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
         resultado.rows[i].fecha_inicio=fecha_inicio_string
       }
-      if (fecha_fin!=null){
+      if (fecha_fin!=null)
+      {
         var fecha_fin_string=this.convertir_fecha(fecha_fin)
         resultado.rows[i].fecha_fin=fecha_fin_string
       }
@@ -40,68 +50,93 @@ class ProyectoServicio {
     }
     return resultado
   }
-  async get_proyecto(data) {
-    var proyecto = await this.repository.get_proyecto(data);
-    var fecha_inicio = proyecto.rows[0].fecha_inicio
-    var fecha_fin = proyecto.rows[0].fecha_fin
-    if (fecha_inicio!=null){
-      var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
-      proyecto.rows[0].fecha_inicio=fecha_inicio_string
+  async get_proyecto(data) 
+  {
+    try 
+    {
+      var proyecto = await this.repository.get_proyecto(data)
+      var fecha_inicio = proyecto.rows[0].fecha_inicio
+      var fecha_fin = proyecto.rows[0].fecha_fin
+      if (fecha_inicio!=null)
+      {
+        var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+        proyecto.rows[0].fecha_inicio=fecha_inicio_string
+      }
+      if (fecha_fin!=null)
+      {
+        var fecha_fin_string=this.convertir_fecha(fecha_fin)
+        proyecto.rows[0].fecha_fin=fecha_fin_string
+      }
+      return proyecto
     }
-    if (fecha_fin!=null){
-      var fecha_fin_string=this.convertir_fecha(fecha_fin)
-      proyecto.rows[0].fecha_fin=fecha_fin_string
+    catch(error)
+    {
+      console.error("Algo inesperado paso en la base de datos")
+      return error
     }
-    return proyecto
+    
   }
 
-  async create_proyecto(data) {
+  async create_proyecto(data) 
+  {
     try {
-      if (this.validar(data)) {
-        var proyecto=await this.repository.create_proyecto(data);
+      if (this.validar(data)) 
+      {
+        var proyecto=await this.repository.create_proyecto(data)
         var fecha_inicio = proyecto.rows[0].fecha_inicio
         var fecha_fin = proyecto.rows[0].fecha_fin
-        if (fecha_inicio!=null){
+        if (fecha_inicio!=null)
+        {
           var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
           proyecto.rows[0].fecha_inicio=fecha_inicio_string
         }
-        if (fecha_fin!=null){
+        if (fecha_fin!=null)
+        {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           proyecto.rows[0].fecha_fin=fecha_fin_string
         }
         return proyecto
-      } else {
-        throw console.error("Algo inesperado paso en la base de datos");
+      } 
+      else 
+      {
+        console.error("Algo inesperado paso en la base de datos")
+        return null
       }
     } catch (error) {
-      console.error(error.message);
-      return error;
+      console.error(error.message)
+      return error
     }
   }
 
-  async update_proyecto(id, data) {
-    //debugger
-    //let new_data=await this.llenar_vacios(id,data)
-    try {
-      debugger
-      if (this.validar(data)) {
-        var proyecto=await this.repository.update_proyecto(id, data);
+  async update_proyecto(id, data) 
+  {
+    try
+    {
+      if (this.validar(data)) 
+      {
+        var proyecto=await this.repository.update_proyecto(id, data)
         var fecha_inicio = proyecto.rows[0].fecha_inicio
         var fecha_fin = proyecto.rows[0].fecha_fin
-        if (fecha_inicio!=null){
+        if (fecha_inicio!=null)
+        {
           var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
           proyecto.rows[0].fecha_inicio=fecha_inicio_string
         }
-        if (fecha_fin!=null){
+        if (fecha_fin!=null)
+        {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           proyecto.rows[0].fecha_fin=fecha_fin_string
         }
         return proyecto
-      } else {
-        throw console.error("Algo inesperado paso en la base de datos");
+      } 
+      else 
+      {
+        console.error("Algo inesperado paso en la base de datos")
+        return null
       }
-    } catch (error) {
-      return error;
+    } catch (error) 
+    {
+      return error
     }
   }
   async participate_proyecto(id,id_autenticacion)
@@ -112,7 +147,8 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe");
+      console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe")
+      return error
     }
   }
   async participation(id,id_autenticacion)
@@ -123,30 +159,38 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe"); 
+      console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe") 
+      return error
     }
   }
 
-  async delete_proyecto(id) {
-    try {
-      return await this.repository.delete_proyecto(id);
-    } catch (error) {
-      throw console.error("El " + id.toString() + " del proyecto No existe");
+  async delete_proyecto(id) 
+  {
+    try 
+    {
+      return await this.repository.delete_proyecto(id)
+    } catch (error)
+    {
+      console.error("El Proyecto " + id.toString() + " No existe")
+      return error
     }
   }
   async get_participantes_proyecto_simple(id) 
   {
     try 
     {
-      const validar= await this.repository.get_participantes_proyecto_simple(id);   
-      return validar;
-    }catch (error) 
+      const validar= await this.repository.get_participantes_proyecto_simple(id)   
+      return validar
+    }
+    catch (error) 
     {
-      throw console.error("Algo inesperado paso con la Base de datos"); 
+      console.error("Algo inesperado paso con la Base de datos") 
+      return error
     }
   }
-  async get_categorias_proyectos(data) {
-    return await this.repository.get_categorias_proyectos(data);
+  async get_categorias_proyectos(data) 
+  {
+    return await this.repository.get_categorias_proyectos(data)
   }
 
 
@@ -158,7 +202,8 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe");
+      console.error("Algo inesperado paso con la Base de datos o el id del proyecto o participante no existe")
+      return error
     }
   }
 
@@ -169,14 +214,17 @@ class ProyectoServicio {
       var resultado=await this.repository.get_my_proyectos(id_autenticacion)
       var i=0
       var tamanio=resultado.rows.length
-      while(i < tamanio){
+      while(i < tamanio)
+      {
         var fecha_inicio = resultado.rows[i].fecha_inicio
         var fecha_fin = resultado.rows[i].fecha_fin
-        if (fecha_inicio!=null){
+        if (fecha_inicio!=null)
+        {
           var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
           resultado.rows[i].fecha_inicio=fecha_inicio_string
         }
-        if (fecha_fin!=null){
+        if (fecha_fin!=null)
+        {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           resultado.rows[i].fecha_fin=fecha_fin_string
         }
@@ -186,29 +234,33 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del participante no existe");
+      console.error("Algo inesperado paso con la Base de datos o el id del participante no existe")
+      return error
     }
   }
 
   
-  async get_lideres(){
-    return await this.repository.get_lideres();
+  async get_lideres()
+  {
+    return await this.repository.get_lideres()
   }
 
-  async get_roles(){
-    return await this.repository.get_roles();
+  async get_roles()
+  {
+    return await this.repository.get_roles()
   }
 
   async get_rol(id_autenticacion)
   {
-    debugger
+    
     try
     {
-      return await this.repository.get_rol(id_autenticacion);
+      return await this.repository.get_rol(id_autenticacion)
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos");
+      console.error("Algo inesperado paso con la Base de datos")
+      return error
     }
 
   }
@@ -221,28 +273,44 @@ class ProyectoServicio {
     }
     catch(error)
     {
-      throw console.error("Algo inesperado paso con la Base de datos");
+      console.error("Algo inesperado paso con la Base de datos")
+      return error
     }
   }
   async get_eventos_proyecto(id_proyecto) 
   {
     try 
     {
-      return await this.repository.get_eventos_proyecto(id_proyecto);   
+      return await this.repository.get_eventos_proyecto(id_proyecto)   
     }catch (error) 
     {
-      throw console.error("Algo inesperado paso con la Base de datos"); 
+      console.error("Algo inesperado paso con la Base de datos") 
+      return error
     }
   }
   
-  async get_proyectos_acabado() {
+  async get_proyectos_acabado() 
+  {
     try 
     {
-        return await this.repository.get_proyectos_acabado();
+        return await this.repository.get_proyectos_acabado()
     }catch (error)  
     {
-      throw console.error("Algo inesperado paso con la Base de datos"); 
+      console.error("Algo inesperado paso con la Base de datos") 
+      return error
+    }
+  }
+
+  async participate_past_proyecto(id_proyecto,id_autenticacion,id_usuario)
+  {
+    try
+    {
+      return await this.repository.participate_past_proyecto(id_proyecto,id_autenticacion,id_usuario)
+    }catch(error)
+    {
+      console.error("Algo inesperado paso con la base de Datos")
+      return error
     }
   }
 }
-module.exports = ProyectoServicio;
+module.exports = ProyectoServicio

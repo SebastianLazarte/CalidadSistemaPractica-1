@@ -6,7 +6,26 @@ module.exports = function (app) {
   app.post("/create_proyecto", async (req, res) => {
     try {
       const nuevoProyecto = await service.create_proyecto(req.body);
-      res.status(201).json(nuevoProyecto.rows);
+      try 
+      {
+        if (nuevoProyecto.rows>0)
+        {
+          res.status(201).json(nuevoProyecto.rows); 
+        }
+        else
+        {
+          res
+        .status(404)
+        .send('Algo inesperado paso el Proyecto no fue creado');
+        }
+      }
+      catch(err)
+      {
+        console.error(err.message);
+        res
+        .status(404)
+        .send('Algo inesperado paso el Proyecto no fue creado');
+      } 
     } catch (err) {
       res.status(404);
     }
@@ -15,10 +34,31 @@ module.exports = function (app) {
   //Actualizar
   app.put("/update_proyecto/:id", async (req, res) => {
     try {
+      
       let { id } = req.params;
       req.body["id"] = id;
       const proyectoActualizado = await service.update_proyecto(id, req.body);
-      res.status(200).json(proyectoActualizado.rows);
+      try 
+      {
+        if(proyectoActualizado.rows>0)
+        {
+          res.status(200).json(proyectoActualizado.rows);
+        }
+        else
+        {
+          res
+        .status(404)
+        .send('Algo inesperado paso el Proyecto no fue actualizado');
+        }
+      }
+      catch(err)
+      {
+        console.error(err.message);
+        res
+        .status(404)
+        .send('Algo inesperado paso el Proyecto no fue actualizado');
+      }
+      
     } catch (error) {
       res.status(404);
     }
@@ -48,7 +88,7 @@ module.exports = function (app) {
       const nuevoProyecto = await service.get_proyecto(req);
       res.status(200).json(nuevoProyecto.rows);
     } catch (err) {
-      res.status(404);
+      return res.status(404);
     }
   });
   //Participar en proyecto
@@ -164,6 +204,7 @@ module.exports = function (app) {
       res.status(404);
     }
   })
+  //Obtener el numero de participantes de un proyecto
   app.get("/get_numero_participantes/:id", async (req, res) => {
     try {
       const { id } = req.params;
@@ -173,6 +214,7 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+  //Obtener los eventos de un proyecto
   app.get("/get_eventos_proyecto/:id",async(req,res)=>{
     try {
       const { id } = req.params;
@@ -191,5 +233,20 @@ module.exports = function (app) {
       res.status(404); 
     }
   });
+  //Registrar como participantes a voluntarios en proyectos pasados
+  app.put(
+    "/participate_past_proyecto/:id_proyecto/sesion/:id_autenticacion/volunteer/:id_volunteer",
+    async (req, res) => {
+      
+      try {
+        const { id_proyecto, id_autenticacion,id_volunteer } = req.params;
+        const proyecto_a_actualizar = await service.participate_past_proyecto(id_proyecto,id_autenticacion,id_volunteer)
+        res.status(200).json(proyecto_a_actualizar);
+      } catch (err) {
+        res.status(404);
+      }
+    }
+  );
+
 
 };
