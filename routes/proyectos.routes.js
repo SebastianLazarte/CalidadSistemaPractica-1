@@ -155,7 +155,7 @@ module.exports = function (app) {
     }
   });
   //Obtener Proyectos por categoria
-  app.get("/get_proyectos/:categoria", async (req, res) => {
+  app.get("/get_proyectos/:categoria_id", async (req, res) => {
     try {
       const {categoria}= req.params;
       const nuevoProyecto = await service.get_categorias_proyectos(categoria);
@@ -201,6 +201,10 @@ module.exports = function (app) {
       res.status(404);
     }
   });
+<<<<<<< HEAD:routes/proyectos.routes.js
+=======
+
+>>>>>>> c5e1e53 (agregando endPoint para get categoria proyectos):routes/projectos.routes.js
 
   //Cancelar participacion de un voluntario en el proyecto
     app.delete("/cancel_participate_proyecto/:id/sesion/:id_autenticacion",async (req, res) => {
