@@ -166,6 +166,7 @@ class DbProyectoRepositorio {
     }
     return existeProyecto;
   }
+<<<<<<< HEAD
   async get_categorias_proyectos(categoria) {
 <<<<<<< HEAD
     const categorias = await pool.query(
@@ -180,12 +181,21 @@ class DbProyectoRepositorio {
     );
     return categorias;
 =======
+=======
+  async get_categorias_proyectos(categoria_id) {
+>>>>>>> c5e1e53 (agregando endPoint para get categoria proyectos)
       const categorias = await pool.query(
-        "SELECT * FROM public.categoria_proyectos WHERE categoria_id=$1",
-        [categoria]
+        "SELECT * FROM public.proyectos WHERE categoria_id=$1",
+        [categoria_id]
       );
       return categorias;
 >>>>>>> ee8cd36 (cambiando ruta de acceso a categoria de proyectos)
+  }
+  async get_categorias() {
+    const categorias = await pool.query(
+      "SELECT * FROM public.categoria_proyectos"
+    );
+    return categorias;
   }
 
   async cancel_participate_proyecto(id, id_autenticacion) {
