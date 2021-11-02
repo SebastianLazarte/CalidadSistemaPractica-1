@@ -47,13 +47,12 @@ class DbUsuarioRepositorio {
       rol,
       estado_de_cuenta,
       estado_de_disponibilidad,
-      fotoUrl,
+      foto_url,
       id_autenticacion,
     } = data;
-    console.log(fotoUrl);
-
+    console.log(foto_url);
     const newUser = await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1, $2 ,$3 ,$4 ,$5 ,$6 ,$7 ) RETURNING *",
+      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         nombre,
         apellido,
@@ -61,9 +60,11 @@ class DbUsuarioRepositorio {
         rol,
         estado_de_cuenta,
         estado_de_disponibilidad,
+        foto_url,
         id_autenticacion,
       ]
     );
+    console.log(newUser);
     return newUser;
   }
 
@@ -86,7 +87,7 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
-      fotoUrl,
+      foto_url,
       aptitudes_tecnicas,
     } = data;
 
@@ -95,7 +96,7 @@ class DbUsuarioRepositorio {
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, fotoUrl=$16 WHERE id_usuario=$17 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, foto_url=$16 WHERE id_usuario=$17 RETURNING *",
       [
         nombre,
         apellido,
@@ -112,7 +113,7 @@ class DbUsuarioRepositorio {
         numero_contacto_de_emergencia,
         relacion_contacto_de_emergencia,
         estado_de_disponibilidad,
-        fotoUrl,
+        foto_url,
         id_usuario,
       ]
     );
