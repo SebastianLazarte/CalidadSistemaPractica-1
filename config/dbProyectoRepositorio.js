@@ -234,6 +234,11 @@ class DbProyectoRepositorio {
     return eventos;
   }
 
+  async get_proyectos_acabado() {
+    const proyectos_acabados = await pool.query("SELECT * FROM public.proyectos WHERE estado='ACABADO'");
+    return proyectos_acabados;
+  }
+
 }
 
 

@@ -132,7 +132,7 @@ module.exports = function (app) {
     }catch(err){
       res.status(404);
     }
-  });
+  }); 
 
   //Obtener todos los lideres existentes en la tabla usuarios
   app.get("/get_lideres",async(req,res)=>{
@@ -182,6 +182,14 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-
+  //Obtener Proyectos por estado==Acabado
+  app.get("/get_proyectos_acabado", async (req, res) => {
+    try {
+      const proyectos_acabados = await service.get_proyectos_acabado();
+      res.status(200).json(proyectos_acabados.rows);
+    } catch (err) {
+      res.status(404); 
+    }
+  });
 
 };
