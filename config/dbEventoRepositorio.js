@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "fgkpjbonvunxib",
-  password: "5838355190c7b36a8a6b206611a34da971b5a278ed199d455eaf9c68ba70e4a1", //use your pass my friend
-  database: "dfbgju17k67ar8",
-  host: "ec2-52-206-193-199.compute-1.amazonaws.com",
+  user: "hgpmlfhmjxvnfr",
+  password: "e3fcf341e4ff4a68075b951e1c9a75239afaa42d7eccc3e9c7db81bda6c77a05", //use your pass my friend
+  database: "d966qfatdj765h",
+  host: "ec2-54-173-138-144.compute-1.amazonaws.com",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -124,7 +124,6 @@ class DbEventoRepositorio {
     );
     return eliminar_evento;
   }
-<<<<<<< HEAD
 
   async get_lideres(data) {
     const lideres = await pool.query(
@@ -133,7 +132,7 @@ class DbEventoRepositorio {
     return lideres;
   }
 
-  async get_my_eventos(id_autenticacion){
+  async get_my_eventos(id_autenticacion) {
     const existe_usuario = Boolean(
       (
         await pool.query(
@@ -142,7 +141,7 @@ class DbEventoRepositorio {
         )
       ).rows[0]["exists"]
     );
-    if(existe_usuario){
+    if (existe_usuario) {
       const my_eventos = await pool.query(
         "select e.id, e.nombre_evento, e.descripcion_evento, e.lider, e.modalidad_evento, e.categoria, e.id_proyecto, e.proyecto, e.fecha_evento, e.hora_inicio, e.hora_fin  from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
         [id_autenticacion]
@@ -151,9 +150,6 @@ class DbEventoRepositorio {
     }
     return existe_usuario;
   }
-
-=======
->>>>>>> a188b82 (se agrego la base de datos)
 }
 
 module.exports = DbEventoRepositorio;
