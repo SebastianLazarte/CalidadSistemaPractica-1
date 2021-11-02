@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cc98e480-7a07-471d-bfb0-681040931bed",
+		"_postman_id": "2ef49a4d-d8a8-4f08-8c84-835ac006a27e",
 		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -331,6 +331,25 @@
 					"path": [
 						"get_eventos_proyecto",
 						"54"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get proyectos acabados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_proyectos_acabado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_proyectos_acabado"
 					]
 				}
 			},
