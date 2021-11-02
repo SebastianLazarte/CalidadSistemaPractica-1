@@ -191,5 +191,13 @@ module.exports = function (app) {
       res.status(404); 
     }
   });
-
+    //Obtener Usuarios espeficifos Id, nombreCompleto, telefono
+  app.get("/get_usuarios",async(req,res)=>{
+    try {
+      const usuarios = await service.get_usuarios();
+      res.status(200).json(usuarios.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  })
 };

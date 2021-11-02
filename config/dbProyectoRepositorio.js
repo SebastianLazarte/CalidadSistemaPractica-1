@@ -238,7 +238,10 @@ class DbProyectoRepositorio {
     const proyectos_acabados = await pool.query("SELECT * FROM public.proyectos WHERE estado='ACABADO'");
     return proyectos_acabados;
   }
-
+  async get_usuarios() {
+    const usuarios = await pool.query("SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios");
+    return usuarios;
+  }
 }
 
 
