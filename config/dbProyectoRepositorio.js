@@ -190,11 +190,19 @@ class DbProyectoRepositorio {
     return existeProyecto;
   }
   async get_categorias_proyectos(categoria) {
+<<<<<<< HEAD
     const categorias = await pool.query(
       "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
       [categoria]
     );
     return categorias;
+=======
+      const categorias = await pool.query(
+        "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
+        [categoria]
+      );
+      return categorias;
+>>>>>>> c54c3db... refactorizando endPoint get:categorias_proyectos
   }
   async get_categorias() {
     const categorias = await pool.query(
