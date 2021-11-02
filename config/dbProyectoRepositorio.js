@@ -167,6 +167,7 @@ class DbProyectoRepositorio {
     return existeProyecto;
   }
   async get_categorias_proyectos(categoria) {
+<<<<<<< HEAD
     const categorias = await pool.query(
       "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
       [categoria]
@@ -178,6 +179,13 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos"
     );
     return categorias;
+=======
+      const categorias = await pool.query(
+        "SELECT * FROM public.categoria_proyectos WHERE categoria_id=$1",
+        [categoria]
+      );
+      return categorias;
+>>>>>>> ee8cd36 (cambiando ruta de acceso a categoria de proyectos)
   }
 
   async cancel_participate_proyecto(id, id_autenticacion) {
