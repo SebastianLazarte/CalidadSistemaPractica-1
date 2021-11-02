@@ -133,7 +133,7 @@ class DbProyectoRepositorio {
   }
   async get_categorias_proyectos(categoria) {
       const categorias = await pool.query(
-        "SELECT * FROM public.proyectos WHERE categoria=$1",
+        "SELECT * FROM public.categoria_proyectos WHERE categoria_id=$1",
         [categoria]
       );
       return categorias;
