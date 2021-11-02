@@ -131,12 +131,18 @@ class DbProyectoRepositorio {
     }
     return existeProyecto;
   }
-  async get_categorias_proyectos(categoria) {
+  async get_categorias_proyectos(categoria_id) {
       const categorias = await pool.query(
-        "SELECT * FROM public.categoria_proyectos WHERE categoria_id=$1",
-        [categoria]
+        "SELECT * FROM public.proyectos WHERE categoria_id=$1",
+        [categoria_id]
       );
       return categorias;
+  }
+  async get_categorias() {
+    const categorias = await pool.query(
+      "SELECT * FROM public.categoria_proyectos"
+    );
+    return categorias;
   }
 
   async cancel_participate_proyecto(id, id_autenticacion)

@@ -92,11 +92,20 @@ module.exports = function (app) {
     }
   });
   //Obtener Proyectos por categoria
-  app.get("/get_proyectos/:categoria", async (req, res) => {
+  app.get("/get_proyectos/:categoria_id", async (req, res) => {
     try {
       const {categoria}= req.params;
       const nuevoProyecto = await service.get_categorias_proyectos(categoria);
       res.status(200).json(nuevoProyecto.rows);
+    } catch (err) {
+      res.status(404);
+    }
+  });
+
+  app.get("/get_categoria_proyectos", async (req, res) => {
+    try {
+      const categorias = await service.get_categorias();
+      res.status(200).json(categorias.rows);
     } catch (err) {
       res.status(404);
     }

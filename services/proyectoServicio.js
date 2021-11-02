@@ -148,6 +148,9 @@ class ProyectoServicio {
   async get_categorias_proyectos(data) {
     return await this.repository.get_categorias_proyectos(data);
   }
+  async get_categorias() {
+    return await this.repository.get_categorias();
+  }
 
 
   async cancel_participate_proyecto(id,id_autenticacion) 
