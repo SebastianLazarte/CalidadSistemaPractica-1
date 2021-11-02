@@ -132,7 +132,7 @@ module.exports = function (app) {
     }
   });
   //Obtener Proyectos por categoria
-  app.get("/get_proyectos/:categoria", async (req, res) => {
+  app.get("/get_proyectos/:categoria_id", async (req, res) => {
     try {
       const {categoria}= req.params;
       const nuevoProyecto = await service.get_categorias_proyectos(categoria);
