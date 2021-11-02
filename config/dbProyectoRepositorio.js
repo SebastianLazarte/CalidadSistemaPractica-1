@@ -131,10 +131,10 @@ class DbProyectoRepositorio {
     }
     return existeProyecto;
   }
-  async get_categorias_proyectos(categoria_id) {
+  async get_categorias_proyectos(categoria) {
       const categorias = await pool.query(
-        "SELECT * FROM public.proyectos WHERE categoria_id=$1",
-        [categoria_id]
+        "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
+        [categoria]
       );
       return categorias;
   }
