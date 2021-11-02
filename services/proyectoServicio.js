@@ -312,5 +312,15 @@ class ProyectoServicio {
       return error
     }
   }
+  async get_usuarios() 
+  {
+    try 
+    {
+      return await this.repository.get_usuarios();   
+    }catch (error) 
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+  }
 }
 module.exports = ProyectoServicio
