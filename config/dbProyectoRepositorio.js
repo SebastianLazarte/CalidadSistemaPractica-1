@@ -132,10 +132,16 @@ class DbProyectoRepositorio {
   }
   async get_categorias_proyectos(categoria) {
       const categorias = await pool.query(
-        "SELECT * FROM public.proyectos WHERE categoria=$1",
+        "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
         [categoria]
       );
       return categorias;
+  }
+  async get_categorias() {
+    const categorias = await pool.query(
+      "SELECT * FROM public.categoria_proyectos"
+    );
+    return categorias;
   }
 
   async cancel_participate_proyecto(id, id_autenticacion)
