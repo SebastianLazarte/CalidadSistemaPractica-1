@@ -1,10 +1,10 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "fgkpjbonvunxib",
-  password: "5838355190c7b36a8a6b206611a34da971b5a278ed199d455eaf9c68ba70e4a1", //use your pass my friend
-  database: "dfbgju17k67ar8",
-  host: "ec2-52-206-193-199.compute-1.amazonaws.com",
+  user: "kucbjwwgviyzmk",
+  password: "a52262572f4bc3c60cc7947fed57d4b618fd1aa8a0a05d6615666ae106e087e9", //use your pass my friend
+  database: "d2t7r859pdvtd5",
+  host: "ec2-107-20-24-247.compute-1.amazonaws.com",
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -47,11 +47,13 @@ class DbUsuarioRepositorio {
       rol,
       estado_de_cuenta,
       estado_de_disponibilidad,
+      fotoUrl,
       id_autenticacion,
     } = data;
+    console.log(fotoUrl);
 
     const newUser = await pool.query(
-      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+      "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, id_usuario) VALUES ($1, $2 ,$3 ,$4 ,$5 ,$6 ,$7 ) RETURNING *",
       [
         nombre,
         apellido,
@@ -84,6 +86,7 @@ class DbUsuarioRepositorio {
       numero_contacto_de_emergencia,
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
+      fotoUrl,
       aptitudes_tecnicas,
     } = data;
 
@@ -92,7 +95,7 @@ class DbUsuarioRepositorio {
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15 WHERE id_usuario=$16 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, fotoUrl=$16 WHERE id_usuario=$17 RETURNING *",
       [
         nombre,
         apellido,
@@ -109,6 +112,7 @@ class DbUsuarioRepositorio {
         numero_contacto_de_emergencia,
         relacion_contacto_de_emergencia,
         estado_de_disponibilidad,
+        fotoUrl,
         id_usuario,
       ]
     );
