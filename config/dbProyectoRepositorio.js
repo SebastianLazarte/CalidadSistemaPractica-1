@@ -166,10 +166,7 @@ class DbProyectoRepositorio {
     }
     return existeProyecto;
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
   async get_categorias_proyectos(categoria) {
-<<<<<<< HEAD
     const categorias = await pool.query(
       "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
       [categoria]
@@ -181,27 +178,7 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos"
     );
     return categorias;
-=======
-=======
-  async get_categorias_proyectos(categoria_id) {
->>>>>>> c5e1e53 (agregando endPoint para get categoria proyectos)
-=======
-  async get_categorias_proyectos(categoria) {
->>>>>>> c54c3db (refactorizando endPoint get:categorias_proyectos)
-      const categorias = await pool.query(
-        "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
-        [categoria]
-      );
-      return categorias;
->>>>>>> ee8cd36 (cambiando ruta de acceso a categoria de proyectos)
   }
-  async get_categorias() {
-    const categorias = await pool.query(
-      "SELECT * FROM public.categoria_proyectos"
-    );
-    return categorias;
-  }
-
   async cancel_participate_proyecto(id, id_autenticacion) {
     const res1 = Boolean(
       (
