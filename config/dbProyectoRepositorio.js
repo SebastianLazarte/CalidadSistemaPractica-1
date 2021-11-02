@@ -331,6 +331,13 @@ class DbProyectoRepositorio {
       usuario_participate == false
     );
   }
+
+  async get_usuarios() {
+    const usuarios = await pool.query("SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios");
+    return usuarios;
+  }
+
+
 }
 
 module.exports = DbProyectoRepositorio;
