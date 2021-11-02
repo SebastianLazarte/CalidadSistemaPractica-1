@@ -92,45 +92,23 @@ class DbProyectoRepositorio {
       [categoria]
     );
     const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
-    const fecha_fin = estado ? null : new Date();
-    if (fecha_fin==null)
-    {
-      const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id) WHERE id = $1",
-        [
-          id,
-          titulo,
-          descripcion,
-          objetivo,
-          lider,
-          numero_participantes,
-          estado,
-          fecha_fin,
-          categoria_id,
-        ]
-      );
-    }
-    else
-    {
-      const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
-        [
-          id,
-          titulo,
-          descripcion,
-          objetivo,
-          lider,
-          numero_participantes,
-          estado,
-          fecha_fin,
-          categoria_id,
-        ]
-      );
-
-    }
-    
+    const fechaFin = estado ? null : new Date();
+    const proyecto_a_actualizar = await pool.query(
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
+      [
+        id,
+        titulo,
+        descripcion,
+        objetivo,
+        lider,
+        numero_participantes,
+        estado,
+        fechaFin,
+        categoria_id,
+      ]
+    );
     const proyecto = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1", 
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1 and estado=true", 
       [id]
     );
 
@@ -212,19 +190,11 @@ class DbProyectoRepositorio {
     return existeProyecto;
   }
   async get_categorias_proyectos(categoria) {
-<<<<<<< HEAD
     const categorias = await pool.query(
       "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=true",
       [categoria]
     );
     return categorias;
-=======
-      const categorias = await pool.query(
-        "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
-        [categoria]
-      );
-      return categorias;
->>>>>>> c54c3db... refactorizando endPoint get:categorias_proyectos
   }
   async get_categorias() {
     const categorias = await pool.query(
