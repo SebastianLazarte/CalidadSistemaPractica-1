@@ -15,17 +15,27 @@ module.exports = pool;
 class DbProyectoRepositorio {
   constructor() {
     this.cursor = null;
-  }
+  } 
 
   async get_proyectos(data) {
-    const proyectos = await pool.query("SELECT * FROM proyectos");
+    const proyectos = await pool.query(
+      `SELECT p.*, tipo as categoria 
+      FROM proyectos as p 
+      INNER JOIN categoria_proyectos 
+      ON p.categoria_id = categoria_proyectos.id`
+    );
     return proyectos;
   }
   async get_proyecto(data) {
     const { id } = data.params;
-    const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
-      id,
-    ]);
+    const proyecto = await pool.query(
+      `SELECT p.*, tipo as categoria 
+      FROM proyectos as p 
+      INNER JOIN categoria_proyectos 
+      ON p.categoria_id = categoria_proyectos.id 
+      WHERE p.id=$1`,
+      [id]
+    );
     return proyecto;
   }
   async create_proyecto(data) {
@@ -41,9 +51,14 @@ class DbProyectoRepositorio {
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
       numero_participantes_oficial = 0;
-    }
+    }    
+    const categoria_db = await pool.query(
+      "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
+      [categoria]
+    );
+    const categoria_id = categoria_db.rows[0].id;
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
       [
         titulo,
         descripcion,
@@ -52,12 +67,12 @@ class DbProyectoRepositorio {
         numero_participantes_oficial,
         estado,
         new Date(),
-        categoria,
-      ]
-    );
+        categoria_id
+      ]      
+    );    
     const proyecto_to_show = await pool.query(
       "SELECT * FROM proyectos ORDER BY ID DESC LIMIT 1"
-    );
+    );    
     return proyecto_to_show;
   }
   async update_proyecto(id, data) {
@@ -70,9 +85,14 @@ class DbProyectoRepositorio {
       estado,
       categoria,
     } = data;
+    const categoria_db = await pool.query(
+      "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
+      [categoria]
+    );
+    const categoria_id = categoria_db.rows[0].id;
     const fechaFin = estado == "ACABADO" ? new Date() : null;
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria=coalesce($9,categoria) WHERE id = $1",
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
       [
         id,
         titulo,
@@ -82,7 +102,7 @@ class DbProyectoRepositorio {
         numero_participantes,
         estado,
         fechaFin,
-        categoria,
+        categoria_id,
       ]
     );
     const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
@@ -179,7 +199,6 @@ class DbProyectoRepositorio {
     );
     return categorias;
   }
-
   async cancel_participate_proyecto(id, id_autenticacion) {
     const res1 = Boolean(
       (
