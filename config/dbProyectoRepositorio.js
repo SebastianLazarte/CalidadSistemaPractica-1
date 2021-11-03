@@ -15,17 +15,27 @@ module.exports = pool;
 class DbProyectoRepositorio {
   constructor() {
     this.cursor = null;
-  }
+  } 
 
   async get_proyectos(data) {
-    const proyectos = await pool.query("SELECT * FROM proyectos");
+    const proyectos = await pool.query(
+      `SELECT p.*, tipo as categoria 
+      FROM proyectos as p 
+      INNER JOIN categoria_proyectos 
+      ON p.categoria_id = categoria_proyectos.id`
+    );
     return proyectos;
   }
   async get_proyecto(data) {
     const { id } = data.params;
-    const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
-      id,
-    ]);
+    const proyecto = await pool.query(
+      `SELECT p.*, tipo as categoria 
+      FROM proyectos as p 
+      INNER JOIN categoria_proyectos 
+      ON p.categoria_id = categoria_proyectos.id 
+      WHERE p.id=$1`,
+      [id]
+    );
     return proyecto;
   }
   async create_proyecto(data) {
