@@ -4,23 +4,18 @@ const service = new _service();
 module.exports = function (app) {
   //Crear
   app.post("/create_proyecto", async (req, res) => {
-    try {
-      const nuevoProyecto = await service.create_proyecto(req.body);
-      try 
-      {
-        if (nuevoProyecto.rows>0)
-        {
+    try {      
+      const nuevoProyecto = await service.create_proyecto(req.body);     
+      try {
+        if (nuevoProyecto.rows.length > 0) {
           res.status(201).json(nuevoProyecto.rows); 
         }
-        else
-        {
+        else {
           res
         .status(404)
         .send('Algo inesperado paso el Proyecto no fue creado');
         }
-      }
-      catch(err)
-      {
+      } catch(err) {        
         console.error(err.message);
         res
         .status(404)

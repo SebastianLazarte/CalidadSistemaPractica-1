@@ -94,8 +94,8 @@ class ProyectoServicio {
         {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           proyecto.rows[0].fecha_fin=fecha_fin_string
-        }
-        return proyecto
+        }        
+        return proyecto;
       } 
       else 
       {
