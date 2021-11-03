@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e26bb2ed-1600-43e3-bd53-4ce6bfe1cd5b",
+		"_postman_id": "ef1fe086-1b89-4a26-aa96-d968efd3c93f",
 		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/35",
+					"raw": "http://localhost:5000/get_proyecto/159",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"35"
+						"159"
 					]
 				}
 			},
@@ -72,7 +72,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_participantes_proyecto_simple/37",
+					"raw": "http://localhost:5000/get_participantes_proyecto_simple/159",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -80,7 +80,7 @@
 					"port": "5000",
 					"path": [
 						"get_participantes_proyecto_simple",
-						"37"
+						"159"
 					]
 				}
 			},
@@ -112,7 +112,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/sesion/12/get_my_proyectos",
+					"raw": "http://localhost:5000/sesion/32/get_my_proyectos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -120,7 +120,7 @@
 					"port": "5000",
 					"path": [
 						"sesion",
-						"12",
+						"32",
 						"get_my_proyectos"
 					]
 				}
@@ -232,7 +232,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"titulo\": \"Start Proyecto General\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\"Alimentacion\"],\r\n        \"lider\": [\"Salvador\"]\r\n}",
+					"raw": "{\r\n        \"titulo\": \"Start Proyecto Premium\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\"Alimentacion\"],\r\n        \"lider\": [\"Salvador\"],\r\n        \"categoria\":\"Animalista\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -260,7 +260,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"lider\":[\"Nahim Aliss\"],\r\n        \"estado\":\"{acabado}\"\r\n    }",
+					"raw": "    {\r\n        \"titulo\": \"Start Proyecto Premium\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\r\n            \"Alimentacion\"\r\n        ],\r\n        \"lider\": [\r\n            \"Salvador\",\r\n            \"Nahim\"\r\n        ],\r\n        \"numero_participantes\": \"0\",\r\n        \"estado\": \"EN CURSO\",\r\n        \"fecha_inicio\": \"03/11/2021\",\r\n        \"fecha_fin\": null,\r\n        \"categoria_id\": \"2\",\r\n        \"categoria\": \"Animalista\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -268,7 +268,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/update_proyecto/19",
+					"raw": "http://localhost:5000/update_proyecto/222",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -276,7 +276,7 @@
 					"port": "5000",
 					"path": [
 						"update_proyecto",
-						"19"
+						"222"
 					]
 				}
 			},

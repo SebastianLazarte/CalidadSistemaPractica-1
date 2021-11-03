@@ -39,6 +39,7 @@ class DbProyectoRepositorio {
     return proyecto;
   }
   async create_proyecto(data) {
+    debugger
     const {
       titulo,
       descripcion,
@@ -71,7 +72,7 @@ class DbProyectoRepositorio {
       ]      
     );    
     const proyecto_to_show = await pool.query(
-      "SELECT * FROM proyectos ORDER BY ID DESC LIMIT 1"
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id ORDER BY ID DESC LIMIT 1"
     );    
     return proyecto_to_show;
   }
@@ -105,9 +106,10 @@ class DbProyectoRepositorio {
         categoria_id,
       ]
     );
-    const proyecto = await pool.query("SELECT * FROM proyectos WHERE id=$1", [
-      id,
-    ]);
+    const proyecto = await pool.query(
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1", 
+      [id]
+    );
 
     return proyecto;
   }
@@ -240,7 +242,7 @@ class DbProyectoRepositorio {
     );
     if (existe_usuario) {
       const my_proyectos = await pool.query(
-        "select p.* from proyectos p where exists (select par.id_proyecto from participantes_proyectos par where par.id_usuario=$1 and p.id = par.id_proyecto) ",
+        "select p.*, tipo as categoria from proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  where exists (select par.id_proyecto from participantes_proyectos par where par.id_usuario=$1 and p.id = par.id_proyecto) ",
         [id_autenticacion]
       );
       return my_proyectos;
@@ -290,7 +292,7 @@ class DbProyectoRepositorio {
 
   async get_proyectos_acabado() {
     const proyectos_acabados = await pool.query(
-      "SELECT * FROM public.proyectos WHERE estado='ACABADO'"
+      "SELECT p.*, tipo as categoria FROM public.proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE estado='ACABADO'"
     );
     return proyectos_acabados;
   }
