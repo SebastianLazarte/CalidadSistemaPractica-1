@@ -35,7 +35,7 @@ module.exports = function (app) {
       const proyectoActualizado = await service.update_proyecto(id, req.body);
       try 
       {
-        if(proyectoActualizado.rows>0)
+        if(proyectoActualizado.rows.length > 0)
         {
           res.status(200).json(proyectoActualizado.rows);
         }

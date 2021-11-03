@@ -134,8 +134,7 @@ class ProyectoServicio {
         console.error("Algo inesperado paso en la base de datos")
         return null
       }
-    } catch (error) 
-    {
+    } catch (error) {
       return error
     }
   }
