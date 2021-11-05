@@ -122,7 +122,11 @@ class EventoServicio {
   //Obtener participaciones en eventos de 1 voluntario
   async get_my_eventos(id_autenticacion){
     try{
-      return await this.repository.get_my_eventos(id_autenticacion);
+      let list_of_participant = await this.repository.get_my_eventos(id_autenticacion);
+      let sorted_list = list_of_participant.rows.sort((a, b) => {
+        return new Date(a.fecha_evento) - new Date(b.fecha_evento);
+      });
+      return sorted_list;
     }
     catch(error)
     {
