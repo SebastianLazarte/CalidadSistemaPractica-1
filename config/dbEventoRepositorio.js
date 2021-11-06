@@ -150,6 +150,45 @@ class DbEventoRepositorio {
     }
     return existe_usuario;
   }
+
+  async actualizar_evento(id, data) {
+    console.log("Id Erick", id);
+    console.log("Cuerpo", data);
+
+    const {
+      nombre_evento,
+      descripcion_evento,
+      modalidad_evento,
+      lugar_evento,
+      fecha_evento,
+      proyecto,
+      estado,
+      categoria,
+      hora_inicio,
+      hora_fin,
+      lider,
+    } = data;
+    const evento_a_actualizar = await pool.query(
+      "UPDATE public.eventos SET nombre_evento=$2, descripcion_evento=$3, modalidad_evento= $4, lugar_evento=$5,fecha_evento=$6,proyecto=$7,estado=$8,categoria=$9,hora_inicio=$10, hora_fin=$11, lider=$12 WHERE id=$1",
+      [
+        id,
+        nombre_evento,
+        descripcion_evento,
+        modalidad_evento,
+        lugar_evento,
+        fecha_evento,
+        proyecto,
+        estado,
+        categoria,
+        hora_inicio,
+        hora_fin,
+        lider,
+      ]
+    );
+    const evento = await pool.query("SELECT * FROM eventos WHERE id=$1", [id]);
+
+    return evento;
+  }
 }
 
 module.exports = DbEventoRepositorio;

@@ -41,7 +41,7 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-  
+
   //Obtener
   app.get("/eventos/participantes/:id", async (req, res) => {
     try {
@@ -132,7 +132,9 @@ module.exports = function (app) {
   //Obtener eventos de un usuario participante
   app.get("/eventos/participante/:id", async (req, res) => {
     try {
-      const eventosDelUsuario = await service_evento.get_eventos_usuario(req.params["id"]);
+      const eventosDelUsuario = await service_evento.get_eventos_usuario(
+        req.params["id"]
+      );
       res.status(200).json(eventosDelUsuario.rows);
     } catch (err) {
       res.status(404);
@@ -148,11 +150,36 @@ module.exports = function (app) {
     }
   });
 
-  app.delete("/eventos/eliminar_participacion/:idEvento/:idUsuario", async (req, res) => {
+  app.delete(
+    "/eventos/eliminar_participacion/:idEvento/:idUsuario",
+    async (req, res) => {
+      try {
+        const { idEvento, idUsuario } = req.params;
+        const eliminarParticipacion =
+          await service_evento.eliminar_participacion(idEvento, idUsuario);
+        res.status(200).json(eliminarParticipacion.rows);
+      } catch (err) {
+        res.status(404);
+      }
+    }
+  );
+
+  //Obtener todos los nombres de los eventos en los que un voluntario esta participando
+  app.get("/sesion/:id_autenticacion/get_my_eventos", async (req, res) => {
     try {
-      const { idEvento, idUsuario } = req.params;
-      const eliminarParticipacion = await service_evento.eliminar_participacion(idEvento, idUsuario);
-      res.status(200).json(eliminarParticipacion.rows);
+      const { id_autenticacion } = req.params;
+      const mis_eventos = await service_evento.get_my_eventos(id_autenticacion);
+      if (mis_eventos == false)
+        res
+          .status(404)
+          .send(
+            "El id : " +
+              parseInt(id_autenticacion).toString() +
+              " no existe entre los voluntarios"
+          );
+      else {
+        res.status(200).json(mis_eventos.rows);
+      }
     } catch (err) {
       res.status(404);
     }
@@ -172,5 +199,19 @@ module.exports = function (app) {
       }catch(err){
         res.status(404);
       }
+  //Actualizar evento
+  app.put("/actualizar_evento/:id", async (req, res) => {
+    console.log("actualizar evento");
+    try {
+      let { id } = req.params;
+      req.body["id"] = id;
+      const eventoActualizado = await service_evento.actualizar_evento(
+        id,
+        req.body
+      );
+      res.status(200).json(eventoActualizado.rows);
+    } catch (error) {
+      res.status(404);
+    }
   });
 };

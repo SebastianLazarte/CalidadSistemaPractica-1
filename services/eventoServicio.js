@@ -31,15 +31,15 @@ class EventoServicio {
   async get_categorias(data) {
     return await this.repository.get_categorias(data);
   }
-  
+
   async get_participantes_eventos(data) {
     return await this.repository.get_participantes_eventos(data);
   }
 
-  //Eliminar participacion en un evento 
-  async eliminar_participacion(idEvento,idUsuario) {
+  //Eliminar participacion en un evento
+  async eliminar_participacion(idEvento, idUsuario) {
     try {
-      return await this.repository.eliminar_participacion(idEvento,idUsuario);
+      return await this.repository.eliminar_participacion(idEvento, idUsuario);
     } catch (error) {
       console.error("Error al eliminar participacion");
       return error;
@@ -99,6 +99,19 @@ class EventoServicio {
         return await this.repository.update_evento_estado2(data);
       } else {
         throw console.error("Algo inesperado paso con el repositorio");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return error;
+    }
+  }
+
+  async actualizar_evento(data, id) {
+    try {
+      if (this.validar(data)) {
+        return await this.repository.actualizar_evento(data, id);
+      } else {
+        throw console.error("Error al actualizar evento!");
       }
     } catch (error) {
       console.error(error.message);
