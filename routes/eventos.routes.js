@@ -186,19 +186,25 @@ module.exports = function (app) {
   });
 
   //Obtener todos los nombres de los eventos en los que un voluntario esta participando
-  app.get("/sesion/:id_autenticacion/get_my_eventos", async(req,res)=>{
-    try{
-      const {id_autenticacion} = req.params;
+  app.get("/sesion/:id_autenticacion/get_my_eventos", async (req, res) => {
+    try {
+      const { id_autenticacion } = req.params;
       const mis_eventos = await service_evento.get_my_eventos(id_autenticacion);
-      if(!mis_eventos)
-        res.status(404).send("El id : "+ parseInt(id_autenticacion).toString()  +    " no existe entre los voluntarios");
-        else
-        {
-          res.status(200).json(mis_eventos);
-        }
-      }catch(err){
-        res.status(404);
+      if (!mis_eventos)
+        res
+          .status(404)
+          .send(
+            "El id : " +
+              parseInt(id_autenticacion).toString() +
+              " no existe entre los voluntarios"
+          );
+      else {
+        res.status(200).json(mis_eventos);
       }
+    } catch (err) {
+      res.status(404);
+    }
+  });
   //Actualizar evento
   app.put("/actualizar_evento/:id", async (req, res) => {
     console.log("actualizar evento");
