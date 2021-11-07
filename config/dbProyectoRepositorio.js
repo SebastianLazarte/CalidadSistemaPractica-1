@@ -181,7 +181,7 @@ class DbProyectoRepositorio {
 
     if (existeProyecto) {
       const participantsSimple = await pool.query(
-        "SELECT us.nombre FROM public.participantes_proyectos as pro, public.usuarios as us where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1",
+        "SELECT us.id_usuario,us.nombre,us.apellido,us.rol FROM public.participantes_proyectos as pro, public.usuarios as us where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1",
         [id]
       );
       return participantsSimple;
