@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ef1fe086-1b89-4a26-aa96-d968efd3c93f",
+		"_postman_id": "348b335f-843e-4827-bf7f-4f84ab260cb6",
 		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/159",
+					"raw": "http://localhost:5000/get_proyecto/1000",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"159"
+						"1000"
 					]
 				}
 			},
@@ -67,7 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "GetListaSimpleUsuarioProyecto",
+			"name": "Get Lista Simple Usuario Proyecto",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -87,7 +87,7 @@
 			"response": []
 		},
 		{
-			"name": "Get_categorias_protectos",
+			"name": "Get Categorias De proyectos",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -167,7 +167,7 @@
 			"response": []
 		},
 		{
-			"name": "Get_numero_participantes",
+			"name": "Get numero participantes",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -187,12 +187,12 @@
 			"response": []
 		},
 		{
-			"name": "Get_eventos_proyectos",
+			"name": "Get eventos proyectos",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_eventos_proyecto/54",
+					"raw": "http://localhost:5000/get_eventos_proyecto/243",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -200,7 +200,7 @@
 					"port": "5000",
 					"path": [
 						"get_eventos_proyecto",
-						"54"
+						"243"
 					]
 				}
 			},
@@ -220,6 +220,44 @@
 					"port": "5000",
 					"path": [
 						"get_proyectos_acabado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Categorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_categoria_proyectos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_categoria_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_usuarios"
 					]
 				}
 			},
@@ -374,25 +412,6 @@
 						"193",
 						"sesion",
 						"28"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get_Usuarios",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_usuarios",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_usuarios"
 					]
 				}
 			},
