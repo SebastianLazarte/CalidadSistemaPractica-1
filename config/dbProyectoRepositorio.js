@@ -66,7 +66,7 @@ class DbProyectoRepositorio {
         objetivo,
         lider,
         numero_participantes_oficial,
-        estado,
+        estado || true,
         new Date(),
         categoria_id
       ]      
@@ -292,7 +292,8 @@ class DbProyectoRepositorio {
 
   async get_proyectos_acabado() {
     const proyectos_acabados = await pool.query(
-      "SELECT p.*, tipo as categoria FROM public.proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE estado='ACABADO'"
+      //************* */     'ACABADO' = false
+      "SELECT * FROM public.proyectos WHERE estado=false"
     );
     return proyectos_acabados;
   }
@@ -301,7 +302,8 @@ class DbProyectoRepositorio {
     const proyecto_existence = Boolean(
       (
         await pool.query(
-          "SELECT EXISTS (SELECT * from proyectos where id=$1 and estado='ACABADO')",
+          //************* */     'ACABADO' = false
+          "SELECT EXISTS (SELECT * from proyectos where id=$1 and estado=false)",
           [id_proyecto]
         )
       ).rows[0]["exists"]
