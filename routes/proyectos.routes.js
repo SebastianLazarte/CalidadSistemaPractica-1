@@ -72,7 +72,21 @@ module.exports = function (app) {
   app.get("/get_proyectos", async (req, res) => {
     try {
       const nuevoProyecto = await service.get_proyectos(req);
-      res.status(200).json(nuevoProyecto.rows);
+      try 
+      {
+        if (nuevoProyecto.rows.length>0)
+        {
+          res.status(200).json(nuevoProyecto.rows);
+        }
+        else
+        {
+          res.status(204).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       res.status(404);
     }
@@ -81,7 +95,21 @@ module.exports = function (app) {
   app.get("/get_proyecto/:id", async (req, res) => {
     try {
       const nuevoProyecto = await service.get_proyecto(req);
-      res.status(200).json(nuevoProyecto.rows);
+      try 
+      {
+        if (nuevoProyecto.rows.length>0)
+        {
+          res.status(200).json(nuevoProyecto.rows);
+        }
+        else
+        {
+          res.status(204).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       return res.status(404);
     }
@@ -131,7 +159,21 @@ module.exports = function (app) {
     try {
       const {categoria}= req.params;
       const nuevoProyecto = await service.get_categorias_proyectos(categoria);
-      res.status(200).json(nuevoProyecto.rows);
+      try 
+      {
+        if (nuevoProyecto.rows.length>0)
+        {
+          res.status(200).json(nuevoProyecto.rows);
+        }
+        else
+        {
+          res.status(204).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       res.status(404);
     }
@@ -140,7 +182,21 @@ module.exports = function (app) {
   app.get("/get_categoria_proyectos", async (req, res) => {
     try {
       const categorias = await service.get_categorias();
-      res.status(200).json(categorias.rows);
+      try 
+      {
+        if (categorias.rows.length>0)
+        {
+          res.status(200).json(categorias.rows);
+        }
+        else
+        {
+          res.status(204).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       res.status(404);
     }
@@ -223,7 +279,21 @@ module.exports = function (app) {
     try {
       const { id } = req.params;
       const eventos = await service.get_eventos_proyecto(id);
-      res.status(200).json(eventos.rows);
+      try 
+      {
+        if (eventos.rows.length>0)
+        {
+          res.status(200).json(eventos.rows);
+        }
+        else
+        {
+          res.status(204).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       res.status(404);
     }
@@ -232,7 +302,17 @@ module.exports = function (app) {
   app.get("/get_proyectos_acabado", async (req, res) => {
     try {
       const proyectos_acabados = await service.get_proyectos_acabado();
-      res.status(200).json(proyectos_acabados.rows);
+      try 
+      {
+        if (proyectos_acabados.rows.length>0)
+        {
+          res.status(200).json(proyectos_acabados.rows);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
     } catch (err) {
       res.status(404); 
     }

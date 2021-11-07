@@ -26,6 +26,47 @@ class ProyectoServicio {
     var fecha=data.toLocaleDateString("en-GB")
     return fecha
   }
+
+  sin_nulls(array)
+  {
+    if(array.titulo==null)
+    {
+      array.titulo=""
+    }
+    if(array.descripcion==null)
+    {
+      array.descripcion=""
+    }
+    if(array.objetivo==null)
+    {
+      array.objetivo=""
+    }
+    if(array.lider==null)
+    {
+      array.lider=""
+    }
+    if(array.numero_participantes==null)
+    {
+      array.numero_participantes=""
+    }
+    if(array.fecha_inicio==null)
+    {
+      array.fecha_inicio=""
+    }
+    if(array.fecha_fin==null)
+    {
+      array.fecha_fin=""
+    }
+    if(array.categoria_id==null)
+    {
+      array.categoria_id=""
+    }
+    if(array.estado==null)
+    {
+      array.estado=""
+    }
+    return array
+  }
   async get_proyectos(data) 
   {
     
@@ -46,6 +87,8 @@ class ProyectoServicio {
         var fecha_fin_string=this.convertir_fecha(fecha_fin)
         resultado.rows[i].fecha_fin=fecha_fin_string
       }
+      var fila_sin_null=this.sin_nulls(resultado.rows[i])
+      resultado.rows[i]=fila_sin_null
       i=i+1
     }
     return resultado
@@ -55,19 +98,30 @@ class ProyectoServicio {
     try 
     {
       var proyecto = await this.repository.get_proyecto(data)
-      var fecha_inicio = proyecto.rows[0].fecha_inicio
-      var fecha_fin = proyecto.rows[0].fecha_fin
-      if (fecha_inicio!=null)
+      if (proyecto.rows.length > 0)
       {
-        var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
-        proyecto.rows[0].fecha_inicio=fecha_inicio_string
+        var fecha_inicio = proyecto.rows[0].fecha_inicio
+        var fecha_fin = proyecto.rows[0].fecha_fin
+        if (fecha_inicio!=null)
+        {
+          var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+          proyecto.rows[0].fecha_inicio=fecha_inicio_string
+        }
+        if (fecha_fin!=null)
+        {
+          var fecha_fin_string=this.convertir_fecha(fecha_fin)
+          proyecto.rows[0].fecha_fin=fecha_fin_string
+        }
+        var fila_sin_null=this.sin_nulls(proyecto.rows[0])
+        proyecto.rows[0]=fila_sin_null
+        return proyecto
       }
-      if (fecha_fin!=null)
+      else 
       {
-        var fecha_fin_string=this.convertir_fecha(fecha_fin)
-        proyecto.rows[0].fecha_fin=fecha_fin_string
+        console.error("El proyecto no existe")
+        return error
       }
-      return proyecto
+      
     }
     catch(error)
     {
@@ -94,7 +148,9 @@ class ProyectoServicio {
         {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           proyecto.rows[0].fecha_fin=fecha_fin_string
-        }        
+        }  
+        var fila_sin_null=this.sin_nulls(proyecto.rows[0])
+        proyecto.rows[0]=fila_sin_null      
         return proyecto;
       } 
       else 
@@ -127,6 +183,8 @@ class ProyectoServicio {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           proyecto.rows[0].fecha_fin=fecha_fin_string
         }
+        var fila_sin_null=this.sin_nulls(proyecto.rows[0])
+        proyecto.rows[0]=fila_sin_null
         return proyecto
       } 
       else 
@@ -230,6 +288,8 @@ class ProyectoServicio {
           var fecha_fin_string=this.convertir_fecha(fecha_fin)
           resultado.rows[i].fecha_fin=fecha_fin_string
         }
+        var fila_sin_null=this.sin_nulls(resultado.rows[i])
+        resultado.rows[i]=fila_sin_null
         i=i+1
       }
       return resultado      
@@ -295,7 +355,28 @@ class ProyectoServicio {
   {
     try 
     {
-        return await this.repository.get_proyectos_acabado()
+        var resultado= await this.repository.get_proyectos_acabado()
+        var i=0
+        var tamanio=resultado.rows.length
+        while(i < tamanio)
+        {
+          var fecha_inicio = resultado.rows[i].fecha_inicio
+          var fecha_fin = resultado.rows[i].fecha_fin
+          if (fecha_inicio!=null)
+          {
+            var fecha_inicio_string=this.convertir_fecha(fecha_inicio)
+            resultado.rows[i].fecha_inicio=fecha_inicio_string
+          }
+          if (fecha_fin!=null)
+          {
+            var fecha_fin_string=this.convertir_fecha(fecha_fin)
+            resultado.rows[i].fecha_fin=fecha_fin_string
+          }
+          var fila_sin_null=this.sin_nulls(resultado.rows[i])
+          resultado.rows[i]=fila_sin_null
+          i=i+1
+        }
+        return resultado
     }catch (error)  
     {
       console.error("Algo inesperado paso con la Base de datos") 

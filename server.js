@@ -2,7 +2,7 @@
 const { app, localhostPort } = require("./config/server.config");
 
 // Projectos
-require("./routes/projectos.routes")(app);
+require("./routes/proyectos.routes")(app);
 // Eventos
 require("./routes/eventos.routes")(app);
 // Usuarios

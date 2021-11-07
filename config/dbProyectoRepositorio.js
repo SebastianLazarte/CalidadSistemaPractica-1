@@ -21,8 +21,9 @@ class DbProyectoRepositorio {
     const proyectos = await pool.query(
       `SELECT p.*, tipo as categoria 
       FROM proyectos as p 
-      INNER JOIN categoria_proyectos 
-      ON p.categoria_id = categoria_proyectos.id`
+	    INNER JOIN categoria_proyectos 
+      ON p.categoria_id = categoria_proyectos.id
+	    WHERE p.estado=true`
     );
     return proyectos;
   }
@@ -33,7 +34,7 @@ class DbProyectoRepositorio {
       FROM proyectos as p 
       INNER JOIN categoria_proyectos 
       ON p.categoria_id = categoria_proyectos.id 
-      WHERE p.id=$1`,
+      WHERE p.id=$1 `,
       [id]
     );
     return proyecto;
@@ -72,7 +73,7 @@ class DbProyectoRepositorio {
       ]      
     );    
     const proyecto_to_show = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id ORDER BY ID DESC LIMIT 1"
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
     );    
     return proyecto_to_show;
   }
@@ -107,7 +108,7 @@ class DbProyectoRepositorio {
       ]
     );
     const proyecto = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1", 
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1 and estado=true", 
       [id]
     );
 
