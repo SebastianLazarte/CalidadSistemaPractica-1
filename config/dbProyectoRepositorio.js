@@ -57,7 +57,7 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-    const categoria_id = categoria_db.rows[0].id;
+    const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
     const new_proyeto = await pool.query(
       "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
       [
@@ -90,8 +90,8 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-    const categoria_id = categoria_db.rows[0].id;
-    const fechaFin = estado == "ACABADO" ? new Date() : null;
+    const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
+    const fechaFin = estado ? null : new Date();
     const proyecto_a_actualizar = await pool.query(
       "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
       [
