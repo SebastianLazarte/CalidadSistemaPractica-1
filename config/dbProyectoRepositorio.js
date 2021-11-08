@@ -191,7 +191,7 @@ class DbProyectoRepositorio {
   }
   async get_categorias_proyectos(categoria) {
     const categorias = await pool.query(
-      "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
+      "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=true",
       [categoria]
     );
     return categorias;
