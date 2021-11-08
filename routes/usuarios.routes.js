@@ -9,7 +9,7 @@ module.exports = function (app) {
       res
         .status(201)
         .send(
-          `{"message":"The user informtaion was added", "data": ${data_to_send}}`
+          `{"message":"The user information was added", "data": ${data_to_send}}`
         );
     } catch (err) {
       console.error(err.message);

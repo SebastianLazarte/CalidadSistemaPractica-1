@@ -3,7 +3,6 @@ class usuarioServicio {
   constructor() {
     this.repository = new DbUsuarioRepositorio();
   }
-
   async get_volunteer_data(id) {
     return await this.repository.GetUsuario(id);
   }
