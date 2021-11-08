@@ -168,7 +168,7 @@ module.exports = function (app) {
   app.get("/sesion/:id_autenticacion/get_my_eventos", async (req, res) => {
     try {
       const { id_autenticacion } = req.params;
-      const mis_eventos = await service_evento.get_my_eventos(id_autenticacion);
+      let mis_eventos = await service_evento.get_my_eventos(id_autenticacion);
       if (mis_eventos == false)
         res
           .status(404)
@@ -178,7 +178,7 @@ module.exports = function (app) {
               " no existe entre los voluntarios"
           );
       else {
-        res.status(200).json(mis_eventos.rows);
+        res.status(200).json(mis_eventos);
       }
     } catch (err) {
       res.status(404);
