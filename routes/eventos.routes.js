@@ -215,7 +215,7 @@ module.exports = function (app) {
         id,
         req.body
       );
-      res.status(200).json(`{"message":"", "data": ${eventoActualizado.rows}}`);
+      res.status(200).json(eventoActualizado.rows);
     } catch (error) {
       res.status(404);
     }
