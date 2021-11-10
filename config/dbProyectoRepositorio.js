@@ -59,8 +59,9 @@ class DbProyectoRepositorio {
       [categoria]
     );
     const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
+    var visualizar=true;
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id,visualizar)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9)",
       [
         titulo,
         descripcion,
@@ -69,7 +70,8 @@ class DbProyectoRepositorio {
         numero_participantes_oficial,
         estado || true,
         new Date(),
-        categoria_id
+        categoria_id,
+        visualizar
       ]      
     );    
     const proyecto_to_show = await pool.query(
@@ -86,6 +88,7 @@ class DbProyectoRepositorio {
       numero_participantes,
       estado,
       categoria,
+      visualizar
     } = data;
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
@@ -93,8 +96,9 @@ class DbProyectoRepositorio {
     );
     const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
     const fechaFin = estado ? null : new Date();
+    
     const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),visualizar=coalesce($10,visualizar) WHERE id = $1",
       [
         id,
         titulo,
@@ -105,6 +109,7 @@ class DbProyectoRepositorio {
         estado,
         fechaFin,
         categoria_id,
+        visualizar
       ]
     );
     const proyecto = await pool.query(
