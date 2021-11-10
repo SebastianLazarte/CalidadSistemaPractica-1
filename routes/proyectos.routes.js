@@ -202,16 +202,6 @@ module.exports = function (app) {
     }
   });
 
-  app.get("/get_categoria_proyectos", async (req, res) => {
-    try {
-      const categorias = await service.get_categorias();
-      res.status(200).json(categorias.rows);
-    } catch (err) {
-      res.status(404);
-    }
-  });
-
-
     //Cancelar participacion de un voluntario en el proyecto
     app.delete("/cancel_participate_proyecto/:id/sesion/:id_autenticacion",async (req, res) => {
       try {
