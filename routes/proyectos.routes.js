@@ -201,10 +201,6 @@ module.exports = function (app) {
       res.status(404);
     }
   });
-<<<<<<< HEAD:routes/proyectos.routes.js
-=======
-
->>>>>>> c5e1e53 (agregando endPoint para get categoria proyectos):routes/projectos.routes.js
 
   //Cancelar participacion de un voluntario en el proyecto
     app.delete("/cancel_participate_proyecto/:id/sesion/:id_autenticacion",async (req, res) => {
