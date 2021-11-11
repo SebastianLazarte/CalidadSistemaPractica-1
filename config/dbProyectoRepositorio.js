@@ -99,6 +99,7 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
+    var categoria_id;
     const categorias_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
     if (categorias_id==null)
     {
@@ -106,8 +107,13 @@ class DbProyectoRepositorio {
         "SELECT categoria_id FROM public.proyectos WHERE id = $1",
         [id]
       );
+      categoria_id=categoria_id_oficial.rows[0].categoria_id
     }
-    var categoria_id=categoria_id_oficial.rows[0].categoria_id
+    else
+    {
+      categoria_id=categorias_id
+    }
+    
     if(estado!=undefined)
     {
       var fecha_fin = estado ? null : new Date();
