@@ -39,6 +39,7 @@ class DbProyectoRepositorio {
     );
     return proyecto;
   }
+
   async create_proyecto(data) {
     debugger
     const {
@@ -49,6 +50,7 @@ class DbProyectoRepositorio {
       numero_participantes,
       estado,
       categoria,
+      informacion_adicional
     } = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
@@ -59,8 +61,9 @@ class DbProyectoRepositorio {
       [categoria]
     );
     const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
+    var visualizar=true;
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id,visualizar,informacion_adicional)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)",
       [
         titulo,
         descripcion,
@@ -69,7 +72,9 @@ class DbProyectoRepositorio {
         numero_participantes_oficial,
         estado || true,
         new Date(),
-        categoria_id
+        categoria_id,
+        visualizar,
+        informacion_adicional
       ]      
     );    
     const proyecto_to_show = await pool.query(
@@ -77,6 +82,7 @@ class DbProyectoRepositorio {
     );    
     return proyecto_to_show;
   }
+
   async update_proyecto(id, data) {
     const {
       titulo,
@@ -86,17 +92,31 @@ class DbProyectoRepositorio {
       numero_participantes,
       estado,
       categoria,
+      visualizar,
+      informacion_adicional
     } = data;
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-    const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
-    const fecha_fin = estado ? null : new Date();
-    if (fecha_fin==null)
+    const categorias_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
+    if (categorias_id==null)
+    {
+      var categoria_id_oficial = await pool.query(
+        "SELECT categoria_id FROM public.proyectos WHERE id = $1",
+        [id]
+      );
+    }
+    var categoria_id=categoria_id_oficial.rows[0].categoria_id
+    if(estado!=undefined)
+    {
+      var fecha_fin = estado ? null : new Date();
+    }
+    
+    if (fecha_fin==null && estado==true)
     {
       const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id) WHERE id = $1",
+        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional) WHERE id = $1",
         [
           id,
           titulo,
@@ -107,13 +127,15 @@ class DbProyectoRepositorio {
           estado,
           fecha_fin,
           categoria_id,
+          visualizar,
+          informacion_adicional
         ]
       );
     }
     else
     {
       const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
+        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),  visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional) WHERE id = $1",
         [
           id,
           titulo,
@@ -124,6 +146,8 @@ class DbProyectoRepositorio {
           estado,
           fecha_fin,
           categoria_id,
+          visualizar,
+          informacion_adicional
         ]
       );
 
@@ -136,6 +160,7 @@ class DbProyectoRepositorio {
 
     return proyecto;
   }
+
 
   async participate_proyecto(id, id_usuario) {
     //si existe un usuario no tiene que aumentar

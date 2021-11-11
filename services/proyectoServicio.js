@@ -65,6 +65,14 @@ class ProyectoServicio {
     {
       array.estado=""
     }
+    if(array.visualizar==null)
+    {
+      array.visualizar=""
+    }
+    if(array.informacion_adicional==null)
+    {
+      array.informacion_adicional=""
+    }
     return array
   }
   async get_proyectos(data) 
