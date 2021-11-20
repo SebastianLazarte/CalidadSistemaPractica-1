@@ -351,6 +351,15 @@ class DbProyectoRepositorio {
     return proyectos_acabados;
   }
 
+  async get_proyectos_pasados_categoria(categoria) {
+    const proyectos_acabados = await pool.query(
+      //************* */     'ACABADO' = false
+      "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=false",
+      [categoria]
+    );
+    return proyectos_acabados;
+  }
+
   async participate_past_proyecto(id_proyecto, id_autenticacion, id_usuario) {
     const proyecto_existence = Boolean(
       (

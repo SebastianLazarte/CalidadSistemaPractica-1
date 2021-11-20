@@ -392,6 +392,34 @@ class ProyectoServicio {
     }
   }
 
+  async get_proyectos_pasados_categoria(data)
+  {
+    try {      
+      let resultado = await this.repository.get_proyectos_pasados_categoria(data);
+      let i = 0;
+      let tamanio = resultado.rows.length;      
+      while(i < tamanio) {        
+        let fecha_inicio = resultado.rows[i].fecha_inicio;
+        let fecha_fin = resultado.rows[i].fecha_fin;
+        if (fecha_inicio != null) {
+          let fecha_inicio_string = this.convertir_fecha(fecha_inicio);
+          resultado.rows[i].fecha_inicio = fecha_inicio_string;
+        }
+        if (fecha_fin != null) {
+          let fecha_fin_string = this.convertir_fecha(fecha_fin);
+          resultado.rows[i].fecha_fin = fecha_fin_string;
+        }
+        let fila_sin_null = this.sin_nulls(resultado.rows[i]);
+        resultado.rows[i] = fila_sin_null;
+        i++;
+      }
+      return resultado;
+    } catch (error) {
+      console.error("Algo inesperado paso con la Base de datos");
+      return error;
+    }
+  }
+
   async participate_past_proyecto(id_proyecto,id_autenticacion,id_usuario)
   {
     try
