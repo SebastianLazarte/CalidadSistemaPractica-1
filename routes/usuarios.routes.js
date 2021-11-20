@@ -52,6 +52,7 @@ module.exports = function (app) {
         );
     }
   });
+
   app.get("/extended_form", async (req, res) => {
     try {
       const volunteers = await usuarioService.get_volunteers_data();
@@ -62,6 +63,40 @@ module.exports = function (app) {
       res
         .status(204)
         .send(`{ "message": "there are no volunteers", "data": ""}`);
+    }
+  });
+
+  app.get("/insignias/:id", async (req, res) => {
+    try {
+      const insignias = await usuarioService.get_insignias_by_user(
+        req.params.id
+      );
+      
+      let data_to_send = JSON.stringify(insignias);
+      res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
+    } catch (err) {
+      console.error(err.message);
+      res
+        .status(204)
+        .send(
+          `{ "message": "The volunteer with id ${req.params[0]} does not exit"", "data": ""}`
+        );
+    }
+  });
+  
+  app.get("/insignias", async (req, res) => {
+    try {
+      const insignias = await usuarioService.get_insignias();
+      
+      let data_to_send = JSON.stringify(insignias.rows);
+      res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
+    } catch (err) {
+      console.error(err.message);
+      res
+        .status(204)
+        .send(
+          `{ "message": "The volunteer with id ${req.params[0]} does not exit"", "data": ""}`
+        );
     }
   });
   app.delete("/disable_user/:id", async (req, res) => {

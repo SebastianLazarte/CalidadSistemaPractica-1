@@ -279,6 +279,29 @@ class DbUsuarioRepositorio {
     });
     return aptitudes_tecnicas;
   }
+
+  async GetInsigniasByIdUsuario(id_usuario) {
+    var insignias = [];
+    const insignias_usuario = await pool.query(
+      "SELECT insignia FROM insignias I JOIN insignias_de_usuarios D ON I.id_insignia=D.id_insignia WHERE id_usuario = $1",
+      [id_usuario]
+    );
+    console.log(insignias_usuario);
+    insignias_usuario.rows.forEach((element) => {
+      insignias.push(element.insignia);
+    });
+    var res = {};
+    res.insignias=insignias;
+    return res;
+  }
+
+  async GetInsignias() {
+    const insignias = await pool.query(
+      "SELECT insignia FROM insignias"
+    );
+    return insignias;
+  }
+
   async disableUser(id_user) {
     let user_to_disable = await pool.query(
       "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",
