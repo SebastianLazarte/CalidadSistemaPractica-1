@@ -316,6 +316,28 @@ module.exports = function (app) {
       res.status(404); 
     }
   });
+  //Obtener Proyectos por categoria
+  app.get("/get_proyectos_acabado/:categoria", async (req, res) => {
+    try {
+      const {categoria}= req.params;
+      const proyectos_acabados = await service.get_proyectos_pasados_categoria(categoria);
+      try 
+      {
+        if (proyectos_acabados.rows.length>0)
+        {
+          res.status(200).json(proyectos_acabados.rows);
+        } else  {
+          res.status(200).json([]);
+        }
+      }
+      catch(err)
+      {
+        res.status(204).json([]);
+      }
+    } catch (err) {
+      res.status(404); 
+    }
+  });
   //Registrar como participantes a voluntarios en proyectos pasados
   app.put(
     "/participate_past_proyecto/:id_proyecto/sesion/:id_autenticacion/volunteer/:id_volunteer",
