@@ -231,10 +231,9 @@ class DbProyectoRepositorio {
         )
       ).rows[0]["exists"]
     );
-
     if (existeProyecto) {
       const participantsSimple = await pool.query(
-        "SELECT us.id_usuario,us.nombre,us.apellido,us.rol FROM public.participantes_proyectos as pro, public.usuarios as us where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1",
+        "SELECT us.id_usuario,us.nombre,us.apellido,us.rol,proy.titulo,us.telefono,proy.fecha_inicio,proy.fecha_fin FROM public.participantes_proyectos as pro, public.usuarios as us,public.proyectos as proy where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1 and proy.id=pro.id_proyecto",
         [id]
       );
       return participantsSimple;
