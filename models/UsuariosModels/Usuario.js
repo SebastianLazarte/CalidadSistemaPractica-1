@@ -1,8 +1,8 @@
-import { Sequelize } from 'sequelize/types';
-import { sequelize } from '../config/dbUsuarios.js';
+const Sequelize = require('sequelize');
+const dbUsuarios = require('../../config/dbUsuarios');
 
-const usuario = sequelize.define('usuario',{
-    id:{
+const usuario = dbUsuarios.define('usuarios',{
+    id_usuario:{
         type:Sequelize.INTEGER,
         primaryKey:true
     },
@@ -13,7 +13,7 @@ const usuario = sequelize.define('usuario',{
         type: Sequelize.TEXT
     },
     fecha_de_nacimiento:{
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
     },
     pais_de_recidencia:{
         type: Sequelize.TEXT
@@ -48,7 +48,7 @@ const usuario = sequelize.define('usuario',{
     numero_contacto_de_emergencia:{
         type: Sequelize.TEXT
     },
-   relacion_contacto_de_emergencia:{
+    relacion_contacto_de_emergencia:{
         type: Sequelize.TEXT
     },
     rol:{
@@ -57,7 +57,11 @@ const usuario = sequelize.define('usuario',{
     foto_url:{
         type: Sequelize.TEXT
     },
+    horas_participadas_eventos:{
+        type: Sequelize.INTEGER
+    }
 },{
     timestamps:false
 });
-export default usuario;
+
+module.exports = usuario;

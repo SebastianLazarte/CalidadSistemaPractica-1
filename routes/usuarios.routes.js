@@ -41,7 +41,7 @@ module.exports = function (app) {
       const newVolunteer = await usuarioService.get_volunteer_data(
         req.params.id
       );
-      let data_to_send = JSON.stringify(newVolunteer.rows[0]);
+      let data_to_send = JSON.stringify(newVolunteer);
       res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
     } catch (err) {
       console.error(err.message);

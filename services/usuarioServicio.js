@@ -1,10 +1,38 @@
+const Dbrepository = require('../models/UsuariosModels');
 const DbUsuarioRepositorio = require("../config/dbUsuarioRepositorio.js");
+const dbUsuarios = require('../config/dbUsuarios');
 class usuarioServicio {
   constructor() {
     this.repository = new DbUsuarioRepositorio();
   }
-  async get_volunteer_data(id) {
-    return await this.repository.GetUsuario(id);
+  async get_volunteer_data(myuser_id) {
+    let volunter_info = await Dbrepository.usuario.findOne({
+      where: {
+        id_usuario: myuser_id
+      },include:[{
+        model:Dbrepository.interes,
+        as:'intereses',
+        attributes:['interes']
+      },
+      {
+        model:Dbrepository.cualidad,
+        as:'cualidades',
+        attributes:['cualidad']
+      },
+      {
+        model:Dbrepository.aptitudes_tecnicas,
+        as:'aptitudes_tecnicas',
+        attributes:['aptitud_tecnica'],
+      },
+    ],
+    }).then((result) => { 
+       console.log(result.dataValues);
+       return result;
+      });
+    //console.log(volunter_info.values);
+    //let algo = volunter_info.aptitudes_tecnicas.map((a)=>a.dataValues.aptitud_tecnica);
+    //console.log(algo);
+    return volunter_info;
   }
   async get_volunteers_data() {
     return await this.repository.GetUsuarios();
@@ -28,7 +56,6 @@ class usuarioServicio {
         usuario_a_editar,
         data
       );
-    
       return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       console.log(error);
