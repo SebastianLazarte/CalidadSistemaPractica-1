@@ -144,7 +144,7 @@ class EventoServicio {
       });
       sorted_list = sorted_list.filter((event)=>{
         let today = new Date();
-        return new Date(event.fecha_evento) > today;
+        return ! new Date(event.fecha_evento) < today;
       })
       return sorted_list;
     }
