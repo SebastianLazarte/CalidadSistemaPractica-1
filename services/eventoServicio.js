@@ -139,6 +139,13 @@ class EventoServicio {
       let sorted_list = list_of_participant.rows.sort((a, b) => {
         return new Date(a.fecha_evento) - new Date(b.fecha_evento);
       });
+      sorted_list = sorted_list.sort((a, b) => {
+        return a.hora_inicio - b.hora_inicio;
+      });
+      sorted_list = sorted_list.filter((event)=>{
+        let today = new Date();
+        return new Date(event.fecha_evento) > today;
+      })
       return sorted_list;
     }
     catch(error)
