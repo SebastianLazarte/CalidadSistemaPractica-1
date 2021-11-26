@@ -45,6 +45,25 @@ class usuarioServicio {
     }
   }
 
+  async get_insignias_by_user(id_user)
+  {
+    try {
+      return await this.repository.GetInsigniasByIdUsuario(id_user);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  
+  async get_insignias()
+  {
+    try {
+      return await this.repository.GetInsignias();
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
   completar_form_a_actualizar(usuario_a_editar, data) {
     try {
       for (const prop in usuario_a_editar) {
