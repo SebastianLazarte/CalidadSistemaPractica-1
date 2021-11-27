@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "00a2e82e-797e-4509-be21-8b9a41bb090a",
+		"_postman_id": "b11215ca-48ce-4bc6-9ab6-ee8c051c6915",
 		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -270,7 +270,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"titulo\": \"Start Proyecto Premium\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\"Alimentacion\"],\r\n        \"lider\": [\"Salvador\"],\r\n        \"categoria\":\"Animalista\"\r\n}",
+					"raw": "{\r\n        \"titulo\": \"Start Patitas\",\r\n        \"descripcion\": \"El proyecto de Albergue para Mascotas surge como una solución a los problemas con relación a la sobrepoblación de animales domésticos \",\r\n        \"objetivo\": [\"Bienestar de los Animales\"],\r\n        \"lider\": \"Salvador\",\r\n        \"categoria\":\"Animales\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -423,7 +423,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_image_proyecto/308",
+					"raw": "http://localhost:5000/get_image_proyecto/309",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -431,7 +431,37 @@
 					"port": "5000",
 					"path": [
 						"get_image_proyecto",
-						"308"
+						"309"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asignar imagenes a proyectos existentes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/UNIVERSIDAD 2021/II-2021/Taller de Desarrollo de Software/Tareas/BackWithImagenes/ImagenesDocs/PerritoStart.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/create_imagen_proyecto/309",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"create_imagen_proyecto",
+						"309"
 					]
 				}
 			},
