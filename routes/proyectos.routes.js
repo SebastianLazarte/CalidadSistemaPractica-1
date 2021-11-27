@@ -400,6 +400,27 @@ module.exports = function (app) {
   })
 
 
+  app.post("/create_imagen_proyecto/:id_proyecto", imageUpload.single('image'), async (req, res) => {
+    try {   
+        const {id_proyecto} =req.params
+        const { filename, mimetype, size } = req.file;  
+        const filepath = req.file.path;
+        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id_proyecto) 
+        result=imagen.rowCount>=1  
+        if (result==true)
+        {
+          res.status(200).json(result);
+        }
+        else 
+        {
+          res.status(404)
+        }  
+      }
+      catch (err) {
+        res.status(404);
+      }
+  });
+
     // Devuelve las imagenes de un proyecto especifico
     app.get('/get_image_proyecto/:id_proyecto',imageUpload.single('image'), async(req, res) => {
       try
