@@ -1,14 +1,42 @@
 const _service = require("../services/proyectoServicio");
 const service = new _service();
+const multer =require('multer')
+const path = require('path')
+const imageUpload = multer({
+  storage: multer.diskStorage(
+      {
+          destination: function (req, file, cb) {
+              cb(null, './images');
+          },
+          filename: function (req, file, cb) {
+              cb(
+                  null,
+                  new Date().valueOf() + 
+                  '_' +
+                  file.originalname
+              );
+          }
+      }
+  ), 
+});
 
 module.exports = function (app) {
   //Crear
-  app.post("/create_proyecto", async (req, res) => {
-    try {      
-      const nuevoProyecto = await service.create_proyecto(req.body);     
+  app.post("/create_proyecto", imageUpload.single('image'), async (req, res) => {
+    try {   
+      debugger 
+      const nuevoProyecto = await service.create_proyecto(req.body);
+      const id=nuevoProyecto.rows[0].id;
+      if(req.file!=undefined)
+      {
+        const { filename, mimetype, size } = req.file;  
+        const filepath = req.file.path;
+        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id) 
+        result=imagen.rowCount>=1   
+      }
       try {
-        if (nuevoProyecto.rows.length > 0) {
-          res.status(201).json(nuevoProyecto.rows); 
+        if (nuevoProyecto.rows.length > 0 ) {
+          res.status(201).json(nuevoProyecto.rows);       
         }
         else {
           res
@@ -27,12 +55,18 @@ module.exports = function (app) {
   });
   
   //Actualizar
-  app.put("/update_proyecto/:id", async (req, res) => {
+  app.put("/update_proyecto/:id", imageUpload.single('image'), async (req, res) => {
     try {
-      
       let { id } = req.params;
       req.body["id"] = id;
       const proyectoActualizado = await service.update_proyecto(id, req.body);
+      if(req.file!=undefined)
+      {
+        const { filename, mimetype, size } = req.file;  
+        const filepath = req.file.path;
+        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id) 
+        result=imagen.rowCount>=1   
+      }
       try 
       {
         if(proyectoActualizado.rows.length > 0)
@@ -364,6 +398,27 @@ module.exports = function (app) {
       res.status(404);
     }
   })
+
+
+    // Devuelve las imagenes de un proyecto especifico
+    app.get('/get_image_proyecto/:id_proyecto',imageUpload.single('image'), async(req, res) => {
+      try
+      {
+        debugger
+        const { id_proyecto } = req.params;
+        const imagen =await service.get_imagen(id_proyecto)
+        const dir_name=path.resolve();
+        const full_file_path=path.join(dir_name,imagen.rows[0].filepath)
+        return res
+          .type(imagen.rows[0].mimetype)
+          .sendFile(full_file_path)
+      }
+      catch(err)
+      {
+        res.status(404);
+      }
+    });
+
 
 
 };

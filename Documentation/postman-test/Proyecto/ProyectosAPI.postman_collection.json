@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "348b335f-843e-4827-bf7f-4f84ab260cb6",
+		"_postman_id": "00a2e82e-797e-4509-be21-8b9a41bb090a",
 		"name": "ProyectosAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -412,6 +412,26 @@
 						"193",
 						"sesion",
 						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Imagenes Proyectos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_image_proyecto/308",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_image_proyecto",
+						"308"
 					]
 				}
 			},

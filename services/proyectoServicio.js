@@ -441,5 +441,31 @@ class ProyectoServicio {
       throw console.error("Algo inesperado paso con la Base de datos"); 
     }
   }
+
+  async create_imagen(filename,mimetype,size,filepath,id_proyecto)
+  {
+    try 
+    {
+      return await this.repository.create_imagen(filename,mimetype,size,filepath,id_proyecto)
+    }
+    catch (error) 
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+  }
+
+  async get_imagen(id_proyecto)
+  {
+    try
+    {
+      return await this.repository.get_imagen(id_proyecto)
+    }
+    catch (error)
+    {
+      throw console.error("Algo inesperado paso con la Base de datos"); 
+    }
+
+  }
+
 }
 module.exports = ProyectoServicio

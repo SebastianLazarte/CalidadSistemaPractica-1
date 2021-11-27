@@ -421,6 +421,25 @@ class DbProyectoRepositorio {
     return usuarios;
   }
 
+  async create_imagen(filename,mimetype,size,filepath,id_proyecto)
+  {
+    const imagenes_desactivadas= await pool.query("UPDATE public.imagenes_proyectos SET activo=false where id_proyecto=$1",[parseInt(id_proyecto)])
+    const activo=true;
+    const nueva_imagen= await pool.query(
+      "INSERT INTO public.imagenes_proyectos(filename,filepath,mimetype,size,id_proyecto,activo) VALUES ($1,$2,$3,$4,$5,$6)",
+      [filename,filepath,mimetype,size,id_proyecto,activo]
+    )
+    const imagen=await pool.query("SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",[parseInt(id_proyecto)]);
+    return imagen
+  }
+
+  async get_imagen(id_proyecto)
+  {
+    const imagen=await pool.query("SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",[parseInt(id_proyecto)]);
+    return imagen
+  }
+
+
 
 }
 
