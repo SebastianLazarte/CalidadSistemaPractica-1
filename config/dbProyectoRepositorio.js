@@ -249,7 +249,7 @@ class DbProyectoRepositorio {
   }
   async get_categorias() {
     const categorias = await pool.query(
-      "SELECT * FROM public.categoria_proyectos"
+      "SELECT * FROM public.categoria_proyectos ORDER BY id ASC"
     );
     return categorias;
   }
