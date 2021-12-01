@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/get_proyecto/1000",
+					"raw": "http://localhost:5000/get_proyecto/321",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +38,7 @@
 					"port": "5000",
 					"path": [
 						"get_proyecto",
-						"1000"
+						"321"
 					]
 				}
 			},
@@ -270,7 +270,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"titulo\": \"Start Patitas\",\r\n        \"descripcion\": \"El proyecto de Albergue para Mascotas surge como una solución a los problemas con relación a la sobrepoblación de animales domésticos \",\r\n        \"objetivo\": [\"Bienestar de los Animales\"],\r\n        \"lider\": \"Salvador\",\r\n        \"categoria\":\"Animales\"\r\n}",
+					"raw": "{\r\n        \"titulo\": \"START Alimentacion\",\r\n        \"descripcion\": \"Dar informacion sobre alimentos\",\r\n        \"objetivo\": [\r\n            \"Dar apoyo y soporte en cuanto a informacion alimentaria\"\r\n        ],\r\n        \"numero_participantes\": \"0\",\r\n        \"fecha_inicio\": \"30/11/2021\",\r\n        \"fecha_fin\": \"\",\r\n        \"estado\": true,\r\n        \"lider\": \"Salvador\",\r\n        \"visualizar\": true,\r\n        \"informacion_adicional\": \"\",\r\n        \"categoria\": \"Desarrollo Sostenible\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -298,7 +298,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"titulo\": \"Start Proyecto Premium\",\r\n        \"descripcion\": \"Proyecto de alimentacion a Albergues \",\r\n        \"objetivo\": [\r\n            \"Alimentacion\"\r\n        ],\r\n        \"lider\": [\r\n            \"Salvador\",\r\n            \"Nahim\"\r\n        ],\r\n        \"numero_participantes\": \"0\",\r\n        \"estado\": \"EN CURSO\",\r\n        \"fecha_inicio\": \"03/11/2021\",\r\n        \"fecha_fin\": null,\r\n        \"categoria_id\": \"2\",\r\n        \"categoria\": \"Animalista\"\r\n    }",
+					"raw": "{\r\n        \"titulo\": \"Start Medio Ambiental\",\r\n        \"descripcion\": \"Cuidar el medio ambiente con la reforestación\",\r\n        \"objetivo\": [\r\n                        \"Cuidar el Medio ambiente\"\r\n                    ],\r\n        \"numero_participantes\": \"1\",\r\n        \"fecha_inicio\": \"30/11/2021\",\r\n        \"fecha_fin\": \"\",\r\n        \"categoria_id\": \"1\",\r\n        \"estado\": true,\r\n        \"lider\": \"Nahim\",\r\n        \"visualizar\": true,\r\n        \"informacion_adicional\": \"\",\r\n        \"url_imagen\": \"https://www.laregion.bo/wp-content/uploads/2020/01/WhatsApp-Image-2020-01-03-at-10.14.59-768x576.jpeg\",\r\n        \"categoria\": \"Medio Ambiente\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,7 +306,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/update_proyecto/222",
+					"raw": "http://localhost:5000/update_proyecto/321",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -314,7 +314,7 @@
 					"port": "5000",
 					"path": [
 						"update_proyecto",
-						"222"
+						"321"
 					]
 				}
 			},
@@ -381,7 +381,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/delete_proyecto/18",
+					"raw": "http://localhost:5000/delete_proyecto/332",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -389,7 +389,7 @@
 					"port": "5000",
 					"path": [
 						"delete_proyecto",
-						"18"
+						"332"
 					]
 				}
 			},
@@ -419,11 +419,24 @@
 		},
 		{
 			"name": "Get Imagenes Proyectos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/UNIVERSIDAD 2021/II-2021/Taller de Desarrollo de Software/Tareas/BackWithImagenes/ImagenesDocs/PerritosStart.jpg"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:5000/get_image_proyecto/309",
+					"raw": "http://localhost:5000/get_image_proyecto/308",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -431,7 +444,7 @@
 					"port": "5000",
 					"path": [
 						"get_image_proyecto",
-						"309"
+						"308"
 					]
 				}
 			},
@@ -448,19 +461,39 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/D:/UNIVERSIDAD 2021/II-2021/Taller de Desarrollo de Software/Tareas/BackWithImagenes/ImagenesDocs/PerritoStart.jpg"
+							"src": "/D:/UNIVERSIDAD 2021/II-2021/Taller de Desarrollo de Software/Tareas/BackWithImagenes/ImagenesDocs/PerritosStart.jpg"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:5000/create_imagen_proyecto/309",
+					"raw": "http://localhost:5000/create_imagen_proyecto",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"create_imagen_proyecto",
+						"create_imagen_proyecto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PruebaImagen",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://servicio-de-datos-respaldo.herokuapp.com/get_image_proyecto/309",
+					"protocol": "https",
+					"host": [
+						"servicio-de-datos-respaldo",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"get_image_proyecto",
 						"309"
 					]
 				}

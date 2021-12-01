@@ -50,7 +50,8 @@ class DbProyectoRepositorio {
       numero_participantes,
       estado,
       categoria,
-      informacion_adicional
+      informacion_adicional,
+      url_imagen
     } = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
@@ -63,7 +64,7 @@ class DbProyectoRepositorio {
     const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
     var visualizar=true;
     const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id,visualizar,informacion_adicional)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)",
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id,visualizar,informacion_adicional,url_imagen)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11)",
       [
         titulo,
         descripcion,
@@ -74,7 +75,8 @@ class DbProyectoRepositorio {
         new Date(),
         categoria_id,
         visualizar,
-        informacion_adicional
+        informacion_adicional,
+        url_imagen
       ]      
     );    
     const proyecto_to_show = await pool.query(
@@ -93,7 +95,8 @@ class DbProyectoRepositorio {
       estado,
       categoria,
       visualizar,
-      informacion_adicional
+      informacion_adicional,
+      url_imagen
     } = data;
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
@@ -122,7 +125,7 @@ class DbProyectoRepositorio {
     if (fecha_fin==null && estado==true)
     {
       const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional) WHERE id = $1",
+        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1",
         [
           id,
           titulo,
@@ -134,14 +137,15 @@ class DbProyectoRepositorio {
           fecha_fin,
           categoria_id,
           visualizar,
-          informacion_adicional
+          informacion_adicional,
+          url_imagen
         ]
       );
     }
     else
     {
       const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),  visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional) WHERE id = $1",
+        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),  visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional),url_imagen=coalesce($12,url_imagen) WHERE id = $1",
         [
           id,
           titulo,
@@ -153,7 +157,8 @@ class DbProyectoRepositorio {
           fecha_fin,
           categoria_id,
           visualizar,
-          informacion_adicional
+          informacion_adicional,
+          url_imagen
         ]
       );
 
