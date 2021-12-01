@@ -73,6 +73,10 @@ class ProyectoServicio {
     {
       array.informacion_adicional=""
     }
+    if(array.url_imagen==null)
+    {
+      array.url_imagen=""
+    }
     return array
   }
   async get_proyectos(data) 
