@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "82739982-ef8b-49b0-9bd4-b9e1dc541d72",
+		"_postman_id": "f86667c2-2ab7-411d-a3da-5b0e7f501411",
 		"name": "Usuarios_Start_Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -292,6 +292,35 @@
 					"port": "5000",
 					"path": [
 						"insignias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put insignias by User id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"insignias\": \"Trabajo en Equipo,Creatividad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/insignias/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"insignias",
+						"10"
 					]
 				}
 			},

@@ -99,6 +99,23 @@ module.exports = function (app) {
         );
     }
   });
+
+  app.put("/insignias/:id_user", async (req, res) => {
+    try {
+      let { id_user } = req.params;
+      const changedVolunteer = await usuarioService.update_insignias_by_user_id(id_user, req.body);
+      let data_to_send = JSON.stringify(changedVolunteer);
+      res
+        .status(202)
+        .send(`{"message":"Succesfully Updated!", "data": ${data_to_send}}`);
+      // res.status(202).send(`{"message":"Succesfully Updated!", "data":true}`);
+    } catch (error) {
+      console.error(error.message);
+      res
+        .status(400)
+        .send(`{"message":"Changes are not commited", "data":false}`);
+    }
+  });
   app.delete("/disable_user/:id", async (req, res) => {
     try {
       let stateOfDisable = await usuarioService.disable_user(req.params.id);
