@@ -54,7 +54,16 @@ class usuarioServicio {
       return false;
     }
   }
-  
+
+  async update_insignias_by_user_id(id, data) {
+    try {
+      return await this.repository.UpdateInsignias(id, data.insignias);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   async get_insignias()
   {
     try {

@@ -134,6 +134,45 @@ class DbUsuarioRepositorio {
     return update_user;
   }
 
+
+  async UpdateInsignias(id_user, insignias_nuevas) {
+    const insignias_lista = insignias_nuevas.split(",");
+    await pool.query(
+      "DELETE FROM insignias_de_usuarios WHERE id_usuario = $1",
+      [id_user]
+    );
+
+    var seSQL =
+      "SELECT id_insignia FROM insignias WHERE insignia = '" +
+      insignias_lista[0] +
+      "'";
+    for (let i = 1; i < insignias_lista.length; i++) {
+      seSQL = seSQL + " OR insignia = '" + insignias_lista[i] + "'";
+    }
+    seSQL= seSQL+ ";";
+
+    const idsInsignias = await pool.query(seSQL);
+
+    var seSQL2 = "";
+    if (idsInsignias.rows.length === 0) {
+      insignias_lista = [];
+    } else {
+      idsInsignias.rows.forEach((element) => {
+        seSQL2 =
+          seSQL2 +
+          "INSERT INTO insignias_de_usuarios (id_usuario, id_insignia) VALUES(" +
+          id_user +
+          "," +
+          element.id_insignia +
+          ");";
+      });
+    }
+    
+    await pool.query(seSQL2);
+
+    return insignias_lista;
+  }
+
   async UpdateCualidades(id_user, cualidades_nuevas) {
     await pool.query(
       "DELETE FROM cualidades_de_usuarios WHERE id_usuario = $1",
