@@ -57,7 +57,6 @@ class usuarioServicio {
 
   async update_insignias_by_user_id(id, data) {
     try {
-      console.log(data.insignias);
       return await this.repository.UpdateInsignias(id, data.insignias);
     } catch (error) {
       console.log(error);
