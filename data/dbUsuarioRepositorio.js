@@ -1,17 +1,4 @@
-const Pool = require("pg").Pool;
-
-const pool = new Pool({
-  user: "hsazteibnsnquc",
-  password: "96c44f19b6a31a67521c2fa65c9233544ed1d7d5388367c6d9ff4c22c940a340", //use your pass my friend
-  database: "d5mjf648gc2p7f",
-  host: "ec2-54-156-24-159.compute-1.amazonaws.com",
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-module.exports = pool;
+const { pool } = require("../config/pool.config");
 class DbUsuarioRepositorio {
   constructor() {
     this.cursor = null;
@@ -134,7 +121,6 @@ class DbUsuarioRepositorio {
     return update_user;
   }
 
-
   async UpdateInsignias(id_user, insignias_nuevas) {
     const insignias_lista = insignias_nuevas.split(",");
     await pool.query(
@@ -149,7 +135,7 @@ class DbUsuarioRepositorio {
     for (let i = 1; i < insignias_lista.length; i++) {
       seSQL = seSQL + " OR insignia = '" + insignias_lista[i] + "'";
     }
-    seSQL= seSQL+ ";";
+    seSQL = seSQL + ";";
 
     const idsInsignias = await pool.query(seSQL);
 
@@ -167,7 +153,7 @@ class DbUsuarioRepositorio {
           ");";
       });
     }
-    
+
     await pool.query(seSQL2);
 
     return insignias_lista;
@@ -329,14 +315,12 @@ class DbUsuarioRepositorio {
       insignias.push(element.insignia);
     });
     var res = {};
-    res.insignias=insignias;
+    res.insignias = insignias;
     return res;
   }
 
   async GetInsignias() {
-    const insignias = await pool.query(
-      "SELECT insignia FROM insignias"
-    );
+    const insignias = await pool.query("SELECT insignia FROM insignias");
     return insignias;
   }
 

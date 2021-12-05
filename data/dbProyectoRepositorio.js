@@ -1,21 +1,8 @@
-const Pool = require("pg").Pool;
-
-const pool = new Pool({
-  user: "hsazteibnsnquc",
-  password: "96c44f19b6a31a67521c2fa65c9233544ed1d7d5388367c6d9ff4c22c940a340", //use your pass my friend
-  database: "d5mjf648gc2p7f",
-  host: "ec2-54-156-24-159.compute-1.amazonaws.com",
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-module.exports = pool;
+const { pool } = require("../config/pool.config");
 class DbProyectoRepositorio {
   constructor() {
     this.cursor = null;
-  } 
+  }
 
   async get_proyectos(data) {
     const proyectos = await pool.query(
@@ -41,7 +28,7 @@ class DbProyectoRepositorio {
   }
 
   async create_proyecto(data) {
-    debugger
+    debugger;
     const {
       titulo,
       descripcion,
@@ -51,18 +38,19 @@ class DbProyectoRepositorio {
       estado,
       categoria,
       informacion_adicional,
-      url_imagen
+      url_imagen,
     } = data;
     let numero_participantes_oficial = numero_participantes;
     if (numero_participantes_oficial == null) {
       numero_participantes_oficial = 0;
-    }    
+    }
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-    const categoria_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
-    var visualizar=true;
+    const categoria_id =
+      categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
+    var visualizar = true;
     const new_proyeto = await pool.query(
       "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id,visualizar,informacion_adicional,url_imagen)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11)",
       [
@@ -76,12 +64,12 @@ class DbProyectoRepositorio {
         categoria_id,
         visualizar,
         informacion_adicional,
-        url_imagen
-      ]      
-    );    
+        url_imagen,
+      ]
+    );
     const proyecto_to_show = await pool.query(
       "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
-    );    
+    );
     return proyecto_to_show;
   }
 
@@ -96,34 +84,30 @@ class DbProyectoRepositorio {
       categoria,
       visualizar,
       informacion_adicional,
-      url_imagen
+      url_imagen,
     } = data;
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
     var categoria_id;
-    const categorias_id = (categoria_db.rowCount > 0) ? categoria_db.rows[0].id : null;
-    if (categorias_id==null)
-    {
+    const categorias_id =
+      categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
+    if (categorias_id == null) {
       var categoria_id_oficial = await pool.query(
         "SELECT categoria_id FROM public.proyectos WHERE id = $1",
         [id]
       );
-      categoria_id=categoria_id_oficial.rows[0].categoria_id
+      categoria_id = categoria_id_oficial.rows[0].categoria_id;
+    } else {
+      categoria_id = categorias_id;
     }
-    else
-    {
-      categoria_id=categorias_id
-    }
-    
-    if(estado!=undefined)
-    {
+
+    if (estado != undefined) {
       var fecha_fin = estado ? null : new Date();
     }
-    
-    if (fecha_fin==null && estado==true)
-    {
+
+    if (fecha_fin == null && estado == true) {
       const proyecto_a_actualizar = await pool.query(
         "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1",
         [
@@ -138,12 +122,10 @@ class DbProyectoRepositorio {
           categoria_id,
           visualizar,
           informacion_adicional,
-          url_imagen
+          url_imagen,
         ]
       );
-    }
-    else
-    {
+    } else {
       const proyecto_a_actualizar = await pool.query(
         "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),  visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional),url_imagen=coalesce($12,url_imagen) WHERE id = $1",
         [
@@ -158,19 +140,17 @@ class DbProyectoRepositorio {
           categoria_id,
           visualizar,
           informacion_adicional,
-          url_imagen
+          url_imagen,
         ]
       );
-
     }
     const proyecto = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1", 
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
       [id]
     );
 
     return proyecto;
   }
-
 
   async participate_proyecto(id, id_usuario) {
     //si existe un usuario no tiene que aumentar
@@ -422,30 +402,36 @@ class DbProyectoRepositorio {
   }
 
   async get_usuarios() {
-    const usuarios = await pool.query("SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios");
+    const usuarios = await pool.query(
+      "SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios"
+    );
     return usuarios;
   }
 
-  async create_imagen(filename,mimetype,size,filepath,id_proyecto)
-  {
-    const imagenes_desactivadas= await pool.query("UPDATE public.imagenes_proyectos SET activo=false where id_proyecto=$1",[parseInt(id_proyecto)])
-    const activo=true;
-    const nueva_imagen= await pool.query(
+  async create_imagen(filename, mimetype, size, filepath, id_proyecto) {
+    const imagenes_desactivadas = await pool.query(
+      "UPDATE public.imagenes_proyectos SET activo=false where id_proyecto=$1",
+      [parseInt(id_proyecto)]
+    );
+    const activo = true;
+    const nueva_imagen = await pool.query(
       "INSERT INTO public.imagenes_proyectos(filename,filepath,mimetype,size,id_proyecto,activo) VALUES ($1,$2,$3,$4,$5,$6)",
-      [filename,filepath,mimetype,size,id_proyecto,activo]
-    )
-    const imagen=await pool.query("SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",[parseInt(id_proyecto)]);
-    return imagen
+      [filename, filepath, mimetype, size, id_proyecto, activo]
+    );
+    const imagen = await pool.query(
+      "SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",
+      [parseInt(id_proyecto)]
+    );
+    return imagen;
   }
 
-  async get_imagen(id_proyecto)
-  {
-    const imagen=await pool.query("SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",[parseInt(id_proyecto)]);
-    return imagen
+  async get_imagen(id_proyecto) {
+    const imagen = await pool.query(
+      "SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",
+      [parseInt(id_proyecto)]
+    );
+    return imagen;
   }
-
-
-
 }
 
 module.exports = DbProyectoRepositorio;
