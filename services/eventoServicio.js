@@ -1,4 +1,4 @@
-const _repository = require("../config/dbEventoRepositorio.js");
+const _repository = require("../data/dbEventoRepositorio.js");
 
 class EventoServicio {
   constructor() {
@@ -133,24 +133,26 @@ class EventoServicio {
   }
 
   //Obtener participaciones en eventos de 1 voluntario
-  async get_my_eventos(id_autenticacion){
-    try{
-      let list_of_participant = await this.repository.get_my_eventos(id_autenticacion);
+  async get_my_eventos(id_autenticacion) {
+    try {
+      let list_of_participant = await this.repository.get_my_eventos(
+        id_autenticacion
+      );
       let sorted_list = list_of_participant.rows.sort((a, b) => {
         return new Date(a.fecha_evento) - new Date(b.fecha_evento);
       });
       sorted_list = sorted_list.sort((a, b) => {
         return a.hora_inicio - b.hora_inicio;
       });
-      sorted_list = sorted_list.filter((event)=>{
+      sorted_list = sorted_list.filter((event) => {
         let today = new Date();
-        return ! (new Date(event.fecha_evento) < today);
-      })
+        return !(new Date(event.fecha_evento) < today);
+      });
       return sorted_list;
-    }
-    catch(error)
-    {
-      throw console.error("Algo inesperado paso con la Base de datos o el id del participante no existe");
+    } catch (error) {
+      throw console.error(
+        "Algo inesperado paso con la Base de datos o el id del participante no existe"
+      );
     }
   }
 }
