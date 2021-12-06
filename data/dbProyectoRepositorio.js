@@ -176,10 +176,11 @@ class DbProyectoRepositorio {
         "INSERT INTO participantes_proyectos(id_usuario, id_proyecto)VALUES((select id_usuario from usuarios where id_usuario=$1),$2)",
         [id_usuario, id]
       );
-      debugger
+      debugger;
       const incrementar_participantes = await pool.query(
         "UPDATE proyectos SET numero_participantes=numero_participantes+1 WHERE id=$1",
-        [id]);
+        [id]
+      );
     }
     return res && res1;
   }
