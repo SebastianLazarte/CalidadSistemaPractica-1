@@ -330,7 +330,7 @@ class DbProyectoRepositorio {
   async get_proyectos_acabado() {
     const proyectos_acabados = await pool.query(
       //************* */     'ACABADO' = false
-      "SELECT * FROM public.proyectos WHERE estado=false"
+      "SELECT pro.*, cat.tipo FROM public.proyectos pro,public.categoria_proyectos as cat WHERE estado=false and pro.categoria_id=cat.id"
     );
     return proyectos_acabados;
   }
