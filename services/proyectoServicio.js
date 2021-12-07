@@ -381,5 +381,16 @@ class ProyectoServicio {
       throw console.error("Algo inesperado paso con la Base de datos");
     }
   }
+
+  async get_lista_eventos_para_proyectos(id_proyecto) {
+    try {
+      return await this.repository.get_lista_eventos_para_proyectos(id_proyecto);
+    } catch (error) {
+      console.error(
+        "Algo inesperado paso con la Base de datos o el id proyecto no existe"
+      );
+      return error;
+    }
+  }
 }
 module.exports = ProyectoServicio;

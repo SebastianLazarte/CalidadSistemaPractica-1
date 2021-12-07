@@ -433,6 +433,15 @@ class DbProyectoRepositorio {
     );
     return imagen;
   }
+
+  async get_lista_eventos_para_proyectos(id_proyecto) {
+    const eventos = await pool.query(
+      "SELECT nombre_evento, descripcion_evento, modalidad_evento, lugar_evento, fecha_evento, proyecto, categoria, hora_inicio, hora_fin, lider FROM eventos WHERE id_proyecto=$1",
+      [parseInt(id_proyecto)]
+    );
+    return eventos;
+  }
+
 }
 
 module.exports = DbProyectoRepositorio;
