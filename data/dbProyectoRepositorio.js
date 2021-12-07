@@ -338,7 +338,7 @@ class DbProyectoRepositorio {
   async get_proyectos_pasados_categoria(categoria) {
     const proyectos_acabados = await pool.query(
       //************* */     'ACABADO' = false
-      "SELECT proyectos.* FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=false",
+      "SELECT proyectos.*,categoria_proyectos.tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=false",
       [categoria]
     );
     return proyectos_acabados;
