@@ -24,16 +24,12 @@
 
 ### MVC (Modelo Vista Controlador)
 
-Explain : Se dividio la estructura del proyecto en carpetas
-- Config -> Startup de la aplicacion configuracion de Cors y la conexion con la tabla de la base de datos
-- Documentacion -> Colecciones de Postman Actualizadas, Sentencias Sql, (bd creation)
 </details>
 
 <details>
   <summary><strong>Estructura de archivos</strong></summary>
   
-- Config: En este apartado se encuentran la coneccion con la tabla de la base de datos.
-
+- Config: En este apartado se encuentran la conexion con la tabla de la base de datos, Startup de la aplicacion, configuracion de Cors, etc.
 - Documentation: Se encuentra los archivos sql de los eventos, proyectos y de usuarios. Como tambien se encuentra el postman que nos permite realizar pruebas como los requests, para validar que los endpoints que se crearon trabajen de manera correcta.
 
 - Routes: Se encuentra los Endpoints de la API que responden las peticiones que se realicen a este.
