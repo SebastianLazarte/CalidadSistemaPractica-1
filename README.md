@@ -86,5 +86,3 @@ Explain : Se dividio la estructura del proyecto en carpetas
 
 
 [![Stake Holder](https://img.shields.io/badge/Cliente-StartAmericasTogether-blue)](https://www.startamericastogether.org/)
-
-[![willianrod's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=YigaelBalderrama)](https://github.com/anuraghazra/github-readme-stats)
