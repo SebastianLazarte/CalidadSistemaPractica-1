@@ -39,14 +39,12 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
   <img src="https://user-images.githubusercontent.com/74753713/145110042-db6c91e9-352e-418e-8b5d-2ec063a7b43a.png" alt="Sublime's custom image"/>
 </p>
 
-
 </details>
 
 <details>
   <summary><strong>Estructura de archivos</strong></summary>
   
 - Config: En este apartado se encuentran la conexion con la tabla de la base de datos, Startup de la aplicacion, configuracion de Cors, etc.
-
 - Documentation: Se encuentra los archivos sql de los eventos, proyectos y de usuarios. Como tambien se encuentra el postman que nos permite realizar pruebas como los requests, para validar que los endpoints que se crearon trabajen de manera correcta.
 
 - Data: Se encuentran las consultas sql a la db deployeada en heroku, dividida por los 3 flujos principales.
@@ -132,7 +130,6 @@ En servicios crear un nuevo metodo en la clase correspondiente que reciba los da
 Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nuevo metodo, en este caso es simplemente es mandar una consulta sql a travez del cursor que provee PG para conectarse.
 
 </details>
-
 
 <details>
 <summary><strong> Tecnologias Involucradas </strong></summary>
