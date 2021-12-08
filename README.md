@@ -79,8 +79,7 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
 
 <details>
     <summary><strong>Endpoints</strong></summary>
-  
-## Usuarios 
+## Usuarios
 |    Tipo  | Peticion                  | URL  	                                          |
 |----------|---------------------------|--------------------------------------------------|
 |    GET   |  All Users                | http://localhost:5000/extended_form              |
@@ -158,6 +157,50 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
 | PUT    | Update Project                                           | http://localhost:5000/update_proyecto/{id_project}                                                  |
 | PUT    | Participate in proyect                                   | http://localhost:5000/participate_proyecto/{id_project}/sesion/{id_usuario}                         |
 | PUT    | Participate in past proyect                              | http://localhost:5000/participate_past_proyecto/{idproject}/sesion/{idctuser}/volunteer/{idusuario} |
+
+| Tipo   | Peticion                           | URL                                                                              |
+| ------ | ---------------------------------- | -------------------------------------------------------------------------------- |
+| GET    | All Events                         | http://localhost:5000/eventos                                                    |
+| GET    | All Lideres                        | http://localhost:5000/lideres                                                    |
+| GET    | All Categories                     | http://localhost:5000/eventos/categorias                                         |
+| GET    | Events by Id                       | http://localhost:5000/eventos/{id_evento}                                        |
+| GET    | List All Participants in one event | http://localhost:5000/eventos/participante/{id_evento}                           |
+| GET    | Get All Events by User             | http://localhost:5000/sesion/{id_usuario}/get_my_eventos                         |
+| DELETE | Delete one event                   | http://localhost:5000/evento/{id_evento}                                         |
+| DELETE | Delete participacion               | hhtp://localhost:5000/eventos/eliminar_participacion/{id_evento}/{id_usuario}    |
+| POST   | Create Event                       | http://localhost:5000/eventos/crearevento                                        |
+| POST   | Participation in one event         | http://localhost:5000/eventos/participate_evento/{id_evento}/sesion/{id_usuario} |
+| PUT    | Update Event                       | http://localhost:5000/actualizar_evento/{id_evento}                              |
+| PUT    | Update Estado                      | http://localhost:5000/eventos/archivar_evento/{id_evento}                        |
+| PUT    | Update Estado                      | http://localhost:5000/eventos/mostrar_evento/{id_evento}                         |
+
+## Proyectos
+
+| Tipo   | Peticion                                                 | URL                                                                                                 |
+| ------ | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| GET    | All projects                                             | http://localhost:5000/get_proyectos                                                                 |
+| GET    | A specific project                                       | http://localhost:5000/get_proyecto/{id_project}                                                     |
+| GET    | Volunteer participation in project                       | http://localhost:5000/participate/{id_project}/sesion/{id_usuario}                                  |
+| GET    | All project participants                                 | http://localhost:5000/get_participantes_proyecto_simple/{id_project}                                |
+| GET    | All projects in a category                               | http://localhost:5000/get_proyectos/{category_name}                                                 |
+| GET    | All projects in which I have participated as a volunteer | http://localhost:5000/sesion/{id_usuario}/get_my_proyectos                                          |
+| GET    | All leaders                                              | http://localhost:5000/get_lideres                                                                   |
+| GET    | Get user role                                            | http://localhost:5000/get_rol/{id_usuario}                                                          |
+| GET    | Get participants number                                  | http://localhost:5000/get_numero_participantes/{id_project}                                         |
+| GET    | Get project events                                       | http://localhost:5000/get_eventos_proyecto/{id_project}                                             |
+| GET    | Get finished projects                                    | http://localhost:5000/get_proyectos_acabado                                                         |
+| GET    | Get projects Categories                                  | http://localhost:5000/get_categoria_proyectos                                                       |
+| GET    | Get Users                                                | http://localhost:5000/get_usuarios                                                                  |
+| GET    | Get project image                                        | http://localhost:5000/get_image_proyecto/{id_project}                                               |
+| DELETE | Delete project                                           | http://localhost:5000/delete_proyecto/{id_project}                                                  |
+| DELETE | Cancel project participation                             | http://localhost:5000/cancel_participate_proyecto/{id_project}/sesion/{id_usuario}                  |
+| POST   | Create Project                                           | http://localhost:5000/create_proyecto                                                               |
+| POST   | Assing project image                                     | http://localhost:5000/create_imagen_proyecto                                                        |
+| PUT    | Update Project                                           | http://localhost:5000/update_proyecto/{id_project}                                                  |
+| PUT    | Participate in proyect                                   | http://localhost:5000/participate_proyecto/{id_project}/sesion/{id_usuario}                         |
+| PUT    | Participate in past proyect                              | http://localhost:5000/participate_past_proyecto/{idproject}/sesion/{idctuser}/volunteer/{idusuario} |
+
+## Eventos
 
 | Tipo   | Peticion                           | URL                                                                              |
 | ------ | ---------------------------------- | -------------------------------------------------------------------------------- |
