@@ -392,5 +392,16 @@ class ProyectoServicio {
       return error;
     }
   }
+
+  async get_lista_por_proyecto(proyecto) {
+    try {
+      return await this.repository.get_lista_por_proyecto(proyecto);
+    } catch (error) {
+      console.error(
+        "Algo inesperado paso con la Base de datos o el proyecto no existe"
+      );
+      return error;
+    }
+  }
 }
 module.exports = ProyectoServicio;
