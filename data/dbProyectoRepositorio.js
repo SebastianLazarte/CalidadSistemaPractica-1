@@ -53,9 +53,9 @@ class DbProyectoRepositorio {
     const categoria_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
     //Conversion de fechas string a Date
-    const [yearI, monthI,dayI ] = fecha_inicio.split("/")
+    const [yearI, monthI,dayI ] = fecha_inicio.split("-")
     let fecI= new Date(monthI+' '+dayI+' '+yearI);
-    const [yearF, monthF,dayF ] = fecha_fin.split("/")
+    const [yearF, monthF,dayF ] = fecha_fin.split("-")
     let fecF=new Date(monthF+' '+dayF+' '+yearF);
 
 
@@ -78,8 +78,8 @@ class DbProyectoRepositorio {
       ]
     );
     const proyecto_to_show = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
-    );
+      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
+    );  
     return proyecto_to_show;
   }
 
