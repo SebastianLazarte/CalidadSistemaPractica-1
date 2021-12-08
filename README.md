@@ -39,7 +39,6 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
   <img src="https://user-images.githubusercontent.com/74753713/145110042-db6c91e9-352e-418e-8b5d-2ec063a7b43a.png" alt="Sublime's custom image"/>
 </p>
 
-
 Start Servicio de Datos sigue una arquitectura basada en capas la cual es el patrón de diseño que especifica cómo debe ser estructurada una aplicación, así como las capas que van a componer la misma y sus propias funcionalidades, este tipo de diseño fue implementado debido a que existía la necesidad de separar los diferentes aspectos del desarrollo como de qué forma se presenta los datos, donde se maneja la lógica de negocio, mecanismos de almacenamiento (Base de datos), entre otros.
 Esta arquitectura se centra en la separación de la aplicación en capas aplicando por muy debajo el principio de separación de preocupaciones (SoC)
 La arquitectura en capas consta en dividir la aplicación en capas, con la intención de que cada capa tenga un rol muy definido, como por ejemplo en caso del backend tenga la capa de presentación (JSON,data,etc..), una capa de regla de negocios (Servicios) y una capa de acceso a datos (DAO), la definición del número de capas van de acuerdo a la necesidad que se tenga en cuanto a funcionalidad se desee especificar en una.
@@ -91,6 +90,26 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
 |   POST   |  User                     | http://localhost:5000/extended_form/{id_usuario} |
 |    PUT   |  User                     | http://localhost:5000/extended_form/{id_usuario} |
 |    PUT   |  Insignias by User Id     | http://localhost:5000/extended_form/{id_usuario} |
+
+     <summary><strong>Endpoints Eventos</strong></summary>
+
+| Tipo   | Peticion                           | URL                                                                              |
+| ------ | ---------------------------------- | -------------------------------------------------------------------------------- |
+| GET    | All Events                         | http://localhost:5000/eventos                                                    |
+| GET    | All Lideres                        | http://localhost:5000/lideres                                                    |
+| GET    | All Categories                     | http://localhost:5000/eventos/categorias                                         |
+| GET    | Events by Id                       | http://localhost:5000/eventos/{id_evento}                                        |
+| GET    | List All Participants in one event | http://localhost:5000/eventos/participante/{id_evento}                           |
+| GET    | Get All Events by User             | http://localhost:5000/sesion/{id_usuario}/get_my_eventos                         |
+| DELETE | Delete one event                   | http://localhost:5000/evento/{id_evento}                                         |
+| DELETE | Delete participacion               | hhtp://localhost:5000/eventos/eliminar_participacion/{id_evento}/{id_usuario}    |
+| POST   | Create Event                       | http://localhost:5000/eventos/crearevento                                        |
+| POST   | Participation in one event         | http://localhost:5000/eventos/participate_evento/{id_evento}/sesion/{id_usuario} |
+| PUT    | Update Event                       | http://localhost:5000/actualizar_evento/{id_evento}                              |
+| PUT    | Update Estado                      | http://localhost:5000/eventos/archivar_evento/{id_evento}                        |
+| PUT    | Update Estado                      | http://localhost:5000/eventos/mostrar_evento/{id_evento}                         |
+
+</details>
 
 ## Proyectos
 
