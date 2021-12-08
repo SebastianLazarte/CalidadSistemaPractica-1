@@ -452,4 +452,16 @@ module.exports = function (app) {
     }
   });
 
+  //Lista de eventos por proyecto
+  app.get("/eventos_de_proyecto/:proyecto",async(req,res)=>{
+    try
+    {
+      const {proyecto}= req.params;
+      const lista_eventos = await service.get_lista_por_proyecto(proyecto);
+      res.status(200).json(lista_eventos);
+    }catch(err){
+      res.status(404);
+    }
+  });
+
 };
