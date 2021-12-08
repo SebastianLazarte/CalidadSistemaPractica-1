@@ -62,7 +62,8 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 
 <details>
     <summary><strong>Endpoints</strong></summary>
-## Usuarios
+  
+## Usuarios 
 |    Tipo  | Peticion                  | URL  	                                          |
 |----------|---------------------------|--------------------------------------------------|
 |    GET   |  All Users                | http://localhost:5000/extended_form              |
