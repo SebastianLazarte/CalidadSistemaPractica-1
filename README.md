@@ -72,7 +72,25 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 |   POST   |  User                     | http://localhost:5000/extended_form/{id_usuario} |
 |    PUT   |  User                     | http://localhost:5000/extended_form/{id_usuario} |
 |    PUT   |  Insignias by User Id     | http://localhost:5000/extended_form/{id_usuario} |
-                   
+
+     <summary><strong>Endpoints Eventos</strong></summary>
+  
+|    Tipo  | Peticion                               | URL  	                                                                           |
+|----------|----------------------------------------|----------------------------------------------------------------------------------|
+|    GET   |  All Events                            | http://localhost:5000/eventos              	                                     |
+|    GET   |  All Lideres                           | http://localhost:5000/lideres              	                                     |
+|    GET   |  All Categories                        | http://localhost:5000/eventos/categorias                                         |
+|    GET   |  Events by Id                          | http://localhost:5000/eventos/{id_evento}  	                                     |
+|    GET   |  List All Participants in one event    | http://localhost:5000/eventos/participante/{id_evento}  	                       |
+|    GET   |  Get All Events by User                | http://localhost:5000/sesion/{id_usuario}/get_my_eventos 	                       |
+|  DELETE  |  Delete one event                      | http://localhost:5000/evento/{id_evento}                                         |
+|  DELETE  |  Delete participacion                  | hhtp://localhost:5000/eventos/eliminar_participacion/{id_evento}/{id_usuario}    |
+|   POST   |  Create Event                          | http://localhost:5000/eventos/crearevento                                        |
+|   POST   |  Participation in one event            | http://localhost:5000/eventos/participate_evento/{id_evento}/sesion/{id_usuario} |
+|    PUT   |  Update Event                          | http://localhost:5000/actualizar_evento/{id_evento}                              |
+|    PUT   |  Update Estado                         | http://localhost:5000/eventos/archivar_evento/{id_evento}                        |
+|    PUT   |  Update Estado                         | http://localhost:5000/eventos/mostrar_evento/{id_evento}                         |  
+  
 </details>
 
 
