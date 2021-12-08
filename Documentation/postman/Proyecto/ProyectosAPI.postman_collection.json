@@ -1,7 +1,12 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "f5a00cff-5a0a-4b78-afda-22ad5b3fd0ec",
 		"name": "ProyectosAPI Copy",
+=======
+		"_postman_id": "d8008446-990e-4265-b3b3-9322b7fceb95",
+		"name": "ProyectosAPI",
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -221,7 +226,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": ""
+=======
+					"body": null
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 				}
 			]
 		},
@@ -671,7 +680,11 @@
 						}
 					],
 					"cookie": [],
+<<<<<<< HEAD
 					"body": ""
+=======
+					"body": null
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 				}
 			]
 		},
@@ -1787,6 +1800,7 @@
 					]
 				}
 			},
+<<<<<<< HEAD
 			"response": [
 				{
 					"name": "Ejemplo de resultados de eliminacion de proyecto",
@@ -1851,6 +1865,9 @@
 					"body": "[]"
 				}
 			]
+=======
+			"response": []
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 		},
 		{
 			"name": "Asignar imagenes a proyectos existentes",
@@ -1868,15 +1885,23 @@
 					]
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "http://localhost:5000/create_imagen_proyecto/382",
+=======
+					"raw": "http://localhost:5000/create_imagen_proyecto",
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
+<<<<<<< HEAD
 						"create_imagen_proyecto",
 						"382"
+=======
+						"create_imagen_proyecto"
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 					]
 				}
 			},
@@ -1888,7 +1913,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000",
+=======
+					"raw": "http://localhost:5000/cancel_participate_proyecto/193/sesion/28",
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1896,9 +1925,15 @@
 					"port": "5000",
 					"path": [
 						"cancel_participate_proyecto",
+<<<<<<< HEAD
 						"337",
 						"sesion",
 						"8000"
+=======
+						"193",
+						"sesion",
+						"28"
+>>>>>>> d995a2f (documentacion api en postman y correcciones de endpoint createProyectos)
 					]
 				}
 			},

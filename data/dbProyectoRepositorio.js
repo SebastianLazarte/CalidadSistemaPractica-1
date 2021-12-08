@@ -26,7 +26,7 @@ class DbProyectoRepositorio {
     );
     return proyecto;
   }
-  
+
   async create_proyecto(data) {
     debugger;
     const {
@@ -53,33 +53,31 @@ class DbProyectoRepositorio {
     const categoria_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
     //Conversion de fechas string a Date
-    const [yearI, monthI,dayI ] = fecha_inicio.split("-")
-    let fecI= new Date(monthI+' '+dayI+' '+yearI);
-    const [yearF, monthF,dayF ] = fecha_fin.split("-")
-    let fecF=new Date(monthF+' '+dayF+' '+yearF);
-
-
+    const [yearI, monthI, dayI] = fecha_inicio.split("-");
+    let fecI = new Date(monthI + " " + dayI + " " + yearI);
+    const [yearF, monthF, dayF] = fecha_fin.split("-");
+    let fecF = new Date(monthF + " " + dayF + " " + yearF);
 
     const new_proyeto = await pool.query(
       "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,fecha_fin,categoria_id,visualizar,informacion_adicional,url_imagen)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)",
       [
         titulo, //1
-        descripcion,//2
-        objetivo,//3
-        lider,//4
-        numero_participantes_oficial,//5
-        estado || true,//6
-        fecI,//7
-        fecF,//8
-        categoria_id,//9
-        true,//10
-        informacion_adicional,//11
-        url_imagen,//12
+        descripcion, //2
+        objetivo, //3
+        lider, //4
+        numero_participantes_oficial, //5
+        estado || true, //6
+        fecI, //7
+        fecF, //8
+        categoria_id, //9
+        true, //10
+        informacion_adicional, //11
+        url_imagen, //12
       ]
     );
     const proyecto_to_show = await pool.query(
       "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
-    );  
+    );
     return proyecto_to_show;
   }
 
@@ -451,7 +449,6 @@ class DbProyectoRepositorio {
     );
     return eventos;
   }
-
 }
 
 module.exports = DbProyectoRepositorio;
