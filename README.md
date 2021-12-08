@@ -73,7 +73,32 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 |    PUT   |  User                     | http://localhost:5000/extended_form/{id_usuario} |
 |    PUT   |  Insignias by User Id     | http://localhost:5000/extended_form/{id_usuario} |
 
-     <summary><strong>Endpoints Eventos</strong></summary>
+
+## Proyectos  
+|    Tipo  | Peticion                  | URL  	                                          |
+|----------|---------------------------|--------------------------------------------------|
+|    GET   |  All projects            		     						                   | http://localhost:5000/get_proyectos	          |
+|    GET   |  A specific project       		     						                   | http://localhost:5000/get_proyecto/{id_project}  |
+|    GET   |  Volunteer participation in project     						             | http://localhost:5000/participate/{id_project}/sesion/{id_usuario}   |
+|    GET   |  All project participants   	     						                   | http://localhost:5000/get_participantes_proyecto_simple/{id_project} |
+|    GET   |  All projects in a category             				     		         | http://localhost:5000/get_proyectos/{category_name} |
+|    GET   |  All projects in which I have participated as a volunteer       | http://localhost:5000/sesion/{id_usuario}/get_my_proyectos |
+|    GET   |  All leaders     									                             | http://localhost:5000/get_lideres |
+|    GET   |  Get user role                 							                   | http://localhost:5000/get_rol/{id_usuario}              |
+|    GET   |  Get participants number             						               | http://localhost:5000/get_numero_participantes/{id_project} |
+|    GET   |  Get project events     								                         | http://localhost:5000/get_eventos_proyecto/{id_project}     |
+|    GET   |  Get finished projects   								                       | http://localhost:5000/get_proyectos_acabado  |
+|    GET   |  Get projects Categories                    					           | http://localhost:5000/get_categoria_proyectos |
+|    GET   |  Get Users                     							                   | http://localhost:5000/get_usuarios |
+|    GET   |  Get project image    								                           | http://localhost:5000/get_image_proyecto/{id_project} |
+|  DELETE  |  Delete project   									                             | http://localhost:5000/delete_proyecto/{id_project}  |
+|  DELETE  |  Cancel project participation   							                   | http://localhost:5000/cancel_participate_proyecto/{id_project}/sesion/{id_usuario}  |
+|   POST   |  Create Project                     						                 | http://localhost:5000/create_proyecto |
+|   POST   |  Assing project image                     						           | http://localhost:5000/create_imagen_proyecto |
+|    PUT   |  Update Project                     						                 | http://localhost:5000/update_proyecto/{id_project} |
+|    PUT   |  Participate in proyect    							                       | http://localhost:5000/participate_proyecto/{id_project}/sesion/{id_usuario} |
+|    PUT   |  Participate in past proyect     							                 | http://localhost:5000/participate_past_proyecto/{id_project}/sesion/{id_ct_user}/volunteer/{id_usuario} |
+  
   
 |    Tipo  | Peticion                               | URL  	                                                                           |
 |----------|----------------------------------------|----------------------------------------------------------------------------------|
