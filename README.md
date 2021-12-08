@@ -62,7 +62,7 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 
 <details>
     <summary><strong>Endpoints</strong></summary>
-
+## Usuarios
 |    Tipo  | Peticion                  | URL  	                                          |
 |----------|---------------------------|--------------------------------------------------|
 |    GET   |  All Users                | http://localhost:5000/extended_form              |
@@ -99,7 +99,7 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 |    PUT   |  Participate in proyect    							                       | http://localhost:5000/participate_proyecto/{id_project}/sesion/{id_usuario}       |
 |    PUT   |  Participate in past proyect     							                 |http://localhost:5000/participate_past_proyecto/{idproject}/sesion/{idctuser}/volunteer/{idusuario} |
   
-  
+## Eventos  
 |    Tipo  | Peticion                               | URL  	                                                                           |
 |----------|----------------------------------------|----------------------------------------------------------------------------------|
 |    GET   |  All Events                            | http://localhost:5000/eventos              	                                     |
