@@ -79,7 +79,8 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
 
 <details>
     <summary><strong>Endpoints</strong></summary>
-## Usuarios
+  
+## Usuarios 
 |    Tipo  | Peticion                  | URL  	                                          |
 |----------|---------------------------|--------------------------------------------------|
 |    GET   |  All Users                | http://localhost:5000/extended_form              |
