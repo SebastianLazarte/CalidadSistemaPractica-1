@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d8008446-990e-4265-b3b3-9322b7fceb95",
-		"name": "ProyectosAPI",
+		"_postman_id": "f5a00cff-5a0a-4b78-afda-22ad5b3fd0ec",
+		"name": "ProyectosAPI Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -221,7 +221,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -671,7 +671,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -1203,7 +1203,78 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Proyecto Creado con parametros basicos",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"titulo\": \"START Alimentacion3\",\r\n        \"descripcion\": \"Dar informacion sobre alimentos\",\r\n        \"objetivo\": [\r\n            \"Dar apoyo y soporte en cuanto a informacion alimentaria\"\r\n        ],\r\n        \"numero_participantes\": \"0\",\r\n        \"fecha_inicio\": \"2021/12/15\",\r\n        \"fecha_fin\": \"2021/12/30\",    \r\n        \"estado\": true,\r\n        \"lider\": \"Salvador\",\r\n        \"visualizar\": true,\r\n        \"informacion_adicional\": \"\",\r\n        \"categoria\": \"Desarrollo Sostenible\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/create_proyecto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"create_proyecto"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "398"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"18e-rvCY4geZqYttunQdOyGpQTxCxyI\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:48:42 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"383\",\n        \"titulo\": \"START Alimentacion3\",\n        \"numero_participantes\": \"0\",\n        \"fecha_ini\": \"2021-12-15\",\n        \"fecha_final\": \"2021-12-30\",\n        \"categoria_id\": \"2\",\n        \"estado\": true,\n        \"lider\": \"Salvador\",\n        \"visualizar\": true,\n        \"informacion_adicional\": \"\",\n        \"url_imagen\": \"\",\n        \"objetivo\": \"{\\\"Dar apoyo y soporte en cuanto a informacion alimentaria\\\"}\",\n        \"categoria\": \"Desarrollo Sostenible\",\n        \"descripcion\": \"\",\n        \"fecha_inicio\": \"\",\n        \"fecha_fin\": \"\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Get Categorias",
@@ -1222,7 +1293,69 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Devuelve todas las categorias de los proyectos usando el primero que encontro",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/get_categoria_proyectos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"get_categoria_proyectos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1812"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"714-TSxa7Ux+W4Bf2WHGsebOBUAVU9Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:46:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"1\",\n        \"tipo\": \"Medio Ambiente\",\n        \"imagen\": \"https://media.istockphoto.com/photos/mount-hood-oregon-picture-id1268487061?b=1&k=20&m=1268487061&s=170667a&w=0&h=3fHYwaImlqUETcjCnSV7YO2-PzCFvaX6VSQaiGfWqpc=\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"2\",\n        \"tipo\": \"Desarrollo Sostenible\",\n        \"imagen\": \"https://previews.123rf.com/images/jittawit/jittawit1906/jittawit190600149/124532465-los-%C3%A1rboles-que-crecen-en-bulbos-frente-a-global-muestran-el-consumo-mundial-con-iconos-de-fuentes-d.jpg\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"3\",\n        \"tipo\": \"Trabajo Social\",\n        \"imagen\": \"https://media.istockphoto.com/photos/life-is-amazing-when-you-have-the-greatest-friends-around-picture-id648817898?b=1&k=20&m=648817898&s=170667a&w=0&h=9OGTLvfpfy4Ce4BM__-yDb9RlErBGJRMv7irZMhFLfY=\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"4\",\n        \"tipo\": \"Empoderamiento\",\n        \"imagen\": \"https://www.prospectsaso.com/wp-content/uploads/2018/04/addiction-500x280.jpg\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"5\",\n        \"tipo\": \"Animales\",\n        \"imagen\": \"https://media.istockphoto.com/photos/female-veterinarian-holding-a-little-dog-in-her-arms-picture-id1280869192?b=1&k=20&m=1280869192&s=170667a&w=0&h=Fhsw2VrPIhhmKz1gSAjqS7lH_s0KNUSVO9-Obi7CFJE=\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"6\",\n        \"tipo\": \"Comunidad\",\n        \"imagen\": \"https://revistadigital.inesem.es/educacion-sociedad/files/2016/04/que-es-una-comunidad-de-aprendizaje-1020x680.jpg\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"7\",\n        \"tipo\": \"Educación\",\n        \"imagen\": \"https://www.bbva.com/wp-content/uploads/2015/12/bbva-educacion-e1464704439593-768x318.jpg\",\n        \"imagenArchivo\": null\n    },\n    {\n        \"id\": \"8\",\n        \"tipo\": \"Otros\",\n        \"imagen\": \"https://static.vecteezy.com/system/resources/previews/002/284/818/large_2x/set-of-hand-drawn-books-in-doodle-style-illustration-doodle-cartoon-scene-about-reading-and-learning-education-concept-various-books-eyeglasses-and-writing-tools-in-vintage-style-vector.jpg\",\n        \"imagenArchivo\": null\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Get Usuarios",
@@ -1241,7 +1374,69 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Devuelve todos los usuarios con su id nombre completo y telefono",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/get_usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"get_usuarios"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3014"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"bc6-B6c+wXg1+gAANNJwIg6QthOyyvc\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:47:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id_usuario\": \"24\",\n        \"nombre_completo\": \"Jhonny Camacho\",\n        \"telefono\": \"(+591) 38724893\"\n    },\n    {\n        \"id_usuario\": \"25\",\n        \"nombre_completo\": \"zz zz\",\n        \"telefono\": \"(+591) 77777777\"\n    },\n    {\n        \"id_usuario\": \"10\",\n        \"nombre_completo\": \"Juan Perez\",\n        \"telefono\": \"789898989\"\n    },\n    {\n        \"id_usuario\": \"36\",\n        \"nombre_completo\": \"test test\",\n        \"telefono\": \"(+591) 123456  \"\n    },\n    {\n        \"id_usuario\": \"20\",\n        \"nombre_completo\": \"Alvaro Flores\",\n        \"telefono\": null\n    },\n    {\n        \"id_usuario\": \"29\",\n        \"nombre_completo\": \"Dussan Freire\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"8\",\n        \"nombre_completo\": \"Israel Antezana\",\n        \"telefono\": \"(+707) 50393   \"\n    },\n    {\n        \"id_usuario\": \"9\",\n        \"nombre_completo\": \"Marco Siles\",\n        \"telefono\": \"(+591) 78945   \"\n    },\n    {\n        \"id_usuario\": \"11\",\n        \"nombre_completo\": \"Salvador Vidaurre\",\n        \"telefono\": null\n    },\n    {\n        \"id_usuario\": \"7\",\n        \"nombre_completo\": \"Juan Perez\",\n        \"telefono\": \"789898989\"\n    },\n    {\n        \"id_usuario\": \"23\",\n        \"nombre_completo\": \"Iony Camacho Encinas\",\n        \"telefono\": null\n    },\n    {\n        \"id_usuario\": \"14\",\n        \"nombre_completo\": \"testdiego2 testdiego2\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"15\",\n        \"nombre_completo\": \"teststartdiego1 teststartdiego1\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"12\",\n        \"nombre_completo\": \"Israel Antezana\",\n        \"telefono\": \"(+591) 70750393\"\n    },\n    {\n        \"id_usuario\": \"16\",\n        \"nombre_completo\": \"SEBASTIAN LAZARTE CASTELLON\",\n        \"telefono\": null\n    },\n    {\n        \"id_usuario\": \"35\",\n        \"nombre_completo\": \"Peter Paker\",\n        \"telefono\": \"(+591) 76464027\"\n    },\n    {\n        \"id_usuario\": \"1\",\n        \"nombre_completo\": \"DUSSAN ALEJANDRO FREIRE POZO\",\n        \"telefono\": \"77777\"\n    },\n    {\n        \"id_usuario\": \"19\",\n        \"nombre_completo\": \"Peter Parker\",\n        \"telefono\": \"(+591) 77441119\"\n    },\n    {\n        \"id_usuario\": \"27\",\n        \"nombre_completo\": \"zz zz\",\n        \"telefono\": \"(+591) 77777777\"\n    },\n    {\n        \"id_usuario\": \"13\",\n        \"nombre_completo\": \"Ricardo Sandi\",\n        \"telefono\": \"(+591) 79733714\"\n    },\n    {\n        \"id_usuario\": \"6\",\n        \"nombre_completo\": \"Core Team\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"26\",\n        \"nombre_completo\": \"ANDREW JERSON TORREZ PEÑA\",\n        \"telefono\": null\n    },\n    {\n        \"id_usuario\": \"22\",\n        \"nombre_completo\": \"Antonio Medina\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"33\",\n        \"nombre_completo\": \"Juslan Pedro Vargas Rejas\",\n        \"telefono\": \"(+591) 75486662\"\n    },\n    {\n        \"id_usuario\": \"34\",\n        \"nombre_completo\": \"Kevin Flores\",\n        \"telefono\": \"(+591) 66666666\"\n    },\n    {\n        \"id_usuario\": \"4\",\n        \"nombre_completo\": \"Calidad UCB\",\n        \"telefono\": \"123456789\"\n    },\n    {\n        \"id_usuario\": \"40\",\n        \"nombre_completo\": \"JUSLAN PEDRO VARGAS REJAS\",\n        \"telefono\": \"12345\"\n    },\n    {\n        \"id_usuario\": \"37\",\n        \"nombre_completo\": \"Jorge Zientarski\",\n        \"telefono\": \"76911382\"\n    },\n    {\n        \"id_usuario\": \"39\",\n        \"nombre_completo\": \"KEVIN DIEGO FLORES ANTEZANA\",\n        \"telefono\": \"666666666\"\n    },\n    {\n        \"id_usuario\": \"30\",\n        \"nombre_completo\": \"Juslan Vargas\",\n        \"telefono\": \"778899\"\n    },\n    {\n        \"id_usuario\": \"21\",\n        \"nombre_completo\": \"Antonio Medina\",\n        \"telefono\": \"\"\n    },\n    {\n        \"id_usuario\": \"41\",\n        \"nombre_completo\": \"UCB_Start Project\",\n        \"telefono\": \"111\"\n    },\n    {\n        \"id_usuario\": \"3\",\n        \"nombre_completo\": \"Juan Perez\",\n        \"telefono\": \"789898989\"\n    },\n    {\n        \"id_usuario\": \"38\",\n        \"nombre_completo\": \"CARLOS EDWIN VARGAS SANDOVAL\",\n        \"telefono\": \"89756486\"\n    },\n    {\n        \"id_usuario\": \"18\",\n        \"nombre_completo\": \"Core Auxiliar\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"42\",\n        \"nombre_completo\": \"no se zzzz\",\n        \"telefono\": \"(+591) 77777777\"\n    },\n    {\n        \"id_usuario\": \"17\",\n        \"nombre_completo\": \"Lider2 Auxiliar\",\n        \"telefono\": \"591\"\n    },\n    {\n        \"id_usuario\": \"43\",\n        \"nombre_completo\": \"Kevin Flores\",\n        \"telefono\": \"56666666666\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Get Imagenes Proyectos",
@@ -1320,7 +1515,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/participate_proyecto/37/sesion/24",
+					"raw": "http://localhost:5000/participate_proyecto/383/sesion/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1328,13 +1523,160 @@
 					"port": "5000",
 					"path": [
 						"participate_proyecto",
-						"37",
+						"383",
 						"sesion",
-						"24"
+						"6"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Participante no puede participar en un proyecto que ya participo",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/participate_proyecto/380/sesion/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"participate_proyecto",
+								"380",
+								"sesion",
+								"6"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "5"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5-fLbvuYullyqbUJDcLlF/4U0SywQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:52:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "false"
+				},
+				{
+					"name": "Participante Participa en un proyecto que nunca participo",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/participate_proyecto/383/sesion/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"participate_proyecto",
+								"383",
+								"sesion",
+								"6"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4-X/5TO4MPCKAyY0ipFgr6/IraRNs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:54:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "true"
+				}
+			]
 		},
 		{
 			"name": "Participar proyecto pasado",
@@ -1342,7 +1684,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/participate_past_proyecto/189/sesion/32/volunteer/28",
+					"raw": "http://localhost:5000/participate_past_proyecto/358/sesion/6/volunteer/32",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1350,15 +1692,82 @@
 					"port": "5000",
 					"path": [
 						"participate_past_proyecto",
-						"189",
+						"358",
 						"sesion",
-						"32",
+						"6",
 						"volunteer",
-						"28"
+						"32"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Voluntario normal no puede inscribir a otro voluntario a un proyecto pasado",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/participate_past_proyecto/358/sesion/32/volunteer/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"participate_past_proyecto",
+								"358",
+								"sesion",
+								"32",
+								"volunteer",
+								"6"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "5"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5-fLbvuYullyqbUJDcLlF/4U0SywQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:56:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "false"
+				}
+			]
 		},
 		{
 			"name": "Eliminar proyecto",
@@ -1366,7 +1775,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/delete_proyecto/332",
+					"raw": "http://localhost:5000/delete_proyecto/379",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1374,11 +1783,74 @@
 					"port": "5000",
 					"path": [
 						"delete_proyecto",
-						"332"
+						"379"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ejemplo de resultados de eliminacion de proyecto",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/delete_proyecto/379",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"delete_proyecto",
+								"379"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 16:59:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
 		},
 		{
 			"name": "Asignar imagenes a proyectos existentes",
@@ -1396,14 +1868,15 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:5000/create_imagen_proyecto",
+					"raw": "http://localhost:5000/create_imagen_proyecto/382",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"create_imagen_proyecto"
+						"create_imagen_proyecto",
+						"382"
 					]
 				}
 			},
@@ -1415,7 +1888,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/cancel_participate_proyecto/193/sesion/28",
+					"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1423,13 +1896,142 @@
 					"port": "5000",
 					"path": [
 						"cancel_participate_proyecto",
-						"193",
+						"337",
 						"sesion",
-						"28"
+						"8000"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Cancelar Participacion Voluntario Proyecto cancelada",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cancel_participate_proyecto",
+								"337",
+								"sesion",
+								"6"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4-X/5TO4MPCKAyY0ipFgr6/IraRNs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 17:02:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "true"
+				},
+				{
+					"name": "Cancelar Participacion Voluntario Proyecto fallida porque no existe el id del usuario",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"cancel_participate_proyecto",
+								"337",
+								"sesion",
+								"8000"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "5"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5-fLbvuYullyqbUJDcLlF/4U0SywQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 Dec 2021 17:02:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "false"
+				}
+			]
 		},
 		{
 			"name": "PruebaImagen",
