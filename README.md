@@ -95,7 +95,7 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 |  DELETE  |  Delete project   									                             | http://localhost:5000/delete_proyecto/{id_project}                                |
 |  DELETE  |  Cancel project participation   							                   | http://localhost:5000/cancel_participate_proyecto/{id_project}/sesion/{id_usuario}|
 |   POST   |  Create Project                     						                 | http://localhost:5000/create_proyecto                                             |    
-|   POST   |  Assing project image                     						           | http://localhost:5000/create_imagen_proyecto                                      |
+|   POST   |  Assing project image                     						           | http://localhost:5000/create_imagen_proyecto/{id_project}                         |
 |    PUT   |  Update Project                     						                 | http://localhost:5000/update_proyecto/{id_project}                                |
 |    PUT   |  Participate in proyect    							                       | http://localhost:5000/participate_proyecto/{id_project}/sesion/{id_usuario}       |
 |    PUT   |  Participate in past proyect     							                 |http://localhost:5000/participate_past_proyecto/{idproject}/sesion/{idctuser}/volunteer/{idusuario} |
