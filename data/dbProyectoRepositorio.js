@@ -88,12 +88,13 @@ class DbProyectoRepositorio {
       objetivo,
       lider,
       numero_participantes,
+      fecha_inicio,
+      fecha_fin,
       estado,
       categoria,
-      visualizar,
       informacion_adicional,
-      url_imagen,
-    } = data;
+      url_imagen
+    }  = data;
     const categoria_db = await pool.query(
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
@@ -110,50 +111,40 @@ class DbProyectoRepositorio {
     } else {
       categoria_id = categorias_id;
     }
-
-    if (estado != undefined) {
-      var fecha_fin = estado ? null : new Date();
+    let fecI;
+    let fecF
+    if(fecha_inicio!=undefined){
+      const [yearI, monthI,dayI ] = fecha_inicio.split("-")
+      fecI= new Date(monthI+' '+dayI+' '+yearI);  
+    }else{
+      fecI=null;
     }
-
-    if (fecha_fin == null && estado == true) {
-      const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1",
-        [
-          id,
-          titulo,
-          descripcion,
-          objetivo,
-          lider,
-          numero_participantes,
-          estado,
-          fecha_fin,
-          categoria_id,
-          visualizar,
-          informacion_adicional,
-          url_imagen,
-        ]
-      );
-    } else {
-      const proyecto_a_actualizar = await pool.query(
-        "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider), numero_participantes=coalesce($6,numero_participantes), estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id),  visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional),url_imagen=coalesce($12,url_imagen) WHERE id = $1",
-        [
-          id,
-          titulo,
-          descripcion,
-          objetivo,
-          lider,
-          numero_participantes,
-          estado,
-          fecha_fin,
-          categoria_id,
-          visualizar,
-          informacion_adicional,
-          url_imagen,
-        ]
-      );
+    if(fecha_fin!=undefined){
+      const [yearF, monthF,dayF ] = fecha_fin.split("-")
+      fecF=new Date(monthF+' '+dayF+' '+yearF);
+    }else{
+      fecF=null;
     }
+    const proyecto_a_actualizar = await pool.query(
+      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_inicio=coalesce($13,fecha_inicio), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1",
+      [
+        id,
+        titulo,
+        descripcion,
+        objetivo,
+        lider,
+        numero_participantes,
+        estado,
+        fecF,
+        categoria_id,
+        true,
+        informacion_adicional,
+        url_imagen,
+        fecI,
+      ]
+    );
     const proyecto = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
+      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
       [id]
     );
 
