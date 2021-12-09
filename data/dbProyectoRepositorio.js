@@ -444,8 +444,7 @@ class DbProyectoRepositorio {
 
   async get_lista_por_proyecto(proyecto) {
     const eventos = await pool.query(
-      "SELECT nombre_evento, descripcion_evento, modalidad_evento, lugar_evento, fecha_evento, proyecto, categoria, hora_inicio, hora_fin, lider FROM eventos",
-      [parseInt(proyecto)]
+      "SELECT nombre_evento, descripcion_evento, modalidad_evento, lugar_evento, fecha_evento, proyecto, categoria, hora_inicio, hora_fin, lider FROM eventos WHERE proyecto=$proyecto"
     );
     return eventos;
   }
