@@ -112,18 +112,6 @@ class ProyectoServicio {
     try {
       if (this.validar(data)) {
         var proyecto = await this.repository.create_proyecto(data);
-        var fecha_inicio = proyecto.rows[0].fecha_inicio;
-        var fecha_fin = proyecto.rows[0].fecha_fin;
-        if (fecha_inicio != null) {
-          var fecha_inicio_string = this.convertir_fecha(fecha_inicio);
-          proyecto.rows[0].fecha_inicio = fecha_inicio_string;
-        }
-        if (fecha_fin != null) {
-          var fecha_fin_string = this.convertir_fecha(fecha_fin);
-          proyecto.rows[0].fecha_fin = fecha_fin_string;
-        }
-        var fila_sin_null = this.sin_nulls(proyecto.rows[0]);
-        proyecto.rows[0] = fila_sin_null;
         return proyecto;
       } else {
         console.error("Algo inesperado paso en la base de datos");
@@ -139,18 +127,6 @@ class ProyectoServicio {
     try {
       if (this.validar(data)) {
         var proyecto = await this.repository.update_proyecto(id, data);
-        var fecha_inicio = proyecto.rows[0].fecha_inicio;
-        var fecha_fin = proyecto.rows[0].fecha_fin;
-        if (fecha_inicio != null) {
-          var fecha_inicio_string = this.convertir_fecha(fecha_inicio);
-          proyecto.rows[0].fecha_inicio = fecha_inicio_string;
-        }
-        if (fecha_fin != null) {
-          var fecha_fin_string = this.convertir_fecha(fecha_fin);
-          proyecto.rows[0].fecha_fin = fecha_fin_string;
-        }
-        var fila_sin_null = this.sin_nulls(proyecto.rows[0]);
-        proyecto.rows[0] = fila_sin_null;
         return proyecto;
       } else {
         console.error("Algo inesperado paso en la base de datos");
@@ -160,6 +136,7 @@ class ProyectoServicio {
       return error;
     }
   }
+  
   async participate_proyecto(id, id_autenticacion) {
     try {
       return await this.repository.participate_proyecto(id, id_autenticacion);
