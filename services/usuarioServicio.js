@@ -31,7 +31,6 @@ class usuarioServicio {
       });
     //console.log(volunter_info.values);
     //let algo = volunter_info.aptitudes_tecnicas.map((a)=>a.dataValues.aptitud_tecnica);
-    //console.log(algo);
     return volunter_info;
   }
   async get_volunteers_data() {
