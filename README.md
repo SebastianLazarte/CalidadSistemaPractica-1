@@ -1,9 +1,6 @@
 
 # NodeJs-Express-StartAmericas 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/MicaelliMedeiros/micaellimedeiros/master/image/computer-illustration.png" alt="Sublime's custom image" min-width="400px" max-width="1000px" width="600px" height="400px" alt="Computador iuriCode"/>
-</p>
-
+<img alt="Logo" align="right" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1tfJ2N0SENG9G86Avbt6qN59vXLDAFYggA5IrspoOX4Q_irRB18laR-At4dTKZyG6VI&usqp=CAU" width="50%" />
 
 <details>
   <summary><strong>Comandos para Inicializar</strong></summary>
@@ -35,7 +32,7 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 </p>
 
 #### Diagrama 2: Diagrama de Clases Perteneciente al Modelo C4
-<p align="center">
+<p>
   <img src="https://user-images.githubusercontent.com/74753713/145110042-db6c91e9-352e-418e-8b5d-2ec063a7b43a.png" alt="Sublime's custom image"/>
 </p>
   
@@ -49,15 +46,19 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
   <summary><strong>Estructura de archivos</strong></summary>
   
 - Config: En este apartado se encuentran la conexion con la tabla de la base de datos, Startup de la aplicacion, configuracion de Cors, etc.
+
 - Documentation: Se encuentra los archivos sql de los eventos, proyectos y de usuarios. Como tambien se encuentra el postman que nos permite realizar pruebas como los requests, para validar que los endpoints que se crearon trabajen de manera correcta.
 
-- Routes: Se encuentra los Endpoints de la API que responden las peticiones que se realicen a este.
+- Data: Se encuentran las consultas sql a la db deployeada en heroku, dividida por los 3 flujos principales.
 
-- Services: En esta carpeta se encuentran los servicios, las cuales van a ser llamados para ser actualizados algunos modelos o solicitudes dependiendo el contexto. Es el responsable de crear modelos, recuperar, actualizacion de valores o de recursos, como tambien de la logica de la aplicacion.
+- Routes: Se encuentra los Endpoints de la API que responden las peticiones que se realicen a este(Controladores).
+
+- Services: En esta carpeta se encuentran los servicios, las cuales van a ser llamados para ser actualizados algunos modelos o solicitudes dependiendo el contexto. Es el responsable de crear modelos, recuperar, actualizacion de valores o de recursos, basicamente la **logica de la aplicacion** se implementa aca.
 
     
 ### Recomendaciones 
-    Implementar sequelize
+    - Implementar Sequelize o algun ORM similar
+    - Unir Repositorio Servicio de Datos y Authenticacion
 </details>
 
 <details>
@@ -121,27 +122,34 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 
 
 <details>
-  <summary><strong>Breve explicacion para el agregado de nueva funcionalidad ejemplificada a una sola entidad</strong></summary>
+  <summary><strong> Breve Explicacion (Agregar Nueva Funcionalidad)</strong></summary>
 
-Para el agregado de nueva funcionalidad en el back end (end points) se debe pensar primeramente en “la clase repositorio” donde se crea y usa la conexión con la base de datos esta aun no usa un framework por lo cual se hará mucho más fácil el acceso a esta mediante una sentencia sql, se debe pensar también qué datos necesitamos que la api nos envíe para poder realizar las consultas necesarias (funcionalidades) por ejemplo lo que se tiene que obtener del body o el header para realizar la funcionalidad, esta capa al ser la más cercana a la base de datos no puede hacer mucha o una gran implementación de la lógica de negocio para eso esta el service donde se maneja esta lógica que por ejemplo permite limpiar los nulos para mostrar el json de una manera más limpia, si se desea implementar algo muy particular en cuanto a funcionalidad de START es preferente la utilización de esta capa y finalmente proyecto route donde se le pone nombre a la funcionalidad (https://servicio-de-datos-respaldo.herokuapp.com/nombre_de_tu_funcionalidad) de modo que la api pueda llamar y realizar esta petición, conectándose inicialmente con proyectos rutas después con proyecto servicio y finalmente con el repositorio que realiza las operaciones en la base de datos.
-Como una pequeña aclaración es bueno resaltar que existe más de una tabla con la cual se relaciona directamente la principal de proyectos que en este caso serían categorías_proyectos y imagenes_proyectos 
-  
+Para agregar un nuevo endpoint se debe agregar la request en routes eligiendo el flujo al que pertenezca (usuarios,proyectos,eventos), posteriormente verficar el verbo de la misma.
+
+En servicios crear un nuevo metodo en la clase correspondiente que reciba los datos de los repositorios (en la carpeta Data). <strong>  Aca se deberia implementar logica, validaciones </strong>
+
+Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nuevo metodo, en este caso es simplemente es mandar una consulta sql a travez del cursor que provee PG para conectarse. 
+
 </details>
  
 
 
+<details>
+<summary><strong> Tecnologias Involucradas </strong></summary>
 
+* Lenguaje Base de la API  
+[![Node Version](https://img.shields.io/badge/Node-v15.8.0-green)](https://nodejs.org/docs/latest-v15.x/api/) 
 
-### Tecnologias Involucradas
-
-[![Node Version](https://img.shields.io/badge/Node-v15.8.0-green)](https://nodejs.org/docs/latest-v15.x/api/)
-
+* Levantar Servicio  
 [![Express](https://img.shields.io/badge/Express-v4.17.1-yellow)](http://expressjs.com/en/4x/api.html)
 
+* Configuracion de acceso a la API   
 [![Cors](https://img.shields.io/badge/Cors-v2.8.5-orange)](https://www.npmjs.com/package/cors)
 
+* Conexion con Postgres (BD)  
 [![PG](https://img.shields.io/badge/PG-v8.7.1-brown)](https://node-postgres.com/)
     
+</details>
 
 ### TechStack
 
@@ -156,5 +164,6 @@ Como una pequeña aclaración es bueno resaltar que existe más de una tabla con
 
 🏡 [API Deploy on Heroku][API deploy on heroku]
 
-
 [![Stake Holder](https://img.shields.io/badge/Cliente-StartAmericasTogether-blue)](https://www.startamericastogether.org/)
+
+
