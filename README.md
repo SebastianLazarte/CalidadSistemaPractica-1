@@ -1,9 +1,6 @@
 
 # NodeJs-Express-StartAmericas 
-<p>
-  <img src="https://raw.githubusercontent.com/MicaelliMedeiros/micaellimedeiros/master/image/computer-illustration.png" alt="Sublime's custom image" min-width="400px" max-width="1000px" width="600px" height="400px" alt="Computador iuriCode"/>
-</p>
-
+<img alt="Logo" align="right" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1tfJ2N0SENG9G86Avbt6qN59vXLDAFYggA5IrspoOX4Q_irRB18laR-At4dTKZyG6VI&usqp=CAU" width="50%" />
 
 <details>
   <summary><strong>Comandos para Inicializar</strong></summary>
@@ -127,19 +124,18 @@ La arquitectura en capas consta en dividir la aplicación en capas, con la inten
 <details>
   <summary><strong> Breve Explicacion (Agregar Nueva Funcionalidad)</strong></summary>
 
-Para agregar una nuevo endpoint se debe agregar la request en routes eligiendo el flujo al que pertenezca (usuarios,proyectos,eventos), posteriormente verficar el verbo de la misma.
+Para agregar un nuevo endpoint se debe agregar la request en routes eligiendo el flujo al que pertenezca (usuarios,proyectos,eventos), posteriormente verficar el verbo de la misma.
 
-En servicios crear un nuevo metodo en la clase correspondiente que reciba los datos de los repositorios (en la carpeta Data) <strong>  Aca se deberia implementar logica, validaciones </strong>
+En servicios crear un nuevo metodo en la clase correspondiente que reciba los datos de los repositorios (en la carpeta Data). <strong>  Aca se deberia implementar logica, validaciones </strong>
 
-Finalmente dentro de la clase repositorio del flujo correspondiente crear un nuevo metodo en este caso es simplemente es mandar una consulta sql a travez del cursor que provee PG para conectarse 
+Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nuevo metodo, en este caso es simplemente es mandar una consulta sql a travez del cursor que provee PG para conectarse. 
 
 </details>
  
 
 
-
-
-### Tecnologias Involucradas
+<details>
+<summary><strong> Tecnologias Involucradas </strong></summary>
 
 * Lenguaje Base de la API  
 [![Node Version](https://img.shields.io/badge/Node-v15.8.0-green)](https://nodejs.org/docs/latest-v15.x/api/) 
@@ -153,6 +149,7 @@ Finalmente dentro de la clase repositorio del flujo correspondiente crear un nue
 * Conexion con Postgres (BD)  
 [![PG](https://img.shields.io/badge/PG-v8.7.1-brown)](https://node-postgres.com/)
     
+</details>
 
 ### TechStack
 
@@ -166,8 +163,6 @@ Finalmente dentro de la clase repositorio del flujo correspondiente crear un nue
 [API deploy on heroku]: https://startamericastogether.herokuapp.com/
 
 🏡 [API Deploy on Heroku][API deploy on heroku]
-
-<img alt="Logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1tfJ2N0SENG9G86Avbt6qN59vXLDAFYggA5IrspoOX4Q_irRB18laR-At4dTKZyG6VI&usqp=CAU" width="300px"/>
 
 [![Stake Holder](https://img.shields.io/badge/Cliente-StartAmericasTogether-blue)](https://www.startamericastogether.org/)
 
