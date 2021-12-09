@@ -35,7 +35,7 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
 
 #### Diagrama 2: Diagrama de Clases Perteneciente al Modelo C4
 
-<p align="center">
+<p>
   <img src="https://user-images.githubusercontent.com/74753713/145110042-db6c91e9-352e-418e-8b5d-2ec063a7b43a.png" alt="Sublime's custom image"/>
 </p>
 
@@ -62,6 +62,7 @@ Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que 
   <summary><strong>Estructura de archivos</strong></summary>
   
 - Config: En este apartado se encuentran la conexion con la tabla de la base de datos, Startup de la aplicacion, configuracion de Cors, etc.
+
 - Documentation: Se encuentra los archivos sql de los eventos, proyectos y de usuarios. Como tambien se encuentra el postman que nos permite realizar pruebas como los requests, para validar que los endpoints que se crearon trabajen de manera correcta.
 
 - Data: Se encuentran las consultas sql a la db deployeada en heroku, dividida por los 3 flujos principales.
