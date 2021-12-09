@@ -1,6 +1,8 @@
 # NodeJs-Express-StartAmericas
 
-<img alt="Logo" align="right" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1tfJ2N0SENG9G86Avbt6qN59vXLDAFYggA5IrspoOX4Q_irRB18laR-At4dTKZyG6VI&usqp=CAU" width="20%" />
+# NodeJs-Express-StartAmericas
+
+<img alt="Logo" align="right" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1tfJ2N0SENG9G86Avbt6qN59vXLDAFYggA5IrspoOX4Q_irRB18laR-At4dTKZyG6VI&usqp=CAU" width="50%" />
 
 <details>
   <summary><strong>Comandos para Inicializar</strong></summary>
@@ -279,11 +281,9 @@ Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nu
 
 </details>
 
+
 <details>
 <summary><strong> Tecnologias Involucradas </strong></summary>
-
-- Lenguaje Base de la API  
-  [![Node Version](https://img.shields.io/badge/Node-v15.8.0-green)](https://nodejs.org/docs/latest-v15.x/api/)
 
 - Levantar Servicio  
   [![Express](https://img.shields.io/badge/Express-v4.17.1-yellow)](http://expressjs.com/en/4x/api.html)
@@ -292,6 +292,9 @@ Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nu
   [![Cors](https://img.shields.io/badge/Cors-v2.8.5-orange)](https://www.npmjs.com/package/cors)
 
 - Conexion con Postgres (BD)  
+  [![PG](https://img.shields.io/badge/PG-v8.7.1-brown)](https://node-postgres.com/)
+
+* Conexion con Postgres (BD)  
   [![PG](https://img.shields.io/badge/PG-v8.7.1-brown)](https://node-postgres.com/)
 
 </details>
@@ -304,6 +307,7 @@ Finalmente dentro de la clase repositorio del flujo correspondiente, crear un nu
 <code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"></code>
 <code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png"></code>
 
+[api deploy on heroku]: https://startamericastogether.herokuapp.com/
 [api deploy on heroku]: https://startamericastogether.herokuapp.com/
 
 🏡 [API Deploy on Heroku][api deploy on heroku]
