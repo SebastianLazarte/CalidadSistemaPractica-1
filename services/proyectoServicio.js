@@ -227,9 +227,7 @@ class ProyectoServicio {
 
   async get_proyectos_pasados_categoria(data) {
     try {
-      let resultado = await this.repository.get_proyectos_pasados_categoria(
-        data
-      );
+      let resultado = await this.repository.get_proyectos_pasados_categoria(data);
       return resultado;
     } catch (error) {
       console.error("Algo inesperado paso con la Base de datos");
