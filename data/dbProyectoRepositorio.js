@@ -143,23 +143,26 @@ class DbProyectoRepositorio {
     let fechaActual=new Date();
 
     if(fecha_inicio!=""){
-      const [yearI, monthI,dayI ] = fecha_inicio.split("-")
-      fecI= new Date(monthI+' '+dayI+' '+yearI);  
+        const [yearI, monthI,dayI ] = fecha_inicio.split("-")
+        fecI= new Date(monthI+' '+dayI+' '+yearI);  
     }else{
       fecI=null;
     }
-
     if(fecha_fin!=""){
       const [yearF, monthF,dayF ] = fecha_fin.split("-")
-      fecF=new Date(monthF+' '+dayF+' '+yearF);
-      if(fecF < fechaActual ){
-        newEstado=false;
+      fecF = new Date(monthF+' '+dayF+' '+yearF);
+      if(estado){
+        if(fecF < fechaActual ){
+          newEstado=false;
+        }else{
+          newEstado = true;
+        }
       }else{
-        newEstado = true;
+        fecF=fechaActual;
+        newEstado=false;
       }
     }else{
       if(estado){
-        console.log('entro');
         fecF=null;
         newEstado=null;// en la sentencia el coalesce se encarga de tomar el estado anterior
       }else{
