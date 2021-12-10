@@ -147,18 +147,21 @@ class DbProyectoRepositorio {
     } else {
       fecI = null;
     }
-
     if (fecha_fin != "") {
       const [yearF, monthF, dayF] = fecha_fin.split("-");
       fecF = new Date(monthF + " " + dayF + " " + yearF);
-      if (fecF < fechaActual) {
-        newEstado = false;
+      if (estado) {
+        if (fecF < fechaActual) {
+          newEstado = false;
+        } else {
+          newEstado = true;
+        }
       } else {
-        newEstado = true;
+        fecF = fechaActual;
+        newEstado = false;
       }
     } else {
       if (estado) {
-        console.log("entro");
         fecF = null;
         newEstado = null; // en la sentencia el coalesce se encarga de tomar el estado anterior
       } else {
