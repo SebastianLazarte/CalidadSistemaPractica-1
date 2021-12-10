@@ -53,13 +53,35 @@ class DbProyectoRepositorio {
     const categoria_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
     //Conversion de fechas string a Date
-    const [yearI, monthI,dayI ] = fecha_inicio.split("-")
-    let fecI= new Date(monthI+' '+dayI+' '+yearI);
-    const [yearF, monthF,dayF ] = fecha_fin.split("-")
-    let fecF=new Date(monthF+' '+dayF+' '+yearF);
+    let fecI;
+    let fecF;
+    let newEstado;
+    let fechaActual=new Date();
+    if(fecha_inicio==undefined){
+      fecI = fechaActual;  
+    }else{
+      const [yearI, monthI,dayI ] = fecha_inicio.split("-")
+      fecI= new Date(monthI+' '+dayI+' '+yearI);  
+    }
 
+    if(fecha_fin==undefined){    
+      if(estado){
+        fecF=null;
+        newEstado=true;
+      }else{
+        fecF=fechaActual;
+        newEstado=false;
+      }
+    }else{
+      const [yearF, monthF,dayF ] = fecha_fin.split("-")
+      fecF=new Date(monthF+' '+dayF+' '+yearF);
 
-
+      if(fecF < fechaActual ){
+        newEstado=false;
+      }else{
+        newEstado = true;
+      }
+    }
     const new_proyeto = await pool.query(
       "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,fecha_fin,categoria_id,visualizar,informacion_adicional,url_imagen)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)",
       [
@@ -68,7 +90,7 @@ class DbProyectoRepositorio {
         objetivo,//3
         lider,//4
         numero_participantes_oficial,//5
-        estado || true,//6
+        newEstado,//6
         fecI,//7
         fecF,//8
         categoria_id,//9
@@ -78,7 +100,7 @@ class DbProyectoRepositorio {
       ]
     );
     const proyecto_to_show = await pool.query(
-      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  WHERE estado=true ORDER BY ID DESC LIMIT 1"
+      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
     );  
     return proyecto_to_show;
   }
@@ -113,19 +135,37 @@ class DbProyectoRepositorio {
     } else {
       categoria_id = categorias_id;
     }
+
+
     let fecI;
-    let fecF
+    let fecF;
+    let newEstado;
+    let fechaActual=new Date();
+
     if(fecha_inicio!=undefined){
       const [yearI, monthI,dayI ] = fecha_inicio.split("-")
       fecI= new Date(monthI+' '+dayI+' '+yearI);  
     }else{
       fecI=null;
     }
+
     if(fecha_fin!=undefined){
       const [yearF, monthF,dayF ] = fecha_fin.split("-")
       fecF=new Date(monthF+' '+dayF+' '+yearF);
+      if(fecF < fechaActual ){
+        newEstado=false;
+      }else{
+        newEstado = true;
+      }
     }else{
-      fecF=null;
+      if(estado){
+        console.log('entro');
+        fecF=null;
+        newEstado=null;// en la sentencia el coalesce se encarga de tomar el estado anterior
+      }else{
+        fecF=fechaActual;
+        newEstado=false;
+      }
     }
     const proyecto_a_actualizar = await pool.query(
       "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_inicio=coalesce($13,fecha_inicio), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1",
@@ -136,7 +176,7 @@ class DbProyectoRepositorio {
         objetivo,
         lider,
         numero_participantes,
-        estado,
+        newEstado,
         fecF,
         categoria_id,
         true,
