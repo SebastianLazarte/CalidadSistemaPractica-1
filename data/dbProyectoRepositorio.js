@@ -100,7 +100,7 @@ class DbProyectoRepositorio {
       ]
     );
     const proyecto_to_show = await pool.query(
-      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
     );
     return proyecto_to_show;
   }
@@ -188,7 +188,7 @@ class DbProyectoRepositorio {
       ]
     );
     const proyecto = await pool.query(
-      "SELECT p.id,p.titulo,p.numero_participantes,to_char(p.fecha_inicio,'YYYY-MM-DD') as fecha_ini,to_char(p.fecha_fin,'YYYY-MM-DD') as fecha_final,p.categoria_id,p.estado,p.lider,p.visualizar,p.informacion_adicional,p.url_imagen,p.objetivo, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
+      "SELECT p.*, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
       [id]
     );
 
@@ -374,7 +374,7 @@ class DbProyectoRepositorio {
   async get_proyectos_acabado() {
     const proyectos_acabados = await pool.query(
       //************* */     'ACABADO' = false
-      "SELECT pro.*, cat.tipo as categoria FROM public.proyectos pro,public.categoria_proyectos as cat WHERE estado=false and pro.categoria_id=cat.id"
+      "SELECT p.*, cat.tipo as categoria FROM public.proyectos p,public.categoria_proyectos as cat WHERE estado=false and p.categoria_id=cat.id"
     );
     return proyectos_acabados;
   }
