@@ -57,14 +57,14 @@ class DbProyectoRepositorio {
     let fecF;
     let newEstado;
     let fechaActual = new Date();
-    if (fecha_inicio == undefined || fecha_inicio == "") {
+    if (fecha_inicio == "") {
       fecI = fechaActual;
     } else {
       const [yearI, monthI, dayI] = fecha_inicio.split("-");
       fecI = new Date(monthI + " " + dayI + " " + yearI);
     }
 
-    if (fecha_fin == undefined || fecha_fin == "") {
+    if (fecha_fin == "") {
       if (estado) {
         fecF = null;
         newEstado = true;
@@ -141,14 +141,14 @@ class DbProyectoRepositorio {
     let newEstado;
     let fechaActual = new Date();
 
-    if (fecha_inicio != undefined || fecha_inicio != "") {
+    if (fecha_inicio != "") {
       const [yearI, monthI, dayI] = fecha_inicio.split("-");
       fecI = new Date(monthI + " " + dayI + " " + yearI);
     } else {
       fecI = null;
     }
 
-    if (fecha_fin != undefined || fecha_fin != "") {
+    if (fecha_fin != "") {
       const [yearF, monthF, dayF] = fecha_fin.split("-");
       fecF = new Date(monthF + " " + dayF + " " + yearF);
       if (fecF < fechaActual) {
