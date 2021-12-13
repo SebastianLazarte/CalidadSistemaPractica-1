@@ -439,18 +439,7 @@ module.exports = function (app) {
         res.status(404);
       }
     });
-    
-    //Lista de eventos que está en un proyecto
-    app.get("/eventos_de_proyecto/:id_proyecto",async(req,res)=>{
-    try
-    {
-      const {id_proyecto}= req.params;
-      const lista_eventos = await service.get_lista_eventos_para_proyectos(id_proyecto);
-      res.status(200).json(lista_eventos.rows);
-    }catch(err){
-      res.status(404);
-    }
-  });
+  
 
   //Lista de eventos por proyecto
   app.get("/eventos_de_proyecto/:proyecto",async(req,res)=>{
@@ -458,7 +447,7 @@ module.exports = function (app) {
     {
       const {proyecto}= req.params;
       const lista_eventos = await service.get_lista_por_proyecto(proyecto);
-      res.status(200).json(lista_eventos);
+      res.status(200).json(lista_eventos.rows);
     }catch(err){
       res.status(404);
     }
