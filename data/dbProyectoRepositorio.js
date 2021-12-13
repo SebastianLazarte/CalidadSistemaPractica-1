@@ -130,30 +130,42 @@ class DbProyectoRepositorio {
     let newEstado;
     let fechaActual=new Date();
     let query="UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_inicio=coalesce($13,fecha_inicio), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1";
+    
+    
     if(fecha_inicio!=""){
-        const [yearI, monthI,dayI ] = fecha_inicio.split("-")
-        fecI= new Date(monthI+' '+dayI+' '+yearI);  
+      const [yearI, monthI,dayI ] = fecha_inicio.split("-")
+      fecI= new Date(monthI+' '+dayI+' '+yearI);  
     }else{
       fecI=null;
     }
-    if(fecha_fin!=""){
-      const [yearF, monthF,dayF ] = fecha_fin.split("-")
-      fecF = new Date(monthF+' '+dayF+' '+yearF);
-      if(estado){
+
+    if(estado){
+      if(fecha_fin!=""){
+        const [yearF, monthF,dayF ] = fecha_fin.split("-")
+        fecF=new Date(monthF+' '+dayF+' '+yearF);
+        //ve el caso de la fecha final sea menor a la actual dependiendo de eso es un proyecto pasado o en curso
         if(fecF < fechaActual ){
-          newEstado=false;
+          newEstado = false;
         }else{
           newEstado = true;
         }
+        //el caso que la fecha inicial es mayor a la final
+        if(fecF<fecI){
+          fecF=null;
+        }
       }else{
-        fecF=fechaActual;
-        newEstado=false;
+        fecF=null;
       }
     }else{
-      if(estado){
-        fecF=null;
-        newEstado=true;
-        query= "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_inicio=coalesce($13,fecha_inicio), fecha_fin=$8, categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1";
+
+      if(fecha_fin!=""){
+        const [yearF, monthF,dayF ] = fecha_fin.split("-")
+        fecF=new Date(monthF+' '+dayF+' '+yearF);
+        if(fecF < fechaActual ){
+          newEstado = false;
+        }else{
+          newEstado = true;
+        }
       }else{
         fecF=fechaActual;
         newEstado=false;
