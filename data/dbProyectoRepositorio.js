@@ -51,19 +51,18 @@ class DbProyectoRepositorio {
     );
     const categoria_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
+
     //Conversion de fechas string a Date
     let fecI;
     let fecF;
     let newEstado;
     let fechaActual = new Date();
-
     if (fecha_inicio != "") {
       const [yearI, monthI, dayI] = fecha_inicio.split("-");
       fecI = new Date(monthI + " " + dayI + " " + yearI);
     } else {
       fecI = fechaActual;
     }
-
     if (estado) {
       if (fecha_fin != "") {
         const [yearF, monthF, dayF] = fecha_fin.split("-");
@@ -80,6 +79,7 @@ class DbProyectoRepositorio {
         }
       } else {
         fecF = null;
+        newEstado = true;
       }
     } else {
       if (fecI > fechaActual) {
@@ -90,6 +90,27 @@ class DbProyectoRepositorio {
         newEstado = false;
       }
     }
+    const new_proyeto = await pool.query(
+      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,fecha_fin,categoria_id,visualizar,informacion_adicional,url_imagen)VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)",
+      [
+        titulo, //1
+        descripcion, //2
+        objetivo, //3
+        lider, //4
+        numero_participantes_oficial, //5
+        newEstado, //6
+        fecI, //7
+        fecF, //8
+        categoria_id, //9
+        true, //10
+        informacion_adicional, //11
+        url_imagen, //12
+      ]
+    );
+    const proyecto_to_show = await pool.query(
+      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
+    );
+    return proyecto_to_show;
   }
 
   async update_proyecto(id, data) {
