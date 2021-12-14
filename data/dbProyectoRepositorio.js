@@ -82,6 +82,7 @@ class DbProyectoRepositorio {
         }
       }else{
         fecF=null;
+        newEstado = true;
       }
     }else{
       if(fecI > fechaActual){
