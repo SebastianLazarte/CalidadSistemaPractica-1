@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "f5a00cff-5a0a-4b78-afda-22ad5b3fd0ec",
-		"name": "ProyectosAPI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"name": "ProyectosAPI Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -10,17 +10,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_proyectos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_proyectos"
-					]
-				},
+				"url": "http://localhost:5000/get_proyectos",
 				"description": "Devuelve todos los proyectos creados por Start.\n\nPodemos Observar en el ejemplo."
 			},
 			"response": [
@@ -29,17 +19,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_proyectos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_proyectos"
-							]
-						}
+						"url": "http://localhost:5000/get_proyectos"
 					},
 					"status": "OK",
 					"code": 200,
@@ -92,18 +72,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_proyecto/321",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_proyecto",
-						"321"
-					]
-				},
+				"url": "http://localhost:5000/get_proyecto/321",
 				"description": "Devuelve un proyecto dado un id existente en la base de datos.\n\nhttp://localhost:5000/get_proyecto/{**id_proyecto}**  \n\nEn el primer ejemplo se puede ver que se probo con el id 321.\n\nEn el segundo cuando el id no existe devuelve **204 No Content**"
 			},
 			"response": [
@@ -112,18 +81,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_proyecto/321",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_proyecto",
-								"321"
-							]
-						}
+						"url": "http://localhost:5000/get_proyecto/321"
 					},
 					"status": "OK",
 					"code": 200,
@@ -174,18 +132,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_proyecto/5555",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_proyecto",
-								"5555"
-							]
-						}
+						"url": "http://localhost:5000/get_proyecto/5555"
 					},
 					"status": "No Content",
 					"code": 204,
@@ -230,20 +177,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/participate/260/sesion/3",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"participate",
-						"260",
-						"sesion",
-						"3"
-					]
-				},
+				"url": "http://localhost:5000/participate/260/sesion/3",
 				"description": "Devuelve un valor boleano de si un **id_usuario** esta participando en un proyecto **id_proyecto**\n\n[http://localhost:5000/participate/{**id_proyecto**}/sesion/{**id_usuario**}](http://localhost:5000/participate/{**id_proyecto**}/sesion/{**id_usuario**})\n\nEn el primer ejemplo: **Participa en un proyecto**\n\nIngresamos el **id_proyecto 260** y el **id_usuario** 3\n\nel cual si existe en nuestra tabla de la base de datos.\n\nEn el segundo ejemplo: **No participa en un proyecto**\n\nIngresamos el **id_proyecto 260** y el **id_usuario** 4\n\nel cual no existe en nuestra tabla de la base de datos."
 			},
 			"response": [
@@ -252,20 +186,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/participate/260/sesion/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"participate",
-								"260",
-								"sesion",
-								"3"
-							]
-						}
+						"url": "http://localhost:5000/participate/260/sesion/3"
 					},
 					"status": "OK",
 					"code": 200,
@@ -316,20 +237,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/participate/260/sesion/4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"participate",
-								"260",
-								"sesion",
-								"4"
-							]
-						}
+						"url": "http://localhost:5000/participate/260/sesion/4"
 					},
 					"status": "OK",
 					"code": 200,
@@ -382,18 +290,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_participantes_proyecto_simple/334",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_participantes_proyecto_simple",
-						"334"
-					]
-				},
+				"url": "http://localhost:5000/get_participantes_proyecto_simple/334",
 				"description": "Devuelve una lista de los participantes del proyecto según su **id_proyecto**\n\n[http://localhost:5000/get_participantes_proyecto_simple/{**id_proyecto**}](http://localhost:5000/get_participantes_proyecto_simple/{**id_proyecto**})\n\nEn el primer ejemplo: **Lista de usuarios pertenecientes a un proyecto**\n\npodemos ver la lista del usuarios que tiene con el id_proyecto 337\n\nEn el segundo ejemplo: **Un proyecto que no tiene participantes**\n\npodemos ver que no tiene ningun usuario con el **id_proyecto** 334"
 			},
 			"response": [
@@ -402,18 +299,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_participantes_proyecto_simple/336",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_participantes_proyecto_simple",
-								"336"
-							]
-						}
+						"url": "http://localhost:5000/get_participantes_proyecto_simple/336"
 					},
 					"status": "OK",
 					"code": 200,
@@ -464,18 +350,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_participantes_proyecto_simple/334",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_participantes_proyecto_simple",
-								"334"
-							]
-						}
+						"url": "http://localhost:5000/get_participantes_proyecto_simple/334"
 					},
 					"status": "OK",
 					"code": 200,
@@ -528,18 +403,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_proyectos/Orfanato",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_proyectos",
-						"Orfanato"
-					]
-				},
+				"url": "http://localhost:5000/get_proyectos/Orfanato",
 				"description": "Devuelve el filtrado de proyectos pero en este caso por categorias.\n\n[**http://localhost:5000/get_proyectos/{nombre**](http://localhost:5000/get_proyectos/{nombre) **de la categoria}**\n\nLos ejemplos que nos dimos fueron:  \nMedio Ambiente  \nDesarrollo Sostenible  \nTrabajo Social  \nAnimales  \nComunidad\n\nEn el primer ejemplo: **Lista de proyectos con categoría**\n\nPodemos ver que devuelve una lista de proyectos con categoría de parametro **Desarrollo sostenible**\n\nEn el segundo ejemplo: **No existe la categoría**\n\nPodemos ver **203 No Content** porque la categoría que ingresamos **Orfanato** no existe como categoría"
 			},
 			"response": [
@@ -680,19 +544,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/sesion/06/get_my_proyectos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"sesion",
-						"06",
-						"get_my_proyectos"
-					]
-				},
+				"url": "http://localhost:5000/sesion/06/get_my_proyectos",
 				"description": "Devuelve los proyectos que esta participando un usuario dado a su **id_usuario** como parámetro.\n\nhttp://localhost:5000/sesion/{id_usuario}/get_my_proyectos\n\nEn el primer ejemplos: **Lista de proyectos**\n\nvemos los proyectos de un usuario como parametro se envió **id_usuario=**6."
 			},
 			"response": [
@@ -701,19 +553,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/sesion/6/get_my_proyectos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"sesion",
-								"6",
-								"get_my_proyectos"
-							]
-						}
+						"url": "http://localhost:5000/sesion/6/get_my_proyectos"
 					},
 					"status": "OK",
 					"code": 200,
@@ -766,17 +606,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_lideres",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_lideres"
-					]
-				},
+				"url": "http://localhost:5000/get_lideres",
 				"description": "Devuelve todos los lideres de la tabla de usuario de la base de datos cuyo rol este como líder.\n\nEn el ejemplo: **Líderes**\n\nSe puede ver que solo te devuelve los nombres de los lideres."
 			},
 			"response": [
@@ -785,17 +615,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_lideres",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_lideres"
-							]
-						}
+						"url": "http://localhost:5000/get_lideres"
 					},
 					"status": "OK",
 					"code": 200,
@@ -848,18 +668,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_rol/11",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_rol",
-						"11"
-					]
-				},
+				"url": "http://localhost:5000/get_rol/11",
 				"description": "Devuelve el rol de un usuario dado su **id_usuario**\n\nhttp://localhost:5000/get_rol/{id_usuario}\n\nEn el ejemplo: Rol de usuario\n\nSe puede ver que el rol del usuario con id 11 tiene el rol de **voluntario**"
 			},
 			"response": [
@@ -868,18 +677,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_rol/11",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_rol",
-								"11"
-							]
-						}
+						"url": "http://localhost:5000/get_rol/11"
 					},
 					"status": "OK",
 					"code": 200,
@@ -932,18 +730,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_numero_participantes/337",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_numero_participantes",
-						"337"
-					]
-				},
+				"url": "http://localhost:5000/get_numero_participantes/337",
 				"description": "Devuelve la cantidad de participantes de un proyecto dado su **id_proyecto.**\n\nEn el ejemplo: **Numero de participantes**\n\nSe puede ver que el proyecto con el id_proyecto 337  \ntiene solo 3 participantes."
 			},
 			"response": [
@@ -952,18 +739,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_numero_participantes/337",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_numero_participantes",
-								"337"
-							]
-						}
+						"url": "http://localhost:5000/get_numero_participantes/337"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1016,18 +792,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_eventos_proyecto/52",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_eventos_proyecto",
-						"52"
-					]
-				},
+				"url": "http://localhost:5000/get_eventos_proyecto/52",
 				"description": "Devuelve la lista de eventos pertenecientes a un proyecto dado su **id_proyecto**\n\n[http://localhost:5000/get_eventos_proyecto/{id_proyecto}](http://localhost:5000/get_eventos_proyecto/{id_proyecto})\n\nEn el ejemplo: **Eventos de Proyecto**\n\nSe puede ver que dado el **id_proyecto** 52 nos devulve que tiene tres eventos."
 			},
 			"response": [
@@ -1036,18 +801,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_eventos_proyecto/52",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_eventos_proyecto",
-								"52"
-							]
-						}
+						"url": "http://localhost:5000/get_eventos_proyecto/52"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1100,17 +854,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_proyectos_acabado",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_proyectos_acabado"
-					]
-				},
+				"url": "http://localhost:5000/get_proyectos_acabado",
 				"description": "Devuelve todos los proyectos cuyo estado este en falso que se considera como acabado.\n\n[http://localhost:5000/get_proyectos_acabado](http://localhost:5000/get_proyectos_acabado)\n\nEn el ejemplo: **Proyectos acabado**\n\nSe puede observar que en el ejemplo nos devuelve 5 proyectos que estan acabados"
 			},
 			"response": [
@@ -1119,17 +863,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_proyectos_acabado",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_proyectos_acabado"
-							]
-						}
+						"url": "http://localhost:5000/get_proyectos_acabado"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1191,17 +925,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:5000/create_proyecto",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"create_proyecto"
-					]
-				}
+				"url": "http://localhost:5000/create_proyecto"
 			},
 			"response": [
 				{
@@ -1218,17 +942,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:5000/create_proyecto",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"create_proyecto"
-							]
-						}
+						"url": "http://localhost:5000/create_proyecto"
 					},
 					"status": "Created",
 					"code": 201,
@@ -1281,17 +995,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_categoria_proyectos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_categoria_proyectos"
-					]
-				}
+				"url": "http://localhost:5000/get_categoria_proyectos"
 			},
 			"response": [
 				{
@@ -1299,17 +1003,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_categoria_proyectos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_categoria_proyectos"
-							]
-						}
+						"url": "http://localhost:5000/get_categoria_proyectos"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1362,17 +1056,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/get_usuarios",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_usuarios"
-					]
-				}
+				"url": "http://localhost:5000/get_usuarios"
 			},
 			"response": [
 				{
@@ -1380,17 +1064,7 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/get_usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"get_usuarios"
-							]
-						}
+						"url": "http://localhost:5000/get_usuarios"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1456,18 +1130,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "http://localhost:5000/get_image_proyecto/308",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"get_image_proyecto",
-						"308"
-					]
-				}
+				"url": "http://localhost:5000/get_image_proyecto/308"
 			},
 			"response": []
 		},
@@ -1485,18 +1148,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:5000/update_proyecto/321",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"update_proyecto",
-						"321"
-					]
-				}
+				"url": "http://localhost:5000/update_proyecto/321"
 			},
 			"response": []
 		},
@@ -1514,20 +1166,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:5000/participate_proyecto/383/sesion/6",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"participate_proyecto",
-						"383",
-						"sesion",
-						"6"
-					]
-				}
+				"url": "http://localhost:5000/participate_proyecto/383/sesion/6"
 			},
 			"response": [
 				{
@@ -1544,20 +1183,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:5000/participate_proyecto/380/sesion/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"participate_proyecto",
-								"380",
-								"sesion",
-								"6"
-							]
-						}
+						"url": "http://localhost:5000/participate_proyecto/380/sesion/6"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1617,20 +1243,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:5000/participate_proyecto/383/sesion/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"participate_proyecto",
-								"383",
-								"sesion",
-								"6"
-							]
-						}
+						"url": "http://localhost:5000/participate_proyecto/383/sesion/6"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1683,22 +1296,7 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/participate_past_proyecto/358/sesion/6/volunteer/32",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"participate_past_proyecto",
-						"358",
-						"sesion",
-						"6",
-						"volunteer",
-						"32"
-					]
-				}
+				"url": "http://localhost:5000/participate_past_proyecto/358/sesion/6/volunteer/32"
 			},
 			"response": [
 				{
@@ -1706,22 +1304,7 @@
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/participate_past_proyecto/358/sesion/32/volunteer/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"participate_past_proyecto",
-								"358",
-								"sesion",
-								"32",
-								"volunteer",
-								"6"
-							]
-						}
+						"url": "http://localhost:5000/participate_past_proyecto/358/sesion/32/volunteer/6"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1774,18 +1357,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/delete_proyecto/379",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"delete_proyecto",
-						"379"
-					]
-				}
+				"url": "http://localhost:5000/delete_proyecto/379"
 			},
 			"response": [
 				{
@@ -1793,18 +1365,7 @@
 					"originalRequest": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/delete_proyecto/379",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"delete_proyecto",
-								"379"
-							]
-						}
+						"url": "http://localhost:5000/delete_proyecto/379"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1867,18 +1428,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "http://localhost:5000/create_imagen_proyecto/382",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"create_imagen_proyecto",
-						"382"
-					]
-				}
+				"url": "http://localhost:5000/create_imagen_proyecto/382"
 			},
 			"response": []
 		},
@@ -1887,20 +1437,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"cancel_participate_proyecto",
-						"337",
-						"sesion",
-						"8000"
-					]
-				}
+				"url": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000"
 			},
 			"response": [
 				{
@@ -1908,20 +1445,7 @@
 					"originalRequest": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"cancel_participate_proyecto",
-								"337",
-								"sesion",
-								"6"
-							]
-						}
+						"url": "http://localhost:5000/cancel_participate_proyecto/337/sesion/6"
 					},
 					"status": "OK",
 					"code": 200,
@@ -1972,20 +1496,7 @@
 					"originalRequest": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"cancel_participate_proyecto",
-								"337",
-								"sesion",
-								"8000"
-							]
-						}
+						"url": "http://localhost:5000/cancel_participate_proyecto/337/sesion/8000"
 					},
 					"status": "OK",
 					"code": 200,
@@ -2038,19 +1549,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "https://servicio-de-datos-respaldo.herokuapp.com/get_image_proyecto/309",
-					"protocol": "https",
-					"host": [
-						"servicio-de-datos-respaldo",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"get_image_proyecto",
-						"309"
-					]
-				}
+				"url": "https://servicio-de-datos-respaldo.herokuapp.com/get_image_proyecto/309"
 			},
 			"response": []
 		}
