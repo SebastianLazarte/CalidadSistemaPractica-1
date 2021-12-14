@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b5eb2ad0-9481-45d9-bcaf-628f0c86f257",
-		"name": "ProyectosAPI",
+		"_postman_id": "f5a00cff-5a0a-4b78-afda-22ad5b3fd0ec",
+		"name": "ProyectosAPI Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -2032,27 +2032,6 @@
 					"body": "false"
 				}
 			]
-		},
-		{
-			"name": "PruebaImagen",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://servicio-de-datos-respaldo.herokuapp.com/get_image_proyecto/309",
-					"protocol": "https",
-					"host": [
-						"servicio-de-datos-respaldo",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"get_image_proyecto",
-						"309"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
