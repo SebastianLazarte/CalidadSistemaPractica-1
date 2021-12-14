@@ -71,7 +71,7 @@ module.exports = function (app) {
       const insignias = await usuarioService.get_insignias_by_user(
         req.params.id
       );
-      
+
       let data_to_send = JSON.stringify(insignias);
       res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
     } catch (err) {
@@ -83,11 +83,11 @@ module.exports = function (app) {
         );
     }
   });
-  
+
   app.get("/insignias", async (req, res) => {
     try {
       const insignias = await usuarioService.get_insignias();
-      
+
       let data_to_send = JSON.stringify(insignias.rows);
       res.status(200).send(`{"message":"", "data": ${data_to_send}}`);
     } catch (err) {
@@ -103,7 +103,10 @@ module.exports = function (app) {
   app.put("/insignias/:id_user", async (req, res) => {
     try {
       let { id_user } = req.params;
-      const changedVolunteer = await usuarioService.update_insignias_by_user_id(id_user, req.body);
+      const changedVolunteer = await usuarioService.update_insignias_by_user_id(
+        id_user,
+        req.body
+      );
       let data_to_send = JSON.stringify(changedVolunteer);
       res
         .status(202)
@@ -119,21 +122,22 @@ module.exports = function (app) {
   app.delete("/disable_user/:id", async (req, res) => {
     try {
       let stateOfDisable = await usuarioService.disable_user(req.params.id);
-      if (stateOfDisable){
+      if (stateOfDisable) {
         res
-        .status(205)
-        .send(`{"message":"User was disabled succesfully", "data": ${stateOfDisable}}`);
-      }else{
+          .status(205)
+          .send(
+            `{"message":"User was disabled succesfully", "data": ${stateOfDisable}}`
+          );
+      } else {
         res
-        .status(500)
-        .send(`{"message":"User is not disable", "data": ${stateOfDisable}}`);
-      }      
-    }catch (error) {
+          .status(500)
+          .send(`{"message":"User is not disable", "data": ${stateOfDisable}}`);
+      }
+    } catch (error) {
       console.error(error.message);
       res
         .status(400)
         .send(`{"message":"Changes are not commited", "data":false}`);
     }
   });
-
 };

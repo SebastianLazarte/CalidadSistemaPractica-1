@@ -1,97 +1,100 @@
 const _service = require("../services/proyectoServicio");
 const service = new _service();
-const multer =require('multer')
-const path = require('path')
+const multer = require("multer");
+const path = require("path");
 const imageUpload = multer({
-  storage: multer.diskStorage(
-      {
-          destination: function (req, file, cb) {
-              cb(null, './images');
-          },
-          filename: function (req, file, cb) {
-              cb(
-                  null,
-                  new Date().valueOf() + 
-                  '_' +
-                  file.originalname
-              );
-          }
-      }
-  ), 
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "./images");
+    },
+    filename: function (req, file, cb) {
+      cb(null, new Date().valueOf() + "_" + file.originalname);
+    },
+  }),
 });
 
 module.exports = function (app) {
   //Crear
-  app.post("/create_proyecto", imageUpload.single('image'), async (req, res) => {
-    try {   
-      debugger 
-      const nuevoProyecto = await service.create_proyecto(req.body);
-      const id=nuevoProyecto.rows[0].id;
-      if(req.file!=undefined)
-      {
-        const { filename, mimetype, size } = req.file;  
-        const filepath = req.file.path;
-        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id) 
-        result=imagen.rowCount>=1   
-      }
+  app.post(
+    "/create_proyecto",
+    imageUpload.single("image"),
+    async (req, res) => {
       try {
-        if (nuevoProyecto.rows.length > 0 ) {
-          res.status(201).json(nuevoProyecto.rows);       
+        debugger;
+        const nuevoProyecto = await service.create_proyecto(req.body);
+        const id = nuevoProyecto.rows[0].id;
+        if (req.file != undefined) {
+          const { filename, mimetype, size } = req.file;
+          const filepath = req.file.path;
+          const imagen = await service.create_imagen(
+            filename,
+            mimetype,
+            size,
+            filepath,
+            id
+          );
+          result = imagen.rowCount >= 1;
         }
-        else {
+        try {
+          if (nuevoProyecto.rows.length > 0) {
+            res.status(201).json(nuevoProyecto.rows);
+          } else {
+            res
+              .status(404)
+              .send("Algo inesperado paso el Proyecto no fue creado");
+          }
+        } catch (err) {
+          console.error(err.message);
           res
-        .status(404)
-        .send('Algo inesperado paso el Proyecto no fue creado');
+            .status(404)
+            .send("Algo inesperado paso el Proyecto no fue creado");
         }
-      } catch(err) {        
-        console.error(err.message);
-        res
-        .status(404)
-        .send('Algo inesperado paso el Proyecto no fue creado');
-      } 
-    } catch (err) {
-      res.status(404);
+      } catch (err) {
+        res.status(404);
+      }
     }
-  });
-  
+  );
+
   //Actualizar
-  app.put("/update_proyecto/:id", imageUpload.single('image'), async (req, res) => {
-    try {
-      let { id } = req.params;
-      req.body["id"] = id;
-      const proyectoActualizado = await service.update_proyecto(id, req.body);
-      if(req.file!=undefined)
-      {
-        const { filename, mimetype, size } = req.file;  
-        const filepath = req.file.path;
-        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id) 
-        result=imagen.rowCount>=1   
-      }
-      try 
-      {
-        if(proyectoActualizado.rows.length > 0)
-        {
-          res.status(200).json(proyectoActualizado.rows);
+  app.put(
+    "/update_proyecto/:id",
+    imageUpload.single("image"),
+    async (req, res) => {
+      try {
+        let { id } = req.params;
+        req.body["id"] = id;
+        const proyectoActualizado = await service.update_proyecto(id, req.body);
+        if (req.file != undefined) {
+          const { filename, mimetype, size } = req.file;
+          const filepath = req.file.path;
+          const imagen = await service.create_imagen(
+            filename,
+            mimetype,
+            size,
+            filepath,
+            id
+          );
+          result = imagen.rowCount >= 1;
         }
-        else
-        {
+        try {
+          if (proyectoActualizado.rows.length > 0) {
+            res.status(200).json(proyectoActualizado.rows);
+          } else {
+            res
+              .status(404)
+              .send("Algo inesperado paso el Proyecto no fue actualizado");
+          }
+        } catch (err) {
+          console.error(err.message);
           res
-        .status(404)
-        .send('Algo inesperado paso el Proyecto no fue actualizado');
+            .status(404)
+            .send("Algo inesperado paso el Proyecto no fue actualizado");
         }
+      } catch (error) {
+        res.status(404);
       }
-      catch(err)
-      {
-        console.error(err.message);
-        res
-        .status(404)
-        .send('Algo inesperado paso el Proyecto no fue actualizado');
-      }
-      
-    } catch (error) {
-      res.status(404);
     }
-  });
+  );
   //Eliminar por ide
   app.delete("/delete_proyecto/:id", async (req, res) => {
     try {
@@ -106,19 +109,13 @@ module.exports = function (app) {
   app.get("/get_proyectos", async (req, res) => {
     try {
       const nuevoProyecto = await service.get_proyectos(req);
-      try 
-      {
-        if (nuevoProyecto.rows.length>0)
-        {
+      try {
+        if (nuevoProyecto.rows.length > 0) {
           res.status(200).json(nuevoProyecto.rows);
-        }
-        else
-        {
+        } else {
           res.status(204).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
@@ -129,19 +126,13 @@ module.exports = function (app) {
   app.get("/get_proyecto/:id", async (req, res) => {
     try {
       const nuevoProyecto = await service.get_proyecto(req);
-      try 
-      {
-        if (nuevoProyecto.rows.length>0)
-        {
+      try {
+        if (nuevoProyecto.rows.length > 0) {
           res.status(200).json(nuevoProyecto.rows);
-        }
-        else
-        {
+        } else {
           res.status(204).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
@@ -165,24 +156,27 @@ module.exports = function (app) {
     }
   );
   //Voluntario participa en proyecto
-  app.get("/participate/:id/sesion/:id_autenticacion",async(req,res)=>{
-      try
-      {
-        const {id,id_autenticacion}= req.params;
-        const esta_participando=await service.participation(id,id_autenticacion);
-        res.status(200).json(esta_participando);
-      }catch(err){
-        res.status(404);
-      }
+  app.get("/participate/:id/sesion/:id_autenticacion", async (req, res) => {
+    try {
+      const { id, id_autenticacion } = req.params;
+      const esta_participando = await service.participation(
+        id,
+        id_autenticacion
+      );
+      res.status(200).json(esta_participando);
+    } catch (err) {
+      res.status(404);
     }
-  )
-   //Obtener lista simple de participantes 
+  });
+  //Obtener lista simple de participantes
   app.get("/get_participantes_proyecto_simple/:id", async (req, res) => {
     try {
-      const {id}= req.params;
+      const { id } = req.params;
       const lista_simple = await service.get_participantes_proyecto_simple(id);
-      if(lista_simple==false)
-        res.status(404).send("El id: "+ parseInt(id).toString()  +    " no existe");
+      if (lista_simple == false)
+        res
+          .status(404)
+          .send("El id: " + parseInt(id).toString() + " no existe");
       res.status(200).json(lista_simple.rows);
     } catch (err) {
       res.status(404);
@@ -191,21 +185,15 @@ module.exports = function (app) {
   //Obtener Proyectos por categoria
   app.get("/get_proyectos/:categoria", async (req, res) => {
     try {
-      const {categoria}= req.params;
+      const { categoria } = req.params;
       const nuevoProyecto = await service.get_categorias_proyectos(categoria);
-      try 
-      {
-        if (nuevoProyecto.rows.length>0)
-        {
+      try {
+        if (nuevoProyecto.rows.length > 0) {
           res.status(200).json(nuevoProyecto.rows);
-        }
-        else
-        {
+        } else {
           res.status(204).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
@@ -216,19 +204,13 @@ module.exports = function (app) {
   app.get("/get_categoria_proyectos", async (req, res) => {
     try {
       const categorias = await service.get_categorias();
-      try 
-      {
-        if (categorias.rows.length>0)
-        {
+      try {
+        if (categorias.rows.length > 0) {
           res.status(200).json(categorias.rows);
-        }
-        else
-        {
+        } else {
           res.status(204).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
@@ -237,7 +219,9 @@ module.exports = function (app) {
   });
 
   //Cancelar participacion de un voluntario en el proyecto
-    app.delete("/cancel_participate_proyecto/:id/sesion/:id_autenticacion",async (req, res) => {
+  app.delete(
+    "/cancel_participate_proyecto/:id/sesion/:id_autenticacion",
+    async (req, res) => {
       try {
         const { id, id_autenticacion } = req.params;
         const voluntario_retirado = await service.cancel_participate_proyecto(
@@ -252,79 +236,78 @@ module.exports = function (app) {
   );
 
   //Obtener todos los nombres de los proyectos en los que un voluntario esta participando
-  app.get("/sesion/:id_autenticacion/get_my_proyectos",async(req,res)=>{
-    try{
-      const {id_autenticacion}=req.params;
-      const mis_proyectos=await service.get_my_proyectos(id_autenticacion);
-      if(mis_proyectos==false)
-        res.status(404).send("El id : "+ parseInt(id_autenticacion).toString()  +    " no existe entre los voluntarios");
-      else
-      {
+  app.get("/sesion/:id_autenticacion/get_my_proyectos", async (req, res) => {
+    try {
+      const { id_autenticacion } = req.params;
+      const mis_proyectos = await service.get_my_proyectos(id_autenticacion);
+      if (mis_proyectos == false)
+        res
+          .status(404)
+          .send(
+            "El id : " +
+              parseInt(id_autenticacion).toString() +
+              " no existe entre los voluntarios"
+          );
+      else {
         res.status(200).json(mis_proyectos.rows);
       }
-    }catch(err){
+    } catch (err) {
       res.status(404);
     }
-  }); 
+  });
 
   //Obtener todos los lideres existentes en la tabla usuarios
-  app.get("/get_lideres",async(req,res)=>{
+  app.get("/get_lideres", async (req, res) => {
     try {
       const lideres = await service.get_lideres();
       res.status(200).json(lideres.rows);
     } catch (err) {
       res.status(404);
     }
-  })
+  });
 
-  app.get("/get_roles",async(req,res)=>{
+  app.get("/get_roles", async (req, res) => {
     try {
       const roles = await service.get_roles();
       res.status(200).json(roles.rows);
     } catch (err) {
       res.status(404);
     }
-  })
+  });
 
-
-  //Obtener el rol de un id autentificado 
-  app.get("/get_rol/:id_autenticacion",async(req,res)=>{
+  //Obtener el rol de un id autentificado
+  app.get("/get_rol/:id_autenticacion", async (req, res) => {
     try {
-      const {id_autenticacion}=req.params;
+      const { id_autenticacion } = req.params;
       const rol = await service.get_rol(id_autenticacion);
       res.status(200).json(rol.rows);
     } catch (err) {
       res.status(404);
     }
-  })
+  });
   //Obtener el numero de participantes de un proyecto
   app.get("/get_numero_participantes/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      const numero_participantes_proyecto = await service.get_numero_participantes(id);
+      const numero_participantes_proyecto =
+        await service.get_numero_participantes(id);
       res.status(200).json(numero_participantes_proyecto);
     } catch (err) {
       res.status(404);
     }
   });
   //Obtener los eventos de un proyecto
-  app.get("/get_eventos_proyecto/:id",async(req,res)=>{
+  app.get("/get_eventos_proyecto/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const eventos = await service.get_eventos_proyecto(id);
-      try 
-      {
-        if (eventos.rows.length>0)
-        {
+      try {
+        if (eventos.rows.length > 0) {
           res.status(200).json(eventos.rows);
-        }
-        else
-        {
+        } else {
           res.status(204).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
@@ -335,51 +318,48 @@ module.exports = function (app) {
   app.get("/get_proyectos_acabado", async (req, res) => {
     try {
       const proyectos_acabados = await service.get_proyectos_acabado();
-      try 
-      {
-        if (proyectos_acabados.rows.length>0)
-        {
+      try {
+        if (proyectos_acabados.rows.length > 0) {
           res.status(200).json(proyectos_acabados.rows);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
-      res.status(404); 
+      res.status(404);
     }
   });
   //Obtener Proyectos por categoria
   app.get("/get_proyectos_acabado/:categoria", async (req, res) => {
     try {
-      const {categoria}= req.params;
-      const proyectos_acabados = await service.get_proyectos_pasados_categoria(categoria);
-      try 
-      {
-        if (proyectos_acabados.rows.length>0)
-        {
+      const { categoria } = req.params;
+      const proyectos_acabados = await service.get_proyectos_pasados_categoria(
+        categoria
+      );
+      try {
+        if (proyectos_acabados.rows.length > 0) {
           res.status(200).json(proyectos_acabados.rows);
-        } else  {
+        } else {
           res.status(200).json([]);
         }
-      }
-      catch(err)
-      {
+      } catch (err) {
         res.status(204).json([]);
       }
     } catch (err) {
-      res.status(404); 
+      res.status(404);
     }
   });
   //Registrar como participantes a voluntarios en proyectos pasados
   app.put(
     "/participate_past_proyecto/:id_proyecto/sesion/:id_autenticacion/volunteer/:id_volunteer",
     async (req, res) => {
-      
       try {
-        const { id_proyecto, id_autenticacion,id_volunteer } = req.params;
-        const proyecto_a_actualizar = await service.participate_past_proyecto(id_proyecto,id_autenticacion,id_volunteer)
+        const { id_proyecto, id_autenticacion, id_volunteer } = req.params;
+        const proyecto_a_actualizar = await service.participate_past_proyecto(
+          id_proyecto,
+          id_autenticacion,
+          id_volunteer
+        );
         res.status(200).json(proyecto_a_actualizar);
       } catch (err) {
         res.status(404);
@@ -387,70 +367,69 @@ module.exports = function (app) {
     }
   );
 
-
-
   //Obtener Usuarios espeficifos Id, nombreCompleto, telefono
-  app.get("/get_usuarios",async(req,res)=>{
+  app.get("/get_usuarios", async (req, res) => {
     try {
       const usuarios = await service.get_usuarios();
       res.status(200).json(usuarios.rows);
     } catch (err) {
       res.status(404);
     }
-  })
-
-
-  app.post("/create_imagen_proyecto/:id_proyecto", imageUpload.single('image'), async (req, res) => {
-    try {   
-        const {id_proyecto} =req.params
-        const { filename, mimetype, size } = req.file;  
-        const filepath = req.file.path;
-        const imagen = await service.create_imagen(filename,mimetype,size,filepath,id_proyecto) 
-        result=imagen.rowCount>=1  
-        if (result==true)
-        {
-          res.status(200).json(result);
-        }
-        else 
-        {
-          res.status(404)
-        }  
-      }
-      catch (err) {
-        res.status(404);
-      }
   });
 
-    // Devuelve las imagenes de un proyecto especifico
-    app.get('/get_image_proyecto/:id_proyecto',imageUpload.single('image'), async(req, res) => {
-      try
-      {
-        debugger
+  app.post(
+    "/create_imagen_proyecto/:id_proyecto",
+    imageUpload.single("image"),
+    async (req, res) => {
+      try {
         const { id_proyecto } = req.params;
-        const imagen =await service.get_imagen(id_proyecto)
-        const dir_name=path.resolve();
-        const full_file_path=path.join(dir_name,imagen.rows[0].filepath)
-        return res
-          .type(imagen.rows[0].mimetype)
-          .sendFile(full_file_path)
-      }
-      catch(err)
-      {
+        const { filename, mimetype, size } = req.file;
+        const filepath = req.file.path;
+        const imagen = await service.create_imagen(
+          filename,
+          mimetype,
+          size,
+          filepath,
+          id_proyecto
+        );
+        result = imagen.rowCount >= 1;
+        if (result == true) {
+          res.status(200).json(result);
+        } else {
+          res.status(404);
+        }
+      } catch (err) {
         res.status(404);
       }
-    });
-  
+    }
+  );
+
+  // Devuelve las imagenes de un proyecto especifico
+  app.get(
+    "/get_image_proyecto/:id_proyecto",
+    imageUpload.single("image"),
+    async (req, res) => {
+      try {
+        debugger;
+        const { id_proyecto } = req.params;
+        const imagen = await service.get_imagen(id_proyecto);
+        const dir_name = path.resolve();
+        const full_file_path = path.join(dir_name, imagen.rows[0].filepath);
+        return res.type(imagen.rows[0].mimetype).sendFile(full_file_path);
+      } catch (err) {
+        res.status(404);
+      }
+    }
+  );
 
   //Lista de eventos por proyecto
-  app.get("/eventos_de_proyecto/:proyecto",async(req,res)=>{
-    try
-    {
-      const {proyecto}= req.params;
+  app.get("/eventos_de_proyecto/:proyecto", async (req, res) => {
+    try {
+      const { proyecto } = req.params;
       const lista_eventos = await service.get_lista_por_proyecto(proyecto);
       res.status(200).json(lista_eventos.rows);
-    }catch(err){
+    } catch (err) {
       res.status(404);
     }
   });
-
 };

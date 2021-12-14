@@ -53,7 +53,7 @@ class DbEventoRepositorio {
     );
     return new_evento;
   }
-  
+
   async get_evento(data) {
     const { id } = data.params;
     const evento = await pool.query(
@@ -62,7 +62,7 @@ class DbEventoRepositorio {
     );
     return evento;
   }
-  
+
   async delete_evento(id) {
     const eliminar_evento = await pool.query(
       "DELETE FROM public.eventos WHERE id = $1",
