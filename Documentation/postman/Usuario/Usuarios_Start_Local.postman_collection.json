@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6d66799c-730f-4f7a-8050-f31ac32732bd",
+		"_postman_id": "f86667c2-2ab7-411d-a3da-5b0e7f501411",
 		"name": "Usuarios_Start_Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -198,6 +198,133 @@
 					"body": "{\n    \"message\": \"User was disabled succesfully\",\n    \"data\": true\n}"
 				}
 			]
+		},
+		{
+			"name": "Get insignias by User id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/insignias/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"insignias",
+						"10"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get insignias by User id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/insignias/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"insignias",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "59"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3b-/54fTJN97KxBeUPegcbyRMllYoo\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 09 Nov 2021 01:59:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"\", \"data\": {\"insignias\":[\"Trabajo en Equipo\"]}}"
+				}
+			]
+		},
+		{
+			"name": "Get insignias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/insignias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"insignias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put insignias by User id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"insignias\": \"Trabajo en Equipo,Creatividad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/insignias/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"insignias",
+						"10"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

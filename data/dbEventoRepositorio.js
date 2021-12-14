@@ -1,15 +1,4 @@
-const Pool = require("pg").Pool;
-
-const pool = new Pool({
-  user: "hsazteibnsnquc",
-  password: "96c44f19b6a31a67521c2fa65c9233544ed1d7d5388367c6d9ff4c22c940a340", //use your pass my friend
-  database: "d5mjf648gc2p7f",
-  host: "ec2-54-156-24-159.compute-1.amazonaws.com",
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+const { pool } = require("../config/pool.config");
 
 module.exports = pool;
 class DbEventoRepositorio {
@@ -27,7 +16,7 @@ class DbEventoRepositorio {
   }
   async get_participantes_eventos(id_evento) {
     const participantes_eventos = await pool.query(
-      "SELECT  usuarios.nombre AS Nombre,usuarios.apellido AS Apellido, participantes_eventos.id_evento AS id_evento, participantes_eventos.id_participantes_eventos AS id, usuarios.rol AS rol FROM usuarios JOIN participantes_eventos ON usuarios.id_usuario=participantes_eventos.id_usuario WHERE participantes_eventos.id_evento = $1;",
+      "SELECT us.id_usuario, us.nombre, us.apellido, us.rol, event.nombre_evento, us.telefono, event.hora_inicio, event.hora_fin FROM public.participantes_eventos as eve, public.usuarios as us, public.eventos as event WHERE eve.id_usuario=us.id_usuario AND eve.id_evento=$1 AND event.id=eve.id_evento;",
       [id_evento]
     );
     return participantes_eventos;
@@ -64,7 +53,7 @@ class DbEventoRepositorio {
     );
     return new_evento;
   }
-  
+
   async get_evento(data) {
     const { id } = data.params;
     const evento = await pool.query(
@@ -73,7 +62,7 @@ class DbEventoRepositorio {
     );
     return evento;
   }
-  
+
   async delete_evento(id) {
     const eliminar_evento = await pool.query(
       "DELETE FROM public.eventos WHERE id = $1",
@@ -143,7 +132,7 @@ class DbEventoRepositorio {
     );
     if (existe_usuario) {
       const my_eventos = await pool.query(
-        "select e.id, e.nombre_evento, e.descripcion_evento, e.lider, e.modalidad_evento, e.categoria, e.id_proyecto, e.proyecto, e.fecha_evento, e.hora_inicio, e.hora_fin  from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
+        "select * from eventos e where exists (select par.id_evento from participantes_eventos par where par.id_usuario=$1 and e.id=par.id_evento)",
         [id_autenticacion]
       );
       return my_eventos;

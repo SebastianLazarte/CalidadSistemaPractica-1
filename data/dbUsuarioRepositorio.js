@@ -1,17 +1,4 @@
-const Pool = require("pg").Pool;
-
-const pool = new Pool({
-  user: "hsazteibnsnquc",
-  password: "96c44f19b6a31a67521c2fa65c9233544ed1d7d5388367c6d9ff4c22c940a340", //use your pass my friend
-  database: "d5mjf648gc2p7f",
-  host: "ec2-54-156-24-159.compute-1.amazonaws.com",
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-module.exports = pool;
+const { pool } = require("../config/pool.config");
 class DbUsuarioRepositorio {
   constructor() {
     this.cursor = null;
@@ -86,6 +73,7 @@ class DbUsuarioRepositorio {
       relacion_contacto_de_emergencia,
       estado_de_disponibilidad,
       foto_url,
+      rol,
       aptitudes_tecnicas,
     } = data;
 
@@ -94,7 +82,7 @@ class DbUsuarioRepositorio {
     const aptitudes_lista = aptitudes_tecnicas.split(",");
 
     const update_user = await pool.query(
-      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, foto_url=$16 WHERE id_usuario=$17 RETURNING *",
+      "UPDATE usuarios SET nombre=$1, apellido=$2, fecha_de_nacimiento=$3, pais_de_recidencia=$4, ciudad_de_recidencia=$5, carrera=$6, ocupacion=$7, descripcion_personal=$8, telefono=$9, genero=$10, estado_de_cuenta=$11, nombre_contacto_de_emergencia=$12, numero_contacto_de_emergencia=$13, relacion_contacto_de_emergencia=$14, estado_de_disponibilidad=$15, foto_url=$16, rol=$17 WHERE id_usuario=$18 RETURNING *",
       [
         nombre,
         apellido,
@@ -112,6 +100,7 @@ class DbUsuarioRepositorio {
         relacion_contacto_de_emergencia,
         estado_de_disponibilidad,
         foto_url,
+        rol,
         id_usuario,
       ]
     );
@@ -130,6 +119,44 @@ class DbUsuarioRepositorio {
       aptitudes_lista
     );
     return update_user;
+  }
+
+  async UpdateInsignias(id_user, insignias_nuevas) {
+    const insignias_lista = insignias_nuevas.split(",");
+    await pool.query(
+      "DELETE FROM insignias_de_usuarios WHERE id_usuario = $1",
+      [id_user]
+    );
+
+    var seSQL =
+      "SELECT id_insignia FROM insignias WHERE insignia = '" +
+      insignias_lista[0] +
+      "'";
+    for (let i = 1; i < insignias_lista.length; i++) {
+      seSQL = seSQL + " OR insignia = '" + insignias_lista[i] + "'";
+    }
+    seSQL = seSQL + ";";
+
+    const idsInsignias = await pool.query(seSQL);
+
+    var seSQL2 = "";
+    if (idsInsignias.rows.length === 0) {
+      insignias_lista = [];
+    } else {
+      idsInsignias.rows.forEach((element) => {
+        seSQL2 =
+          seSQL2 +
+          "INSERT INTO insignias_de_usuarios (id_usuario, id_insignia) VALUES(" +
+          id_user +
+          "," +
+          element.id_insignia +
+          ");";
+      });
+    }
+
+    await pool.query(seSQL2);
+
+    return insignias_lista;
   }
 
   async UpdateCualidades(id_user, cualidades_nuevas) {
@@ -277,6 +304,26 @@ class DbUsuarioRepositorio {
     });
     return aptitudes_tecnicas;
   }
+
+  async GetInsigniasByIdUsuario(id_usuario) {
+    var insignias = [];
+    const insignias_usuario = await pool.query(
+      "SELECT insignia FROM insignias I JOIN insignias_de_usuarios D ON I.id_insignia=D.id_insignia WHERE id_usuario = $1",
+      [id_usuario]
+    );
+    insignias_usuario.rows.forEach((element) => {
+      insignias.push(element.insignia);
+    });
+    var res = {};
+    res.insignias = insignias;
+    return res;
+  }
+
+  async GetInsignias() {
+    const insignias = await pool.query("SELECT insignia FROM insignias");
+    return insignias;
+  }
+
   async disableUser(id_user) {
     let user_to_disable = await pool.query(
       "UPDATE autenticaciones SET email='',password='' WHERE id_autenticacion = $1 RETURNING *",

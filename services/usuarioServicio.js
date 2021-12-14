@@ -1,4 +1,4 @@
-const DbUsuarioRepositorio = require("../config/dbUsuarioRepositorio.js");
+const DbUsuarioRepositorio = require("../data/dbUsuarioRepositorio.js");
 class usuarioServicio {
   constructor() {
     this.repository = new DbUsuarioRepositorio();
@@ -29,14 +29,14 @@ class usuarioServicio {
         usuario_a_editar,
         data
       );
-    
+
       return await this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       console.log(error);
       return false;
     }
   }
-  async disable_user(id){
+  async disable_user(id) {
     try {
       return await this.repository.disableUser(id);
     } catch (error) {
@@ -45,6 +45,32 @@ class usuarioServicio {
     }
   }
 
+  async get_insignias_by_user(id_user) {
+    try {
+      return await this.repository.GetInsigniasByIdUsuario(id_user);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async update_insignias_by_user_id(id, data) {
+    try {
+      return await this.repository.UpdateInsignias(id, data.insignias);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async get_insignias() {
+    try {
+      return await this.repository.GetInsignias();
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
   completar_form_a_actualizar(usuario_a_editar, data) {
     try {
       for (const prop in usuario_a_editar) {
@@ -66,9 +92,8 @@ class usuarioServicio {
           continue;
         }
       }
-      if(data.fecha_de_nacimiento === "")
-      {
-        data.fecha_de_nacimiento=null;
+      if (data.fecha_de_nacimiento === "") {
+        data.fecha_de_nacimiento = null;
       }
       return data;
     } catch (error) {

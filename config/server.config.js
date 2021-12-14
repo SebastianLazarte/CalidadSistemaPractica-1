@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 
 // init app
 const app = express();
 const localhostPort = 5000;
 // activating cors
 app.use(cors());
+app.use(morgan("dev"));
 
 // json config
 app.use(express.json());
