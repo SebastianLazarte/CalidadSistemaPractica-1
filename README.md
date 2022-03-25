@@ -24,7 +24,7 @@
   Start Servicio de Datos sigue una arquitectura basada en capas la cual es el patrón de diseño que especifica cómo debe ser estructurada una aplicación, así como las capas que van a componer la misma y sus propias funcionalidades, este tipo de diseño fue implementado debido a que existía la necesidad de separar los diferentes aspectos del desarrollo como de qué forma se presenta los datos, donde se maneja la lógica de negocio, mecanismos de almacenamiento (Base de datos), entre otros.
 Esta arquitectura se centra en la separación de la aplicación en capas aplicando por muy debajo el principio de separación de preocupaciones (SoC)
 La arquitectura en capas consta en dividir la aplicación en capas, con la intención de que cada capa tenga un rol muy definido, como por ejemplo en caso del backend tenga la capa de presentación (JSON,data,etc..), una capa de regla de negocios (Servicios) y una capa de acceso a datos (DAO), la definición del número de capas van de acuerdo a la necesidad que se tenga en cuanto a funcionalidad se desee especificar en una.
- Los diagramas C4 son de gran utilidad para un mejor entendimiento del flujo que se sigue en todo el proceso por lo cual a continuación se muestran de ejemplo los diagramas  c3 y c4 de la entidad proyecto debido a que se repite el mismo flujo para otras entidades:
+ Los diagramas  C4 son de gran utilidad para un mejor entendimiento del flujo que se sigue en todo el proceso por lo cual a continuación se muestran de ejemplo los diagramas  c3 y c4 de la entidad proyecto debido a que se repite el mismo flujo para otras entidades:
   
 #### Diagrama 1: Diagrama de Clases Perteneciente al Modelo C3
   <p align="center">
