@@ -99,7 +99,7 @@ class DbEventoRepositorio {
   }
 
   async participate_evento(id, id_autenticacion) {
-    const participate_evento = await pool.query(
+    await pool.query(
       "INSERT INTO participantes_eventos(id_usuario, id_evento)VALUES($1,$2)",
       [id_autenticacion, id]
     );
@@ -118,7 +118,7 @@ class DbEventoRepositorio {
 
   //Eliminar participacion de un evento
   async eliminar_participacion(idEvento, idUsuario) {
-    const eliminar_participacion = await pool.query(
+    await pool.query(
       "DELETE FROM participantes_eventos WHERE id_evento = $1 AND id_usuario = $2",
       [idEvento, idUsuario]
     );
@@ -168,7 +168,7 @@ class DbEventoRepositorio {
       hora_fin,
       lider,
     } = data;
-    const evento_a_actualizar = await pool.query(
+    await pool.query(
       "UPDATE public.eventos SET nombre_evento=$2, descripcion_evento=$3, modalidad_evento= $4, lugar_evento=$5,fecha_evento=$6,proyecto=$7,estado=$8,categoria=$9,hora_inicio=$10, hora_fin=$11, lider=$12 WHERE id=$1",
       [
         id,

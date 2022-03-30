@@ -1,0 +1,6 @@
+projectKey=BackendCalidad
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=BackendCalidad
+ceTaskId=AX_Y1QeNtJbH_174hHde
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX_Y1QeNtJbH_174hHde
