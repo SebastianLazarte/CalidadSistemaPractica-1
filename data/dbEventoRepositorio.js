@@ -15,11 +15,10 @@ class DbEventoRepositorio {
     return categorias;
   }
   async get_participantes_eventos(id_evento) {
-    const participantes_eventos = await pool.query(
+    return await pool.query(
       "SELECT us.id_usuario, us.nombre, us.apellido, us.rol, event.nombre_evento, us.telefono, event.hora_inicio, event.hora_fin FROM public.participantes_eventos as eve, public.usuarios as us, public.eventos as event WHERE eve.id_usuario=us.id_usuario AND eve.id_evento=$1 AND event.id=eve.id_evento;",
       [id_evento]
     );
-    return participantes_eventos;
   }
   async create_evento(data) {
     const {
@@ -35,7 +34,7 @@ class DbEventoRepositorio {
       hora_fin,
       lider,
     } = data;
-    const new_evento = await pool.query(
+    return await pool.query(
       "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado,categoria,hora_inicio,hora_fin,lider) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       [
         nombre_evento,
@@ -51,40 +50,35 @@ class DbEventoRepositorio {
         lider,
       ]
     );
-    return new_evento;
   }
 
   async get_evento(data) {
     const { id } = data.params;
-    const evento = await pool.query(
+    return await pool.query(
       "SELECT * FROM public.eventos WHERE id=$1",
       [id]
     );
-    return evento;
   }
 
   async delete_evento(id) {
-    const eliminar_evento = await pool.query(
+    return await pool.query(
       "DELETE FROM public.eventos WHERE id = $1",
       [id]
     );
-    return eliminar_evento;
   }
   //Archivar evento
-  async update_evento_estado1(data) {
-    const actualizar_estado = await pool.query(
+  async update_evento_estado1(data) { 
+    return await pool.query(
       "UPDATE public.eventos SET estado = 0  WHERE id = $1",
       [data]
     );
-    return actualizar_estado;
   }
   //Mostrar Evento
   async update_evento_estado2(data) {
-    const actualizar_estado = await pool.query(
+    return await pool.query(
       "UPDATE public.eventos SET estado = 1  WHERE id = $1",
       [data]
     );
-    return actualizar_estado;
   }
 
   async participate_evento(id, id_autenticacion) {
@@ -98,11 +92,10 @@ class DbEventoRepositorio {
   //Obtener Id de eventos donde participa un usuario
 
   async get_eventos_usuario(id_usuario) {
-    const eventos_usuario = await pool.query(
+    return await pool.query(
       "SELECT id_evento FROM participantes_eventos WHERE participantes_eventos.id_usuario = $1;",
       [id_usuario]
     );
-    return eventos_usuario;
   }
 
   //Eliminar participacion de un evento
