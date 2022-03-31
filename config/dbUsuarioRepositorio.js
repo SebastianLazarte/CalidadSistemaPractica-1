@@ -279,7 +279,7 @@ class DbUsuarioRepositorio {
   }
   async disableUser(id_user) {
     let user_to_disable = await pool.query(
-      DISABLE_USER_SQL,
+      process.env.DISABLE_USER_SQL,
       [id_user]
     );
     return user_to_disable.rowCount > 0;
