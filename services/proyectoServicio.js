@@ -23,8 +23,7 @@ class ProyectoServicio {
   }
   convertir_fecha(data)
   {
-    var fecha=data.toLocaleDateString("en-GB")
-    return fecha
+    return data.toLocaleDateString("en-GB")
   }
   async get_proyectos(data) 
   {
@@ -244,12 +243,12 @@ class ProyectoServicio {
   
   async get_lideres()
   {
-    return await this.repository.get_lideres()
+     await this.repository.get_lideres()
   }
 
   async get_roles()
   {
-    return await this.repository.get_roles()
+     await this.repository.get_roles()
   }
 
   async get_rol(id_autenticacion)
