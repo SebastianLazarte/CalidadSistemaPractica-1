@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.post("/eventos/crearevento", async (req, res) => {
     //Crear
     try {
-      const nuevoEvento = await service_evento.create_evento(req.body);
+      await service_evento.create_evento(req.body);
       res.status(201).json(req.body);
     } catch (err) {
       res.status(404);
@@ -60,7 +60,7 @@ module.exports = function (app) {
       debugger;
       try {
         const { id, id_autenticacion } = req.params;
-        const evento_a_actualizar = await service_evento.participate_evento(
+        await service_evento.participate_evento(
           id,
           id_autenticacion
         );
@@ -161,7 +161,9 @@ module.exports = function (app) {
     try {
       const { id_autenticacion } = req.params;
       const mis_eventos = await service_evento.get_my_eventos(id_autenticacion);
-      if (mis_eventos == false)
+      if (mis_eventos)
+        res.status(200).json(mis_eventos.rows);
+      else {
         res
           .status(404)
           .send(
@@ -169,8 +171,6 @@ module.exports = function (app) {
               parseInt(id_autenticacion).toString() +
               " no existe entre los voluntarios"
           );
-      else {
-        res.status(200).json(mis_eventos.rows);
       }
     } catch (err) {
       res.status(404);
