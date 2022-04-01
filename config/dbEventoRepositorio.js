@@ -43,7 +43,7 @@ class DbEventoRepositorio {
       hora_fin,
       lider,
     } = data;
-    const new_evento = await pool.query(
+    return pool.query(
       "INSERT INTO public.eventos(nombre_evento,descripcion_evento,modalidad_evento,lugar_evento,fecha_evento,proyecto,estado,categoria,hora_inicio,hora_fin,lider) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
       [
         nombre_evento,
@@ -59,7 +59,6 @@ class DbEventoRepositorio {
         lider,
       ]
     );
-    return new_evento;
   }
 
   async get_evento(data) {
