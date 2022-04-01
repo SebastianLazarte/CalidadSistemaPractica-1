@@ -106,10 +106,10 @@ class EventoServicio {
     }
   }
 
-  async actualizar_evento(data, id) {
+  async actualizar_evento(id, data) {
     try {
       if (this.validar(data)) {
-        return await this.repository.actualizar_evento(data, id);
+        return await this.repository.actualizar_evento(id, data);
       } else {
         throw console.error("Error al actualizar evento!");
       }
