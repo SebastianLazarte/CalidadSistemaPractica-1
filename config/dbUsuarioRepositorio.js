@@ -33,11 +33,10 @@ class DbUsuarioRepositorio {
   }
 
   async GetUsuarios() {
-    const users = await pool.query(
+     await pool.query(
       "SELECT  nombre, apellido, fecha_de_nacimiento, pais_de_recidencia, ciudad_de_recidencia, carrera, ocupacion, telefono, genero, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario, nombre_contacto_de_emergencia, numero_contacto_de_emergencia, relacion_contacto_de_emergencia FROM usuarios ORDER BY apellido"
-    );
-    return users;
-  }
+      );
+    }
 
   async CreateUsuario(data) {
     const {
@@ -50,7 +49,7 @@ class DbUsuarioRepositorio {
       foto_url,
       id_autenticacion,
     } = data;
-    const newUser = await pool.query(
+    return await pool.query(
       "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         nombre,
@@ -63,7 +62,6 @@ class DbUsuarioRepositorio {
         id_autenticacion,
       ]
     );
-    return newUser;
   }
 
   async UpdateUsuario(id_usuario, data) {
