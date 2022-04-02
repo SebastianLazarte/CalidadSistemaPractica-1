@@ -5,10 +5,10 @@ class UsuarioServicio {
   }
 
   async get_volunteer_data(id) {
-    return await this.repository.GetUsuario(id);
+    return this.repository.GetUsuario(id);
   }
   async get_volunteers_data() {
-    return await this.repository.GetUsuarios();
+    return this.repository.GetUsuarios();
   }
   async register_changes(data) {
     try {

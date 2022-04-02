@@ -49,7 +49,7 @@ class DbUsuarioRepositorio {
       foto_url,
       id_autenticacion,
     } = data;
-    return await pool.query(
+    return pool.query(
       "INSERT INTO usuarios (nombre, apellido, telefono, rol, estado_de_cuenta, estado_de_disponibilidad, foto_url, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         nombre,

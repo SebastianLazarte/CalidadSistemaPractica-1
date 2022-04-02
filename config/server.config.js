@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 
 // init app
-let express = require('express');
 
 let app1 = express();  // Compliant
 app1.disable("x-powered-by");
@@ -13,7 +12,6 @@ app.use(helmet.hidePoweredBy());
 
 const localhostPort = 5000;
 // activating cors
-const cors = require('cors');
 
 let corsOptions = {
   origin: 'trustedwebsite.com' // Compliant

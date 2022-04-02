@@ -138,7 +138,7 @@ class EventoServicio {
       let list_of_participant = await this.repository.get_my_eventos(id_autenticacion);
       return list_of_participant.rows.sort((a, b) => {
         return new Date(a.fecha_evento) - new Date(b.fecha_evento);
-      });;
+      });
     }
     catch(error)
     {
