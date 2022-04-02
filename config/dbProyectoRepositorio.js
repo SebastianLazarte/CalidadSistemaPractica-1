@@ -27,14 +27,14 @@ class DbProyectoRepositorio {
   }
   async get_proyecto(data) {
     const { id } = data.params;
-    return await pool.query(
+    return pool.query(
       `SELECT p.*, tipo as categoria 
       FROM proyectos as p 
       INNER JOIN categoria_proyectos 
       ON p.categoria_id = categoria_proyectos.id 
       WHERE p.id=$1`,
       [id]
-    );;
+    );
   }
   async create_proyecto(data) {
     debugger
@@ -59,16 +59,14 @@ class DbProyectoRepositorio {
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
 
     //Conversion de fechas string a Date
-    let fecI;
-    let fecF;
-    let newEstado;
+    let fecI = fechaActual;
+    let fecF = null;
+    let newEstado = true;
     let fechaActual = new Date();
     if (fecha_inicio != "") {
       const [yearI, monthI, dayI] = fecha_inicio.split("-");
       fecI = new Date(monthI + " " + dayI + " " + yearI);
-    } else {
-      fecI = fechaActual;
-    }
+    } 
     if (estado) {
       if (fecha_fin != "") {
         const [yearF, monthF, dayF] = fecha_fin.split("-");
@@ -76,16 +74,11 @@ class DbProyectoRepositorio {
         //ve el caso de la fecha final sea menor a la actual dependiendo de eso es un proyecto pasado o en curso
         if (fecF < fechaActual) {
           newEstado = false;
-        } else {
-          newEstado = true;
         }
         //el caso que la fecha inicial es mayor a la final
         if (fecF < fecI) {
           fecF = null;
         }
-      } else {
-        fecF = null;
-        newEstado = true;
       }
     } else {
       if (fecI > fechaActual) {
@@ -115,7 +108,7 @@ class DbProyectoRepositorio {
     );
     return pool.query(
       "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
-    );;
+    );
   }
   async update_proyecto(id, data) {
     const {
@@ -144,9 +137,9 @@ class DbProyectoRepositorio {
       categoria_id = categorias_id;
     }
 
-    let fecI;
-    let fecF;
-    let newEstado;
+    let fecI = null;
+    let fecF = null;;
+    let newEstado = true;
     let fechaActual = new Date();
     let query =
       "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_inicio=coalesce($13,fecha_inicio), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id), visualizar=coalesce($10,visualizar), informacion_adicional=coalesce($11,informacion_adicional), url_imagen=coalesce($12,url_imagen) WHERE id = $1";
@@ -154,8 +147,6 @@ class DbProyectoRepositorio {
     if (fecha_inicio != "") {
       const [yearI, monthI, dayI] = fecha_inicio.split("-");
       fecI = new Date(monthI + " " + dayI + " " + yearI);
-    } else {
-      fecI = null;
     }
 
     if (estado) {
@@ -165,16 +156,12 @@ class DbProyectoRepositorio {
         //ve el caso de la fecha final sea menor a la actual dependiendo de eso es un proyecto pasado o en curso
         if (fecF < fechaActual) {
           newEstado = false;
-        } else {
-          newEstado = true;
         }
         //el caso que la fecha inicial es mayor a la final
         if (fecF < fecI) {
           fecF = null;
         }
-      } else {
-        fecF = null;
-      }
+      } 
     } else {
       if (fecha_fin != "") {
         const [yearF, monthF, dayF] = fecha_fin.split("-");
@@ -207,7 +194,7 @@ class DbProyectoRepositorio {
     return await pool.query(
       "SELECT p.*, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
       [id]
-    );;
+    );
   }
 
   async participate_proyecto(id, id_usuario) {
@@ -250,7 +237,7 @@ class DbProyectoRepositorio {
           [id_autenticacion, id]
         )
       ).rows[0]["exists"]
-    );;
+    );
   }
 
   async delete_proyecto(id) {
@@ -286,12 +273,12 @@ class DbProyectoRepositorio {
     return await pool.query(
       "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=true",
       [categoria]
-    );;
+    );
   }
   async get_categorias() {
     return await pool.query(
       "SELECT * FROM public.categoria_proyectos ORDER BY id ASC"
-    );;
+    );
   }
   async cancel_participate_proyecto(id, id_autenticacion) {
     const res1 = Boolean(
@@ -357,7 +344,7 @@ class DbProyectoRepositorio {
     return await pool.query(
       "SELECT rol FROM public.usuarios WHERE id_usuario = $1",
       [id_autenticacion]
-    );;
+    );
   }
 
   async get_numero_participantes(id_proyecto) {

@@ -37,7 +37,7 @@ class UsuarioServicio {
   }
   async disable_user(id){
     try {
-      return this.repository.disableUser(id);
+      return await this.repository.disableUser(id);
     } catch (error) {
       console.log(error);
       return false;
@@ -49,15 +49,7 @@ class UsuarioServicio {
       for (const prop in usuario_a_editar) {
         if (!data.hasOwnProperty(`${prop}`)) {
           if (prop === "id_usuario") continue; // Este campo no debe estar en el json
-          if (prop === "intereses") {
-            data[prop] = usuario_a_editar[prop].join(",");
-            continue;
-          }
-          if (prop === "cualidades") {
-            data[prop] = usuario_a_editar[prop].join(",");
-            continue;
-          }
-          if (prop === "aptitudes_tecnicas") {
+          if (prop === "intereses" || prop === "cualidades" || prop === "aptitudes_tecnicas") {
             data[prop] = usuario_a_editar[prop].join(",");
             continue;
           }
