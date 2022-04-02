@@ -119,7 +119,7 @@ module.exports = function (app) {
     try {
       const {id}= req.params;
       const lista_simple = await service.get_participantes_proyecto_simple(id);
-      if(lista_simple==false)
+      if(!lista_simple)
         res.status(404).send("El id: "+ parseInt(id).toString()  +    " no existe");
       res.status(200).json(lista_simple.rows);
     } catch (err) {
@@ -167,7 +167,7 @@ module.exports = function (app) {
     try{
       const {id_autenticacion}=req.params;
       const mis_proyectos=await service.get_my_proyectos(id_autenticacion);
-      if(mis_proyectos==false)
+      if(!mis_proyectos)
         res.status(404).send("El id : "+ parseInt(id_autenticacion).toString()  +    " no existe entre los voluntarios");
       else
       {

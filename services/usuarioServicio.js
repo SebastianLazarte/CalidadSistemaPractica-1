@@ -1,5 +1,5 @@
 const DbUsuarioRepositorio = require("../config/dbUsuarioRepositorio.js");
-class usuarioServicio {
+class UsuarioServicio {
   constructor() {
     this.repository = new DbUsuarioRepositorio();
   }
@@ -22,7 +22,6 @@ class usuarioServicio {
   }
 
   async do_changes(id, data) {
-    // return await this.repository.UpdateUsuario(id, data);
     try {
       const usuario_a_editar = (await this.repository.GetUsuario(id)).rows[0];
       const data_update = this.completar_form_a_actualizar(
@@ -30,7 +29,7 @@ class usuarioServicio {
         data
       );
     
-      return await this.repository.UpdateUsuario(id, data_update);
+      return this.repository.UpdateUsuario(id, data_update);
     } catch (error) {
       console.log(error);
       return false;
@@ -38,7 +37,7 @@ class usuarioServicio {
   }
   async disable_user(id){
     try {
-      return await this.repository.disableUser(id);
+      return this.repository.disableUser(id);
     } catch (error) {
       console.log(error);
       return false;
@@ -63,7 +62,6 @@ class usuarioServicio {
             continue;
           }
           data[prop] = usuario_a_editar[prop];
-          continue;
         }
       }
       if(data.fecha_de_nacimiento === "")
@@ -76,4 +74,4 @@ class usuarioServicio {
     }
   }
 }
-module.exports = usuarioServicio;
+module.exports = UsuarioServicio;

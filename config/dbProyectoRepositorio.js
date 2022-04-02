@@ -55,26 +55,6 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-    const categoria_id = categoria_db.rows[0].id;
-    const new_proyeto = await pool.query(
-      "INSERT INTO proyectos(titulo, descripcion, objetivo, lider, numero_participantes, estado, fecha_inicio,categoria_id)VALUES ($1, $2, $3, $4, $5, $6, $7,$8)",
-      [
-        titulo,
-        descripcion,
-        objetivo,
-        lider,
-        numero_participantes_oficial,
-        estado,
-        new Date(),
-        categoria_id
-      ]      
-    );    
-    const proyecto_to_show = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id ORDER BY ID DESC LIMIT 1"
-    );    
-    return proyecto_to_show;
-=======
     const categoria_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
 
@@ -136,7 +116,6 @@ class DbProyectoRepositorio {
     return pool.query(
       "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  ORDER BY ID DESC LIMIT 1"
     );;
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
   }
   async update_proyecto(id, data) {
     const {
@@ -152,26 +131,6 @@ class DbProyectoRepositorio {
       "SELECT * FROM public.categoria_proyectos WHERE tipo = $1",
       [categoria]
     );
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-    const categoria_id = categoria_db.rows[0].id;
-    const fechaFin = estado == "ACABADO" ? new Date() : null;
-    const proyecto_a_actualizar = await pool.query(
-      "UPDATE proyectos SET titulo=coalesce($2,titulo), descripcion=coalesce($3,descripcion), objetivo=coalesce($4,objetivo), lider=coalesce($5,lider),numero_participantes=coalesce($6,numero_participantes),estado=coalesce($7,estado), fecha_fin=coalesce($8,fecha_fin), categoria_id=coalesce($9,categoria_id) WHERE id = $1",
-      [
-        id,
-        titulo,
-        descripcion,
-        objetivo,
-        lider,
-        numero_participantes,
-        estado,
-        fechaFin,
-        categoria_id,
-      ]
-    );
-    const proyecto = await pool.query(
-      "SELECT p.*, tipo as categoria FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1", 
-=======
     var categoria_id;
     const categorias_id =
       categoria_db.rowCount > 0 ? categoria_db.rows[0].id : null;
@@ -247,7 +206,6 @@ class DbProyectoRepositorio {
     ]);
     return await pool.query(
       "SELECT p.*, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
       [id]
     );;
   }
@@ -317,41 +275,23 @@ class DbProyectoRepositorio {
     );
 
     if (existeProyecto) {
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-      const participantsSimple = await pool.query(
-        "SELECT us.nombre FROM public.participantes_proyectos as pro, public.usuarios as us where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1",
-=======
       return await pool.query(
         "SELECT us.id_usuario,us.nombre,us.apellido,us.rol,proy.titulo,us.telefono,proy.fecha_inicio,proy.fecha_fin FROM public.participantes_proyectos as pro, public.usuarios as us,public.proyectos as proy where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1 and proy.id=pro.id_proyecto",
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
         [id]
       );;
     }
     return existeProyecto;
   }
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-  async get_categorias_proyectos(categoria) {
-    const categorias = await pool.query(
-      "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1",
-=======
   async get_categorias_proyectos(categoria) { 
     return await pool.query(
       "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=true",
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
       [categoria]
     );;
   }
   async get_categorias() {
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-    const categorias = await pool.query(
-      "SELECT * FROM public.categoria_proyectos"
-    );
-    return categorias;
-=======
     return await pool.query(
       "SELECT * FROM public.categoria_proyectos ORDER BY id ASC"
     );;
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
   }
   async cancel_participate_proyecto(id, id_autenticacion) {
     const res1 = Boolean(
@@ -435,10 +375,6 @@ class DbProyectoRepositorio {
   }
 
   async get_proyectos_acabado() {
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-    const proyectos_acabados = await pool.query(
-      "SELECT p.*, tipo as categoria FROM public.proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE estado='ACABADO'"
-=======
     return await pool.query(
       //************* */     'ACABADO' = false
       "SELECT p.*, cat.tipo as categoria FROM public.proyectos p,public.categoria_proyectos as cat WHERE estado=false and p.categoria_id=cat.id"
@@ -450,7 +386,6 @@ class DbProyectoRepositorio {
       //************* */     'ACABADO' = false
       "SELECT proyectos.*,categoria_proyectos.tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=false",
       [categoria]
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
     );
   }
 
@@ -503,21 +438,14 @@ class DbProyectoRepositorio {
       );
     }
     return (
-      proyecto_existence == true &&
-      core_team_existence == true &&
-      usuario_existence == true &&
-      usuario_participate == false
+      proyecto_existence &&
+      core_team_existence &&
+      usuario_existence &&
+      usuario_participate 
     );
   }
 
   async get_usuarios() {
-<<<<<<< Updated upstream:config/dbProyectoRepositorio.js
-    const usuarios = await pool.query("SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios");
-    return usuarios;
-  }
-
-
-=======
     return await pool.query(
       "SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios"
     );
@@ -559,7 +487,6 @@ class DbProyectoRepositorio {
       [proyecto]
     );
   }
->>>>>>> Stashed changes:data/dbProyectoRepositorio.js
 }
 
 module.exports = DbProyectoRepositorio;

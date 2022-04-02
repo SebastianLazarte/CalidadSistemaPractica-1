@@ -2,10 +2,23 @@ const express = require("express");
 const cors = require("cors");
 
 // init app
-const app = express();
+let express = require('express');
+
+let app1 = express();  // Compliant
+app1.disable("x-powered-by");
+
+let helmet = require("helmet");
+let app = express(); // Compliant
+app.use(helmet.hidePoweredBy());
+
 const localhostPort = 5000;
 // activating cors
-app.use(cors());
+const cors = require('cors');
+
+let corsOptions = {
+  origin: 'trustedwebsite.com' // Compliant
+};
+app.use(cors(corsOptions));
 
 // json config
 app.use(express.json());

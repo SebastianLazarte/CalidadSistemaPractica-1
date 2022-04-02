@@ -1,5 +1,5 @@
-const usuarioServicio = require("../services/usuarioServicio");
-const usuarioService = new usuarioServicio();
+const UsuarioServicio = require("../services/UsuarioServicio");
+const usuarioService = new UsuarioServicio();
 
 module.exports = function (app) {
   app.post("/extended_form", async (req, res) => {

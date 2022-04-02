@@ -176,9 +176,8 @@ class ProyectoServicio {
   async get_participantes_proyecto_simple(id) 
   {
     try 
-    {
-      const validar= await this.repository.get_participantes_proyecto_simple(id)   
-      return validar
+    { 
+      return await this.repository.get_participantes_proyecto_simple(id)
     }
     catch (error) 
     {
@@ -188,10 +187,10 @@ class ProyectoServicio {
   }
   async get_categorias_proyectos(data) 
   {
-    return await this.repository.get_categorias_proyectos(data)
+    return this.repository.get_categorias_proyectos(data)
   }
   async get_categorias() {
-    return await this.repository.get_categorias();
+    return this.repository.get_categorias();
   }
 
 
