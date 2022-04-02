@@ -1,10 +1,9 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "hgpmlfhmjxvnfr",
-  password: "e3fcf341e4ff4a68075b951e1c9a75239afaa42d7eccc3e9c7db81bda6c77a05", //use your pass my friend
-  database: "d966qfatdj765h",
-  host: "ec2-54-173-138-144.compute-1.amazonaws.com",
+  user: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  host: process.env.MYSQL_URL,
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
@@ -18,7 +17,7 @@ class DbProyectoRepositorio {
   } 
 
   async get_proyectos(data) {
-    return await pool.query(
+    return pool.query(
       `SELECT p.*, tipo as categoria 
       FROM proyectos as p 
       INNER JOIN categoria_proyectos 
@@ -81,10 +80,7 @@ class DbProyectoRepositorio {
         }
       }
     } else {
-      if (fecI > fechaActual) {
-        fecF = null;
-        newEstado = true;
-      } else {
+      if (fecI < fechaActual) {
         fecF = fechaActual;
         newEstado = false;
       }
@@ -138,7 +134,7 @@ class DbProyectoRepositorio {
     }
 
     let fecI = null;
-    let fecF = null;;
+    let fecF = null;
     let newEstado = true;
     let fechaActual = new Date();
     let query =
@@ -168,8 +164,6 @@ class DbProyectoRepositorio {
         fecF = new Date(monthF + " " + dayF + " " + yearF);
         if (fecF < fechaActual) {
           newEstado = false;
-        } else {
-          newEstado = true;
         }
       } else {
         fecF = fechaActual;
@@ -191,7 +185,7 @@ class DbProyectoRepositorio {
       url_imagen,
       fecI,
     ]);
-    return await pool.query(
+    return pool.query(
       "SELECT p.*, tipo as categoria  FROM proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id WHERE p.id=$1",
       [id]
     );
@@ -262,21 +256,21 @@ class DbProyectoRepositorio {
     );
 
     if (existeProyecto) {
-      return await pool.query(
+      return pool.query(
         "SELECT us.id_usuario,us.nombre,us.apellido,us.rol,proy.titulo,us.telefono,proy.fecha_inicio,proy.fecha_fin FROM public.participantes_proyectos as pro, public.usuarios as us,public.proyectos as proy where pro.id_usuario=us.id_usuario and pro.id_proyecto=$1 and proy.id=pro.id_proyecto",
         [id]
-      );;
+      );
     }
     return existeProyecto;
   }
   async get_categorias_proyectos(categoria) { 
-    return await pool.query(
+    return pool.query(
       "SELECT proyectos.*, tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=true",
       [categoria]
     );
   }
   async get_categorias() {
-    return await pool.query(
+    return pool.query(
       "SELECT * FROM public.categoria_proyectos ORDER BY id ASC"
     );
   }
@@ -320,7 +314,7 @@ class DbProyectoRepositorio {
       ).rows[0]["exists"]
     );
     if (existe_usuario) {
-      return await pool.query(
+      return pool.query(
         "select p.*, tipo as categoria from proyectos as p INNER JOIN categoria_proyectos ON p.categoria_id = categoria_proyectos.id  where exists (select par.id_proyecto from participantes_proyectos par where par.id_usuario=$1 and p.id = par.id_proyecto) ",
         [id_autenticacion]
       );
@@ -329,19 +323,19 @@ class DbProyectoRepositorio {
   }
 
   async get_lideres() {
-    return await pool.query(
+    return pool.query(
       "SELECT nombre FROM public.usuarios WHERE estado_de_disponibilidad='disponible' and estado_de_cuenta='activa' and rol='lider'"
     );
   }
 
   async get_roles() { 
-    return await pool.query(
+    return pool.query(
       "SELECT DISTINCT rol FROM public.usuarios WHERE estado_de_disponibilidad='disponible' and estado_de_cuenta='activa'"
     );
   }
 
   async get_rol(id_autenticacion) {
-    return await pool.query(
+    return pool.query(
       "SELECT rol FROM public.usuarios WHERE id_usuario = $1",
       [id_autenticacion]
     );
@@ -352,24 +346,24 @@ class DbProyectoRepositorio {
       "select count(id_usuario) from public.participantes_proyectos WHERE id_proyecto=$1",
       [id_proyecto]
     );
-    return numero_participantes_proyecto.rows[0];;
+    return numero_participantes_proyecto.rows[0];
   }
   async get_eventos_proyecto(id_proyecto) { 
-    return await pool.query(
+    return pool.query(
       "SELECT * FROM public.eventos WHERE id_proyecto=$1",
       [id_proyecto]
     );
   }
 
   async get_proyectos_acabado() {
-    return await pool.query(
+    return pool.query(
       //************* */     'ACABADO' = false
       "SELECT p.*, cat.tipo as categoria FROM public.proyectos p,public.categoria_proyectos as cat WHERE estado=false and p.categoria_id=cat.id"
     );
   }
 
   async get_proyectos_pasados_categoria(categoria) {
-    return await pool.query(
+    return pool.query(
       //************* */     'ACABADO' = false
       "SELECT proyectos.*,categoria_proyectos.tipo as categoria FROM public.proyectos INNER JOIN public.categoria_proyectos ON proyectos.categoria_id = categoria_proyectos.id WHERE categoria_proyectos.tipo = $1 and estado=false",
       [categoria]
@@ -433,7 +427,7 @@ class DbProyectoRepositorio {
   }
 
   async get_usuarios() {
-    return await pool.query(
+    return pool.query(
       "SELECT id_usuario,(nombre ||' '|| apellido)as nombre_completo,telefono FROM public.usuarios"
     );
   }
@@ -448,28 +442,28 @@ class DbProyectoRepositorio {
       "INSERT INTO public.imagenes_proyectos(filename,filepath,mimetype,size,id_proyecto,activo) VALUES ($1,$2,$3,$4,$5,$6)",
       [filename, filepath, mimetype, size, id_proyecto, activo]
     ); 
-    return await pool.query(
+    return pool.query(
       "SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",
       [parseInt(id_proyecto)]
     );
   }
 
   async get_imagen(id_proyecto) { 
-    return await pool.query(
+    return pool.query(
       "SELECT * from public.imagenes_proyectos WHERE activo=true and id_proyecto=$1",
       [parseInt(id_proyecto)]
     );
   }
 
   async get_lista_eventos_para_proyectos(id_proyecto) {
-    return await pool.query(
+    return pool.query(
       "SELECT nombre_evento, descripcion_evento, modalidad_evento, lugar_evento, fecha_evento, proyecto, categoria, hora_inicio, hora_fin, lider FROM eventos WHERE id_proyecto=$1",
       [parseInt(id_proyecto)]
     );
   }
 
   async get_lista_por_proyecto(proyecto) {
-    return await pool.query(
+    return pool.query(
       "SELECT nombre_evento, descripcion_evento, modalidad_evento, lugar_evento, fecha_evento, proyecto, categoria, hora_inicio, hora_fin, lider FROM eventos WHERE proyecto=$1",
       [proyecto]
     );

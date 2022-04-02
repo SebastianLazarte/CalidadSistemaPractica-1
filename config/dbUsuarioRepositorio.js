@@ -1,7 +1,7 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  user: "hgpmlfhmjxvnfr",
+  user: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_URL, //use your pass my friend
   database: MYSQL_DATABASE,
   host: process.env.MYSQL_URL,
